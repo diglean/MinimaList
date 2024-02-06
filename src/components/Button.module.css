@@ -1,0 +1,9 @@
+.main button {
+  color: #FFF;
+  border-color: #FFF;
+}
+
+.main button:hover {
+  color: #595959;
+  border-color: #595959;
+}
