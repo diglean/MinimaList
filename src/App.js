@@ -13,7 +13,7 @@ import AddItensToList from "./pages/AddItensToList";
 function App() {
   return (
     <Router>
-      <AppBar/>
+      {window.location.pathname !== '/additenstolist' && (<AppBar/>)}
       <Routes>
         <Route path="/lists" element={ <Lists/> }/>
         <Route path="/config" element={ <Config/> }/>
