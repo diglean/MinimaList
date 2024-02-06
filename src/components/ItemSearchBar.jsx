@@ -12,11 +12,17 @@ import styles from './ItemSearchBar.module.css';
 import { styled } from '@mui/material/styles';
 
 const AutoComplete = styled(Autocomplete)({
+  "& .MuiAutocomplete-clearIndicator": {
+    color: "#FFF"
+  },
   "& label.Mui-focused": {
     color: "white",
   },
   "& .MuiInputLabel-root": {
     color: "#c4c4c4",
+  },
+  "& .MuiOutlinedInput-input": {
+    color: "white",
   },
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
@@ -60,7 +66,7 @@ export default function ItemSearchBar() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.component}>
       <AutoComplete
         value={value}
         onChange={(event, newValue) => {
@@ -111,16 +117,18 @@ export default function ItemSearchBar() {
         clearOnBlur
         handleHomeEndKeys
         renderOption={(props, option) => <li {...props}>{option.title}</li>}
-        sx={{ width: 300 }}
+        sx={{ width: '100%' }}
         freeSolo
-        renderInput={(params) => <TextField {...params} label="Item name" />}
+        renderInput={(params) => <TextField {...params} label="Item name"/>}
       />
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} sx={{
+        backgroundColor: "#000"
+      }}>
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Add a new film</DialogTitle>
+          <DialogTitle>Add a new item</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Did you miss any film in our list? Please, add it!
+              Did you miss any item in our list? Please, add it!
             </DialogContentText>
             <TextField
               autoFocus

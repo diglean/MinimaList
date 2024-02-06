@@ -9,7 +9,7 @@ export default function AddItensToList() {
   const listName = location?.state?.listName ?? "lorem";
 
   return (
-    <div>
+    <div className={styles.container}>
       <ItemSearchBar/>
     </div>
   );
