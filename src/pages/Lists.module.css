@@ -1,0 +1,13 @@
+.container p {
+    color: #FFF;
+    font-size: 10px;
+}
+
+.container span {
+    color: #FFF;
+    font-size: 1em;
+}
+
+.container divider {
+    color: #FFF;
+}

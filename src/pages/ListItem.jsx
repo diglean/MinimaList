@@ -1,24 +1,23 @@
-import {
-  List,
-  Avatar,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import styles from './Lists.module.css';
+import { ListItemButton, ListItemText } from "@mui/material";
+import Divider from "@mui/material/Divider";
+import styled from 'styled-components';
 
-export default function ListItem(list) {
+const CustomDivider = styled(Divider)({
+  "& .MuiDivider-root": {
+    color: '#FFF',
+  }
+});
+
+export default function ListItem({list}) {
   return (
-    <div>
-      <List>
-        {list.map(({ name, icon, created_at }, index) => (
-          <ListItemButton key={index + name}>
-            <ListItemAvatar>
-              <Avatar alt="Icon Picture" src={icon} />
-            </ListItemAvatar>
-            <ListItemText primary={name} secondary={created_at} />
-          </ListItemButton>
-        ))}
-      </List>
+    <div className={styles.container}>
+      {list.map(({ name, created_at }, index) => (
+        <ListItemButton key={index + name}>
+          <ListItemText primary={name} secondary={created_at} />
+        </ListItemButton>
+      ))}
+      <CustomDivider component="li"/>
     </div>
   );
 }
