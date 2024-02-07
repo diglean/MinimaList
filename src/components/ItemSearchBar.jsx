@@ -35,6 +35,22 @@ const AutoComplete = styled(Autocomplete)({
 const filter = createFilterOptions();
 
 export default function ItemSearchBar() {
+  let myHeaders = new Headers();
+  myHeaders.append("apiKey", "tOffRujcVATqHxEBmUav0SCWT7K7w4LH");
+
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+    headers: myHeaders
+  };
+
+  const fetchItens = (data) => {
+    fetch(`https://api.apilayer.com/spoonacular/food/products/search?query=${data}`, requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+  }
+
   const [productNames, setProductNames] = useState([]);
   const [value, setValue] = useState(null);
 
@@ -46,7 +62,9 @@ export default function ItemSearchBar() {
         value={value}
         onChange={(event, newValue) => {
           if (typeof newValue === 'string') {
-            // timeout to avoid instant validation of the dialog's form.
+            if (newValue.length > 3) {
+              fetchItens(newValue);
+            }
             setTimeout(() => {
               setItemName(newValue);
             });
