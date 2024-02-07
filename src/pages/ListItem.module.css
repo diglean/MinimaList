@@ -8,6 +8,8 @@
     font-size: 1em;
 }
 
-.container divider {
+.container li {
     color: #FFF;
+    border-width: 1px solid;
+    border-color: rgb(104, 104, 104);
 }

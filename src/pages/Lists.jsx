@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ListItem from "./ListItem";
 import NoListRegistered from "./NoListRegistered";
-import { List } from "@mui/material";
+import { List, Paper } from "@mui/material";
 
 export default function Lists() {
   const [list, setList] = useState([]);
@@ -15,11 +15,20 @@ export default function Lists() {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         setList(data);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  return <div>{list.length > 0 ? <List><ListItem list={list} /></List> : <NoListRegistered />}</div>;
+  return (
+    <div>
+      {list.length > 0 ? (
+        <List>
+          <ListItem list={list} />
+        </List>
+      ) : (
+        <NoListRegistered />
+      )}
+    </div>
+  );
 }
