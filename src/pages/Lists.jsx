@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import ListItem from "./ListItem";
 import NoListRegistered from "./NoListRegistered";
-import { List, Paper } from "@mui/material";
+import { List } from "@mui/material";
 
 export default function Lists() {
-  const [list, setList] = useState([]);
+  const [lists, setLists] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:5000/lists", {
@@ -15,16 +15,16 @@ export default function Lists() {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        setList(data);
+        setLists(data);
       })
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <div>
-      {list.length > 0 ? (
+      {lists.length > 0 ? (
         <List>
-          <ListItem list={list} />
+          <ListItem list={lists} />
         </List>
       ) : (
         <NoListRegistered />

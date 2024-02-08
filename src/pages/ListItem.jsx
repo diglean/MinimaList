@@ -7,18 +7,16 @@ import { formatDatetime } from "../library/FormatData";
 
 export default function ListItem({ list }) {
   return (
-    <div className={styles.container}>
-      {list.map(({ name, created_at }, index) => (
-        <>
-          <ListItemButton key={index + name}>
-            <ListItemText
-              primary={name}
-              secondary={formatDatetime(created_at, "DD/MM/YYYY")}
-            />
-          </ListItemButton>
-          <Divider variant="middle" component="li" />
-        </>
-      ))}
-    </div>
+    list.map(({ name, created_at }, index) => (
+      <div className={styles.container} key={index + name}>
+        <ListItemButton>
+          <ListItemText
+            primary={name}
+            secondary={formatDatetime(created_at, "DD/MM/YYYY")}
+          />
+        </ListItemButton>
+        <Divider variant="middle" component="li" />
+      </div>
+    ))
   );
 }
