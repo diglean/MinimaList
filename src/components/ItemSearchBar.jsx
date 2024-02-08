@@ -1,14 +1,14 @@
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import * as React from "react";
+import TextField from "@mui/material/TextField";
+import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 
-import styles from './ItemSearchBar.module.css';
-import { styled } from '@mui/material/styles';
-import { useState } from 'react';
+import styles from "./ItemSearchBar.module.css";
+import { styled } from "@mui/material/styles";
+import { useState } from "react";
 
 const AutoComplete = styled(Autocomplete)({
   "& .MuiAutocomplete-clearIndicator": {
-    color: "#FFF"
+    color: "#FFF",
   },
   "& label.Mui-focused": {
     color: "white",
@@ -30,54 +30,62 @@ const AutoComplete = styled(Autocomplete)({
       borderColor: "white",
     },
   },
-})
+});
 
 const filter = createFilterOptions();
 
 export default function ItemSearchBar() {
+  const [products, setProducts] = useState([]);
+  const [value, setValue] = useState(null);
+
+  const [itemName, setItemName] = useState("");
+
   let myHeaders = new Headers();
   myHeaders.append("apiKey", "tOffRujcVATqHxEBmUav0SCWT7K7w4LH");
 
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-    headers: myHeaders
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
   };
 
   const fetchItens = (data) => {
-    fetch(`https://api.apilayer.com/spoonacular/food/products/search?query=${data}`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-  }
-
-  const [productNames, setProductNames] = useState([]);
-  const [value, setValue] = useState(null);
-
-  const [itemName, setItemName] = useState("");
+    fetch(
+      `https://api.apilayer.com/spoonacular/food/products/search?query=${data}`,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => {
+        setProducts(JSON.parse(result).products);
+        console.log(JSON.parse(result).products);
+      })
+      .catch((error) => console.log("error", error));
+  };
 
   return (
     <div className={styles.component}>
       <AutoComplete
         value={value}
-        onChange={(event, newValue) => {
-          if (typeof newValue === 'string') {
-            if (newValue.length > 3) {
-              fetchItens(newValue);
+        onKeyUp={(event) => {
+          if (typeof event.target.value === "string") {
+            if (event.target.value.length > 3) {
+              setTimeout(() => {
+                fetchItens(event.target.value);
+              }, 500);
             }
             setTimeout(() => {
-              setItemName(newValue);
+              setItemName(event.target.value);
             });
-          } else if (newValue && newValue.inputValue) {
-            setItemName(newValue.inputValue);
+          } else if (event.target.value && event.target.value.inputValue) {
+            setItemName(event.target.value.inputValue);
           } else {
-            setValue(newValue);
+            setValue(event.target.value);
           }
         }}
         filterOptions={(options, params) => {
           const filtered = filter(options, params);
 
-          if (params.inputValue !== '') {
+          if (params.inputValue !== "") {
             filtered.push({
               inputValue: params.inputValue,
               title: `Add "${params.inputValue}"`,
@@ -87,9 +95,9 @@ export default function ItemSearchBar() {
           return filtered;
         }}
         id="free-solo-dialog-demo"
-        options={productNames}
+        options={products}
         getOptionLabel={(option) => {
-          if (typeof option === 'string') {
+          if (typeof option === "string") {
             return option;
           }
           if (option.inputValue) {
@@ -101,10 +109,13 @@ export default function ItemSearchBar() {
         clearOnBlur
         handleHomeEndKeys
         noOptionsText="No itens available"
-        renderOption={(props, option) => <li {...props}>{option?.title}</li>}
-        sx={{ width: '100%' }}
+        renderOption={(props, option) => {
+          console.log(option);
+          <li {...props}>{option["title"]}</li>;
+        }}
+        sx={{ width: "100%" }}
         freeSolo
-        renderInput={(params) => <TextField {...params} label="Item name"/>}
+        renderInput={(params) => <TextField {...params} label="Item name" />}
       />
     </div>
   );
