@@ -41,9 +41,9 @@ export default function ItemSearchBar() {
   const [itemName, setItemName] = useState("");
 
   let myHeaders = new Headers();
-  myHeaders.append("apiKey", "tOffRujcVATqHxEBmUav0SCWT7K7w4LH");
+  myHeaders.append("x-api-key", "1a2cd3ab97644a509bfb7bc4c8aa55ae");
 
-  var requestOptions = {
+  let requestOptions = {
     method: "GET",
     redirect: "follow",
     headers: myHeaders,
@@ -51,7 +51,7 @@ export default function ItemSearchBar() {
 
   const fetchItens = (data) => {
     fetch(
-      `https://api.apilayer.com/spoonacular/food/products/search?query=${data}`,
+      `https://api.spoonacular.com/food/products/search?query=${data}`,
       requestOptions
     )
       .then((response) => response.text())
