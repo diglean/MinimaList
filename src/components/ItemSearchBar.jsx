@@ -51,13 +51,13 @@ export default function ItemSearchBar() {
 
   const fetchItens = (data) => {
     fetch(
-      `https://api.spoonacular.com/food/products/search?query=${data}`,
+      `https://api.spoonacular.com/food/search?query=${data}&number=1`,
       requestOptions
     )
       .then((response) => response.text())
       .then((result) => {
-        setProducts(JSON.parse(result).products);
-        console.log(JSON.parse(result).products);
+        console.log(JSON.parse(result).searchResults[5].results);
+        // setProducts(JSON.parse(result).products);
       })
       .catch((error) => console.log("error", error));
   };
@@ -73,9 +73,6 @@ export default function ItemSearchBar() {
                 fetchItens(event.target.value);
               }, 500);
             }
-            setTimeout(() => {
-              setItemName(event.target.value);
-            });
           } else if (event.target.value && event.target.value.inputValue) {
             setItemName(event.target.value.inputValue);
           } else {
@@ -97,12 +94,14 @@ export default function ItemSearchBar() {
         id="free-solo-dialog-demo"
         options={products}
         getOptionLabel={(option) => {
-          if (typeof option === "string") {
-            return option;
+          if (typeof option.title === "string") {
+            return option.title;
           }
+
           if (option.inputValue) {
             return option.inputValue;
           }
+
           return option.title;
         }}
         selectOnFocus
@@ -110,8 +109,7 @@ export default function ItemSearchBar() {
         handleHomeEndKeys
         noOptionsText="No itens available"
         renderOption={(props, option) => {
-          console.log(option);
-          <li {...props}>{option["title"]}</li>;
+          <li {...props}>{option.title}</li>;
         }}
         sx={{ width: "100%" }}
         freeSolo

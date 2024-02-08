@@ -15,6 +15,7 @@ function App() {
     <Router>
       {window.location.pathname !== '/additenstolist' && (<AppBar/>)}
       <Routes>
+        <Route path="/" element={ <Lists/> }/>
         <Route path="/lists" element={ <Lists/> }/>
         <Route path="/config" element={ <Config/> }/>
         <Route path="/profile" element={ <Profile/> }/>
