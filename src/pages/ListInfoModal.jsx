@@ -55,7 +55,6 @@ export default function ListInfoModal({ open, callBackFormValues }) {
                   callBackSubmit={(data) => addItensToList(data)}
                 >
                   <Input label="Name" name="name" variant="outlined" />
-                  <Input label="Lorem" name="lorem" variant="outlined" />
                   <Grid container spacing="0.5" justifyContent="flex-end">
                     <Grid item>
                       <Button

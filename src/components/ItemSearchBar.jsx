@@ -1,12 +1,14 @@
 import * as React from "react";
+import { useState } from "react";
+
+import { Box, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
+import { styled } from "@mui/material/styles";
 
 import styles from "./ItemSearchBar.module.css";
-import { styled } from "@mui/material/styles";
-import { useState } from "react";
-import { ListItemButton, ListItemText } from "@mui/material";
-import ListItem from "../pages/ListItem";
+import ListItem from "./SearchBarItemList";
+import Button from "./Button";
 
 const AutoComplete = styled(Autocomplete)({
   "& .MuiAutocomplete-clearIndicator": {
@@ -34,46 +36,34 @@ const AutoComplete = styled(Autocomplete)({
   },
 });
 
+const style = {
+  height: "10px",
+  position: "fixed",
+  bottom: "15%",
+  width: "100%",
+}
+
 const filter = createFilterOptions();
 
 export default function ItemSearchBar() {
   const [tmpItemInfo, setTmpItemInfo] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
 
   const handleChange = (data) => {
-    console.log(data);
     setTmpItemInfo([{ item: data, qty: 1 }]);
-    setSearchValue("");
   };
 
-  // const [value, setValue] = useState(null);
+  const cleanTmpItemInfo = () => {
+    setTmpItemInfo([]);
+  };
 
-  // let myHeaders = new Headers();
-  // myHeaders.append("x-api-key", "1a2cd3ab97644a509bfb7bc4c8aa55ae");
-
-  // let requestOptions = {
-  //   method: "GET",
-  //   redirect: "follow",
-  //   headers: myHeaders,
-  // };
-
-  // const fetchItens = (data) => {
-  //   fetch(
-  //     `https://api.spoonacular.com/food/products/search?query=${data}`,
-  //     requestOptions
-  //   )
-  //     .then((response) => response.text())
-  //     .then((result) => {
-  //       setProducts(JSON.parse(result).products);
-  //       console.log(JSON.parse(result));
-  //     })
-  //     .catch((error) => console.log("error", error));
-  // };
+  const addItemToList = (data) => {
+    // setItemList([ item: data]);
+  };
 
   return (
     <div className={styles.component}>
       <AutoComplete
-        value={searchValue}
+        // value={searchValue}
         onChange={(event) => {
           if (typeof event.target.value === "string") {
             handleChange(event.target.value);
@@ -115,7 +105,36 @@ export default function ItemSearchBar() {
         freeSolo
         renderInput={(params) => <TextField {...params} label="Item name" />}
       />
-      {tmpItemInfo && <ListItem list={tmpItemInfo} />}
+      {tmpItemInfo && (
+        <div>
+          <ListItem list={tmpItemInfo} />
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid
+              container
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              direction="row"
+              style={style}
+            >
+              <Grid item>
+                <Button
+                  onClick={() => cleanTmpItemInfo()}
+                  variant="outlined"
+                  text="Cancel"
+                />
+              </Grid>
+              <Grid item>
+                <Button
+                  onClick={() => addItemToList()}
+                  variant="contained"
+                  text="Confirm"
+                />
+              </Grid>
+            </Grid>
+          </Box>
+        </div>
+      )}
     </div>
   );
 }

@@ -24,7 +24,7 @@ export default function Lists() {
     <div>
       {lists.length > 0 ? (
         <List>
-          <ListItem list={lists} />
+          <ListItem list={lists} listItens={["name", "created_at"]}/>
         </List>
       ) : (
         <NoListRegistered />

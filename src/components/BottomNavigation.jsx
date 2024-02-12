@@ -25,38 +25,38 @@ export default function BottomNavigation() {
 
   return (
     <ThemeProvider theme={theme}>
-        <Box sx={{ flexGrow: 1, position: 'bottom' }}>
-          <MuiBottomNavigation
-              showLabels
-              value={value}
-              onChange={(event, newValue) => { setValue(newValue) }}
-              sx={{ 
-                bgcolor: 'background.black', 
-                position: 'fixed', 
-                bottom: 0, 
-                width: 1.0
-              }}
-          >
-              <BottomNavigationAction
-                component={Link} 
-                to="/lists" 
-                label="Lists" 
-                icon={<FormatListNumberedIcon />}
-              />
-              <BottomNavigationAction
-                component={Link}
-                to="/config"
-                label="Options"
-                icon={<SettingsRoundedIcon />}
-              />
-              <BottomNavigationAction
-                component={Link}
-                to="/profile"
-                label="Profile"
-                icon={<AccountCircleRoundedIcon />}
-                />
-          </MuiBottomNavigation>
-        </Box>
+      <Box sx={{ flexGrow: 1, position: 'bottom' }}>
+        <MuiBottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => { setValue(newValue) }}
+          sx={{ 
+            bgcolor: 'background.black', 
+            position: 'fixed', 
+            bottom: 0, 
+            width: 1.0
+          }}
+        >
+          <BottomNavigationAction
+            component={Link} 
+            to="/lists" 
+            label="Lists" 
+            icon={<FormatListNumberedIcon />}
+          />
+          <BottomNavigationAction
+            component={Link}
+            to="/config"
+            label="Options"
+            icon={<SettingsRoundedIcon />}
+          />
+          <BottomNavigationAction
+            component={Link}
+            to="/profile"
+            label="Profile"
+            icon={<AccountCircleRoundedIcon />}
+          />
+        </MuiBottomNavigation>
+      </Box>
     </ThemeProvider>
   );
 }
