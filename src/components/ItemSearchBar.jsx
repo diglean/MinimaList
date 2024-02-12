@@ -5,6 +5,8 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import styles from "./ItemSearchBar.module.css";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
+import { ListItemButton, ListItemText } from "@mui/material";
+import ListItem from "../pages/ListItem";
 
 const AutoComplete = styled(Autocomplete)({
   "& .MuiAutocomplete-clearIndicator": {
@@ -35,48 +37,46 @@ const AutoComplete = styled(Autocomplete)({
 const filter = createFilterOptions();
 
 export default function ItemSearchBar() {
-  const [products, setProducts] = useState([]);
-  const [value, setValue] = useState(null);
+  const [tmpItemInfo, setTmpItemInfo] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
 
-  const [itemName, setItemName] = useState("");
-
-  let myHeaders = new Headers();
-  myHeaders.append("x-api-key", "1a2cd3ab97644a509bfb7bc4c8aa55ae");
-
-  let requestOptions = {
-    method: "GET",
-    redirect: "follow",
-    headers: myHeaders,
+  const handleChange = (data) => {
+    console.log(data);
+    setTmpItemInfo([{ item: data, qty: 1 }]);
+    setSearchValue("");
   };
 
-  const fetchItens = (data) => {
-    fetch(
-      `https://api.spoonacular.com/food/search?query=${data}&number=1`,
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => {
-        console.log(JSON.parse(result).searchResults[5].results);
-        // setProducts(JSON.parse(result).products);
-      })
-      .catch((error) => console.log("error", error));
-  };
+  // const [value, setValue] = useState(null);
+
+  // let myHeaders = new Headers();
+  // myHeaders.append("x-api-key", "1a2cd3ab97644a509bfb7bc4c8aa55ae");
+
+  // let requestOptions = {
+  //   method: "GET",
+  //   redirect: "follow",
+  //   headers: myHeaders,
+  // };
+
+  // const fetchItens = (data) => {
+  //   fetch(
+  //     `https://api.spoonacular.com/food/products/search?query=${data}`,
+  //     requestOptions
+  //   )
+  //     .then((response) => response.text())
+  //     .then((result) => {
+  //       setProducts(JSON.parse(result).products);
+  //       console.log(JSON.parse(result));
+  //     })
+  //     .catch((error) => console.log("error", error));
+  // };
 
   return (
     <div className={styles.component}>
       <AutoComplete
-        value={value}
-        onKeyUp={(event) => {
+        value={searchValue}
+        onChange={(event) => {
           if (typeof event.target.value === "string") {
-            if (event.target.value.length > 3) {
-              setTimeout(() => {
-                fetchItens(event.target.value);
-              }, 500);
-            }
-          } else if (event.target.value && event.target.value.inputValue) {
-            setItemName(event.target.value.inputValue);
-          } else {
-            setValue(event.target.value);
+            handleChange(event.target.value);
           }
         }}
         filterOptions={(options, params) => {
@@ -92,7 +92,7 @@ export default function ItemSearchBar() {
           return filtered;
         }}
         id="free-solo-dialog-demo"
-        options={products}
+        options={[]}
         getOptionLabel={(option) => {
           if (typeof option.title === "string") {
             return option.title;
@@ -109,12 +109,13 @@ export default function ItemSearchBar() {
         handleHomeEndKeys
         noOptionsText="No itens available"
         renderOption={(props, option) => {
-          <li {...props}>{option.title}</li>;
+          <li {...props}>{option["title"]}</li>;
         }}
         sx={{ width: "100%" }}
         freeSolo
         renderInput={(params) => <TextField {...params} label="Item name" />}
       />
+      {tmpItemInfo && <ListItem list={tmpItemInfo} />}
     </div>
   );
 }
