@@ -63,7 +63,7 @@ const CustomTextField = forwardRef((props, ref) => {
   );
 });
 
-export default function Input({ label, name, variant }) {
+export default function Input({ label, name, variant, value }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleValueChanged = (inputValue, e) => {

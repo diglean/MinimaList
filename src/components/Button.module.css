@@ -1,9 +1,14 @@
-.main button {
+.container button {
   color: #FFF;
   border-color: #FFF;
 }
 
-.main button:hover {
+.container button:hover {
   color: #595959;
   border-color: #595959;
+}
+
+.contained_button {
+  color: #000;
+  background-color: #FFF;
 }
