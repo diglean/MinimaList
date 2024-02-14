@@ -91,6 +91,10 @@ export default function ItemSearchBar() {
                 onClick={() => addItemToList()}
                 variant="contained"
                 text="Confirm"
+                color={{
+                  color: "#000",
+                  backgroundColor: "#FFF",
+                }}
               />
             </Grid>
           </Grid>
