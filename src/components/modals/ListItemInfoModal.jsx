@@ -4,6 +4,7 @@ import Form from "../Form";
 import BasicSelect from "../BasicSelect";
 import MenuItems from "../MenuItem";
 import Button from "../Button";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -34,6 +35,12 @@ const values = [
 ];
 
 export default function ListItemInfoModal({ open, callBackFormValues }) {
+  const [itemUnit, setItemUnit] = useState("");
+
+  const handleChangeItemUnit = (event) => {
+    setItemUnit(event.target.value);
+  };
+
   return (
     <div>
       <Box>
@@ -53,7 +60,11 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                 Type
               </Typography>
               <Form callBackSubmit={(data) => callBackFormValues(data)}>
-                <BasicSelect label="Unit">
+                <BasicSelect
+                  label="Unit"
+                  onChange={handleChangeItemUnit}
+                  value={itemUnit}
+                >
                   <MenuItems items={values} />
                 </BasicSelect>
                 <Grid container spacing="0.5" justifyContent="flex-end">
@@ -65,7 +76,12 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                     />
                   </Grid>
                   <Grid item>
-                    <Button variant="text" text="Ok" type="submit" />
+                    <Button
+                      variant="text"
+                      text="Ok"
+                      type="submit"
+                      color="styles.contained_white_button"
+                    />
                   </Grid>
                 </Grid>
               </Form>

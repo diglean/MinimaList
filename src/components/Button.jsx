@@ -3,7 +3,7 @@ import styles from "./styles/Button.module.css";
 
 export default function Button({ onClick, variant, text, type, className }) {
   return (
-    <div className={styles.contained_white_button}>
+    <div>
       <MuiButton
         onClick={onClick}
         variant={variant}
