@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
-import styles from "./Input.module.css";
+import styles from "./styles/Input.module.css";
 
 const TextField = styled(MuiTextField)({
   width: "100%",

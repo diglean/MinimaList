@@ -5,8 +5,8 @@ import { Grid } from "@mui/material";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import { styled } from "@mui/material/styles";
 
-import styles from "./ItemSearchBar.module.css";
-import ListItem from "./SearchBarItemList";
+import styles from "./styles/ItemSearchBar.module.css";
+import CustomListItem from "./SearchBarItemList";
 import Button from "./Button";
 import Input from "./Input";
 import Form from "./Form";
@@ -71,7 +71,7 @@ export default function ItemSearchBar() {
       </Form>
       {tmpItemInfo && (
         <div>
-          <ListItem list={tmpItemInfo} />
+          <CustomListItem list={tmpItemInfo} />
           <Grid
             container
             display="flex"

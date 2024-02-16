@@ -1,5 +1,5 @@
 import { Button as MuiButton } from "@mui/material";
-import styles from "./Button.module.css";
+import styles from "./styles/Button.module.css";
 
 export default function Button({ onClick, variant, text, type, className }) {
   return (

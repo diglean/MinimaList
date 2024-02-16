@@ -1,4 +1,4 @@
-import styles from "./AppBar.module.css";
+import styles from "./styles/AppBar.module.css";
 
 export default function AppBar() {
   return (

@@ -1,12 +1,13 @@
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
 
-import styles from "./SearchBarItemList.module.css";
+import styles from "./styles/SearchBarItemList.module.css";
 import QuantityInput from "./NumberInput";
 import { useState } from "react";
 import ListItemInfoModal from "./modals/ListItemInfoModal";
 
-export default function ListItem({ list, callbackFormValues }) {
+export default function CustomListItem({ list, callbackFormValues }) {
   const [openModal, setOpenModal] = useState(false);
 
   const handleClick = (data) => {
@@ -28,10 +29,12 @@ export default function ListItem({ list, callbackFormValues }) {
         open={openModal}
         callBackFormValues={(data) => setTmpItemDetails(data)}
       />
-      <ListItemButton disableRipple onClick={() => handleClick()}>
-        <ListItemText primary={item} />
-      </ListItemButton>
-      <QuantityInput />
+      <ListItem>
+        <ListItemButton disableRipple onClick={() => handleClick()}>
+          <ListItemText primary={item} />
+        </ListItemButton>
+        <QuantityInput />
+      </ListItem>
     </div>
   ));
 }

@@ -1,6 +1,6 @@
-import styles from './Profile.module.css';
+import styles from "./styles/Profile.module.css";
 
-export default function Profile () {
+export default function Profile() {
   return (
     <div className={styles.main}>
       <p>Profile</p>

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import ListInfoModal from "../components/ListInfoModal";
 
-import styles from "./NoListRegistered.module.css";
+import styles from "./styles/NoListRegistered.module.css";
 import Button from "../components/Button";
 
 export default function NoListRegistered() {

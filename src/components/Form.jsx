@@ -1,6 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import styles from "./Input.module.css";
+import styles from "./styles/Input.module.css";
 import { FormProvider, useForm } from "react-hook-form";
 
 export default function Form({ children, callBackSubmit }) {
