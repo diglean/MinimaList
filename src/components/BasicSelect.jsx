@@ -5,8 +5,9 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
-import styles from "./styles/Input.module.css";
+import { makeStyles, styled } from "@mui/material/styles";
+import { TextField } from "@mui/material";
+import Input from "./Input";
 
 export default function BasicSelect(props) {
   const [value, setValue] = useState("");
@@ -16,19 +17,18 @@ export default function BasicSelect(props) {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={value}
-            label={props.label}
-            onChange={handleChange}
+          <Input
+            id="demo-simple-select-label"
+            label="Unit"
+            name="itemUnit"
+            variant="outlined"
+            select
           >
             {props.children}
-          </Select>
+          </Input>
         </FormControl>
       </Box>
     </div>

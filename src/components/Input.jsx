@@ -63,7 +63,7 @@ const CustomTextField = forwardRef((props, ref) => {
   );
 });
 
-export default function Input({ label, name, variant, value }) {
+export default function Input(props) {
   const [inputValue, setInputValue] = useState("");
 
   const handleValueChanged = (inputValue, e) => {
@@ -73,12 +73,15 @@ export default function Input({ label, name, variant, value }) {
   return (
     <div className={styles.container}>
       <CustomTextField
-        label={label}
-        name={name}
-        variant={variant}
+        label={props.label}
+        name={props.name}
+        variant={props.variant}
         onChange={handleValueChanged}
         value={inputValue}
-      />
+        select
+      >
+        {props.children}
+      </CustomTextField>
     </div>
   );
 }

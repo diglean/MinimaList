@@ -9,7 +9,18 @@ const theme = createTheme({
         background: {
             black: '#000',
         }
-    }
-})
+    },
+    select: {
+        '&:before': {
+            borderColor: "#FFF",
+        },
+        "&:after": {
+            borderColor: "#FFF",
+        },
+    },
+    icon: {
+        fill: "#FFF",
+    },
+});
 
 export default theme
