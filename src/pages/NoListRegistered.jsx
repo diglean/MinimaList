@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import ListInfoModal from "./ListInfoModal";
+import ListInfoModal from "../components/ListInfoModal";
 
 import styles from "./NoListRegistered.module.css";
 import Button from "../components/Button";

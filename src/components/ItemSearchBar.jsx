@@ -48,6 +48,7 @@ const filter = createFilterOptions();
 
 export default function ItemSearchBar() {
   const [tmpItemInfo, setTmpItemInfo] = useState([]);
+
   const [searchValue, setSearchValue] = useState("");
 
   const handleChange = (data) => {

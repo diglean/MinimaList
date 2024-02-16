@@ -7,10 +7,10 @@ import Typography from "@mui/material/Typography";
 import { Fade, Grid, ThemeProvider } from "@mui/material";
 import Modal from "@mui/material/Modal";
 
-import theme from "./theme";
-import Form from "../components/Form";
-import Button from "../components/Button";
-import Input from "../components/Input";
+import theme from "../pages/theme";
+import Form from "./Form";
+import Button from "./Button";
+import Input from "./Input";
 
 const style = {
   position: "absolute",
