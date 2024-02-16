@@ -53,13 +53,14 @@ export default function ListInfoModal({ open, callBackFormValues }) {
                 <Grid container spacing="0.5" justifyContent="flex-end">
                   <Grid item>
                     <Button
-                      variant="text"
+                      variant="contained"
                       text="Cancel"
                       onClick={() => callBackFormValues(false)}
+                      className="styles.outlined_black_button"
                     />
                   </Grid>
                   <Grid item>
-                    <Button variant="text" text="Ok" type="submit" />
+                    <Button variant="text" text="Ok" type="submit" className="styles.contained_white_button"/>
                   </Grid>
                 </Grid>
               </Form>

@@ -8,7 +8,12 @@
   border-color: #595959;
 }
 
-.contained_button {
+.black_button button {
+  color: #000;
+  background-color: #000;
+}
+
+.white_button button {
   color: #000;
   background-color: #FFF;
 }
