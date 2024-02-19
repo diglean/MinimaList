@@ -1,36 +1,34 @@
 import * as React from "react";
-import { useState } from "react";
-
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { makeStyles, styled } from "@mui/material/styles";
-import { TextField } from "@mui/material";
-import Input from "./Input";
+import { styled } from "@mui/material/styles";
 
-export default function BasicSelect(props) {
-  const [value, setValue] = useState("");
+export default function BasicSelect() {
+  const [age, setAge] = React.useState("");
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setAge(event.target.value);
   };
 
   return (
-    <div>
-      <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <Input
-            id="demo-simple-select-label"
-            label="Unit"
-            name="itemUnit"
-            variant="outlined"
-            select
-          >
-            {props.children}
-          </Input>
-        </FormControl>
-      </Box>
-    </div>
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
   );
 }

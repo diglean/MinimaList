@@ -5,6 +5,7 @@ import BasicSelect from "../BasicSelect";
 import MenuItems from "../MenuItem";
 import Button from "../Button";
 import { useState } from "react";
+import TemporaryDrawer from "../Drawer";
 
 const style = {
   position: "absolute",
@@ -19,23 +20,13 @@ const style = {
   borderRadius: "10px",
 };
 
-const values = [
-  {
-    value: "kg",
-    name: "Kg",
-  },
-  {
-    value: "g",
-    name: "g",
-  },
-  {
-    value: "l",
-    name: "L",
-  },
-];
-
 export default function ListItemInfoModal({ open, callBackFormValues }) {
   const [itemUnit, setItemUnit] = useState("");
+  const [drawerState, setDrawerState] = useState(false);
+
+  const cbToggleDrawer = (data) => {
+    setDrawerState(data);
+  };
 
   const handleChangeItemUnit = (event) => {
     setItemUnit(event.target.value);
@@ -43,6 +34,7 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
 
   return (
     <div>
+      <TemporaryDrawer />
       <Box>
         <Modal
           open={open}
@@ -60,13 +52,11 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                 Type
               </Typography>
               <Form callBackSubmit={(data) => callBackFormValues(data)}>
-                <BasicSelect
-                  label="Unit"
-                  onChange={handleChangeItemUnit}
-                  value={itemUnit}
-                >
-                  <MenuItems items={values} />
-                </BasicSelect>
+                <Button onClick={() => cbToggleDrawer(true)}>Teste</Button>
+                <TemporaryDrawer
+                  open={drawerState}
+                  cbToggleDrawer={() => cbToggleDrawer(false)}
+                />
                 <Grid container spacing="0.5" justifyContent="flex-end">
                   <Grid item>
                     <Button

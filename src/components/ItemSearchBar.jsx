@@ -11,32 +11,6 @@ import Button from "./Button";
 import Input from "./Input";
 import Form from "./Form";
 
-const AutoComplete = styled(Autocomplete)({
-  "& .MuiAutocomplete-clearIndicator": {
-    color: "#FFF",
-  },
-  "& label.Mui-focused": {
-    color: "white",
-  },
-  "& .MuiInputLabel-root": {
-    color: "#c4c4c4",
-  },
-  "& .MuiOutlinedInput-input": {
-    color: "white",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "#c4c4c4",
-    },
-    "&:hover fieldset": {
-      borderColor: "white",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "white",
-    },
-  },
-});
-
 const style = {
   height: "10px",
   position: "fixed",
