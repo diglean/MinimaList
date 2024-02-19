@@ -20,7 +20,6 @@ export default function CustomListItem({ list, callbackFormValues }) {
     }
 
     return;
-    // callbackFormValues()
   };
 
   return list.map(({ item, qty }, index) => (

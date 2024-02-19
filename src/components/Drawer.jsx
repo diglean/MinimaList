@@ -2,17 +2,12 @@ import * as React from "react";
 
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 
-export default function TemporaryDrawer(drawerState, cbToggleDrawer) {
+export default function TemporaryDrawer({ drawerState, cbToggleDrawer }) {
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -32,25 +27,9 @@ export default function TemporaryDrawer(drawerState, cbToggleDrawer) {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
+        {["Kg", "g"].map((text, index) => (
+          <ListItem key={text}>
+            <ListItemButton disableRipple>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
@@ -61,7 +40,7 @@ export default function TemporaryDrawer(drawerState, cbToggleDrawer) {
 
   return (
     <div>
-      <Drawer anchor="bottom" open={drawerState}>
+      <Drawer anchor="bottom" open={drawerState} style={{ zIndex: "1300" }}>
         {list("bottom")}
       </Drawer>
     </div>

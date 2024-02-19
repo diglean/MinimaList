@@ -1,11 +1,23 @@
+import { useState } from "react";
+
 import { Box, Fade, Grid, Modal, Typography } from "@mui/material";
 
 import Form from "../Form";
 import BasicSelect from "../BasicSelect";
 import MenuItems from "../MenuItem";
 import Button from "../Button";
-import { useState } from "react";
 import TemporaryDrawer from "../Drawer";
+import Input from "../Input";
+
+const gridStyles = {
+  backgroundColor: "blue",
+  paddingBottom: 2,
+  paddingRight: 2,
+  marginTop: 2,
+  marginLeft: "auto",
+  marginRight: "auto",
+  maxWidth: 500
+};
 
 const style = {
   position: "absolute",
@@ -34,7 +46,10 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
 
   return (
     <div>
-      <TemporaryDrawer />
+      <TemporaryDrawer
+        drawerState={drawerState}
+        cbToggleDrawer={() => cbToggleDrawer(false)}
+      />
       <Box>
         <Modal
           open={open}
@@ -49,15 +64,29 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                 component="h2"
                 sx={{ paddingBottom: "8px" }}
               >
-                Type
+                Item info
               </Typography>
               <Form callBackSubmit={(data) => callBackFormValues(data)}>
-                <Button onClick={() => cbToggleDrawer(true)}>Teste</Button>
-                <TemporaryDrawer
-                  open={drawerState}
-                  cbToggleDrawer={() => cbToggleDrawer(false)}
-                />
+                <Grid container spacing={0.5} justifyContent="space-between" >
+                  <Grid item xs={4} alignItems="stretch" style={{ display: "flex" }}>
+                    <Button
+                      onClick={() => cbToggleDrawer(true)}
+                      variant="outlined"
+                      text="Teste"
+                    />
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Input
+                      label="Price"
+                      name="itemPrice"
+                      variant="outlined"
+                    />
+                  </Grid>
+                </Grid>
                 <Grid container spacing="0.5" justifyContent="flex-end">
+                  <Grid item>
+                    
+                  </Grid>
                   <Grid item>
                     <Button
                       variant="text"

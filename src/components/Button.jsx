@@ -1,17 +1,16 @@
 import { Button as MuiButton } from "@mui/material";
-import styles from "./styles/Button.module.css";
 
-export default function Button({ onClick, variant, text, type, className }) {
+export default function Button(props) {
   return (
     <div>
       <MuiButton
-        onClick={onClick}
-        variant={variant}
-        type={type}
+        onClick={props.onClick}
+        variant={props.variant}
+        type={props.type}
         disableRipple
-        className={className}
+        className={props.className}
       >
-        {text}
+        {props.text ?? props.children}
       </MuiButton>
     </div>
   );
