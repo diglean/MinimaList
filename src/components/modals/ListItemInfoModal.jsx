@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
+import { NumericFormat } from 'react-number-format';
 
-import { Box, Fade, Grid, Modal, Typography } from "@mui/material";
+import {
+  Box,
+  Fade,
+  Grid,
+  IconButton,
+  Modal,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 
 import Form from "../Form";
-import BasicSelect from "../BasicSelect";
-import MenuItems from "../MenuItem";
 import Button from "../Button";
 import TemporaryDrawer from "../Drawer";
 import Input from "../Input";
+import { Fragment } from "react";
 
 const gridStyles = {
   backgroundColor: "blue",
@@ -16,7 +24,7 @@ const gridStyles = {
   marginTop: 2,
   marginLeft: "auto",
   marginRight: "auto",
-  maxWidth: 500
+  maxWidth: 500,
 };
 
 const style = {
@@ -31,6 +39,32 @@ const style = {
   width: "70%",
   borderRadius: "10px",
 };
+
+const NumericFormatCustom = forwardRef(
+  function NumericFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
+
+    return (
+      <NumericFormat
+        {...other}
+        getInputRef={ref}
+        onValueChange={(values) => {
+          onChange({
+            target: {
+              name: props.name,
+              value: values.value,
+            },
+          });
+        }}
+        thousandSeparator="." 
+        decimalSeparator=","
+        thousandsGroupStyle="thousand"
+        valueIsNumericString
+        prefix="R$"
+      />
+    );
+  },
+);
 
 export default function ListItemInfoModal({ open, callBackFormValues }) {
   const [itemUnit, setItemUnit] = useState("");
@@ -67,26 +101,31 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                 Item info
               </Typography>
               <Form callBackSubmit={(data) => callBackFormValues(data)}>
-                <Grid container spacing={0.5} justifyContent="space-between" >
-                  <Grid item xs={4} alignItems="stretch" style={{ display: "flex" }}>
-                    <Button
-                      onClick={() => cbToggleDrawer(true)}
-                      variant="outlined"
-                      text="Teste"
-                    />
-                  </Grid>
-                  <Grid item xs={8}>
-                    <Input
-                      label="Price"
-                      name="itemPrice"
-                      variant="outlined"
-                    />
-                  </Grid>
-                </Grid>
+                <Input
+                  label="Price"
+                  name="itemPrice"
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <Fragment>
+                        <Typography sx={{ color: "#FFF" }}>R$&nbsp;</Typography>
+                      </Fragment>
+                    ),
+                    endAdornment: (
+                      <Fragment>
+                        <Tooltip title="Copiar token">
+                          <IconButton
+                            size="small"
+                            onClick={() => cbToggleDrawer(true)}
+                          >
+                            <Typography sx={{ color: "#FFF" }}>/ Kg</Typography>
+                          </IconButton>
+                        </Tooltip>
+                      </Fragment>
+                    ),
+                  }}
+                />
                 <Grid container spacing="0.5" justifyContent="flex-end">
-                  <Grid item>
-                    
-                  </Grid>
                   <Grid item>
                     <Button
                       variant="text"
@@ -99,7 +138,6 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                       variant="text"
                       text="Ok"
                       type="submit"
-                      color="styles.contained_white_button"
                     />
                   </Grid>
                 </Grid>

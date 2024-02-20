@@ -6,7 +6,6 @@ import { useFormContext } from "react-hook-form";
 
 import styles from "./styles/Input.module.css";
 import { useEffect } from "react";
-import { useCallback } from "react";
 
 const TextField = styled(MuiTextField)({
   width: "100%",
@@ -51,6 +50,7 @@ const CustomTextField = forwardRef((props, ref) => {
         variant={props.variant}
         onChange={props.handleValueChanged}
         value={props.inputValue}
+        InputProps={props.InputProps}
         {...register(props.name, {
           required: `${props.label} is required`,
         })}
@@ -73,14 +73,10 @@ export default function Input(props) {
   };
 
   useEffect(() => {
-    if (props.value) {
+    if (props.value) {}
       setInputValue(props.value);
-    }
+    
   }, [props]);
-
-  const test = useCallback(() => {
-    console.log("aa");
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -90,7 +86,7 @@ export default function Input(props) {
         variant={props.variant}
         onChange={handleValueChanged}
         value={inputValue}
-        onFocus={test}
+        InputProps={props.InputProps}
       >
         {props.children}
       </CustomTextField>
