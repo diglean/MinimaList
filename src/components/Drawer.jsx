@@ -9,14 +9,11 @@ import ListItemText from "@mui/material/ListItemText";
 
 export default function TemporaryDrawer({ drawerState, cbToggleDrawer }) {
   const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
+    if (event.type === "click") {
+      cbToggleDrawer(event.target.textContent, false);
     }
 
-    cbToggleDrawer(false);
+    cbToggleDrawer(event.target.textContent, false);
   };
 
   const list = (anchor) => (
@@ -27,7 +24,7 @@ export default function TemporaryDrawer({ drawerState, cbToggleDrawer }) {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Kg", "g"].map((text, index) => (
+        {["Unity", "Kg", "g"].map((text, index) => (
           <ListItem key={text}>
             <ListItemButton disableRipple>
               <ListItemText primary={text} />

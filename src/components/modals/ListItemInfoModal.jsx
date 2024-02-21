@@ -1,5 +1,5 @@
 import { useState, forwardRef } from "react";
-import { NumericFormat } from 'react-number-format';
+import { NumericFormat } from "react-number-format";
 
 import {
   Box,
@@ -40,49 +40,49 @@ const style = {
   borderRadius: "10px",
 };
 
-const NumericFormatCustom = forwardRef(
-  function NumericFormatCustom(props, ref) {
-    const { onChange, ...other } = props;
+const NumericFormatCustom = forwardRef(function NumericFormatCustom(
+  props,
+  ref
+) {
+  const { onChange, ...other } = props;
 
-    return (
-      <NumericFormat
-        {...other}
-        getInputRef={ref}
-        onValueChange={(values) => {
-          onChange({
-            target: {
-              name: props.name,
-              value: values.value,
-            },
-          });
-        }}
-        thousandSeparator="." 
-        decimalSeparator=","
-        thousandsGroupStyle="thousand"
-        valueIsNumericString
-        prefix="R$"
-      />
-    );
-  },
-);
+  return (
+    <NumericFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator="."
+      decimalSeparator=","
+      thousandsGroupStyle="thousand"
+      valueIsNumericString
+      prefix="R$"
+    />
+  );
+});
 
 export default function ListItemInfoModal({ open, callBackFormValues }) {
   const [itemUnit, setItemUnit] = useState("");
   const [drawerState, setDrawerState] = useState(false);
 
-  const cbToggleDrawer = (data) => {
-    setDrawerState(data);
-  };
-
-  const handleChangeItemUnit = (event) => {
-    setItemUnit(event.target.value);
+  const cbToggleDrawer = (data, drawerState) => {
+    setItemUnit(data);
+    setDrawerState(drawerState);
   };
 
   return (
     <div>
       <TemporaryDrawer
         drawerState={drawerState}
-        cbToggleDrawer={() => cbToggleDrawer(false)}
+        cbToggleDrawer={(data, drawerState) =>
+          cbToggleDrawer(data, drawerState)
+        }
       />
       <Box>
         <Modal
@@ -113,7 +113,7 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                     ),
                     endAdornment: (
                       <Fragment>
-                        <Tooltip title="Copiar token">
+                        <Tooltip title="Change Item Unity">
                           <IconButton
                             size="small"
                             onClick={() => cbToggleDrawer(true)}
@@ -134,11 +134,7 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                     />
                   </Grid>
                   <Grid item>
-                    <Button
-                      variant="text"
-                      text="Ok"
-                      type="submit"
-                    />
+                    <Button variant="text" text="Ok" type="submit" />
                   </Grid>
                 </Grid>
               </Form>
