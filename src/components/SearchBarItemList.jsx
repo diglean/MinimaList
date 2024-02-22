@@ -9,6 +9,7 @@ import ListItemInfoModal from "./modals/ListItemInfoModal";
 
 export default function CustomListItem({ list, callbackFormValues }) {
   const [openModal, setOpenModal] = useState(false);
+  const [itemInfo, setItemInfo] = useState([{}]);
 
   const handleClick = (data) => {
     setOpenModal(true);
@@ -18,6 +19,8 @@ export default function CustomListItem({ list, callbackFormValues }) {
     if (data === false) {
       setOpenModal(false);
     }
+
+    setItemInfo(data);
 
     return;
   };
@@ -30,7 +33,7 @@ export default function CustomListItem({ list, callbackFormValues }) {
       />
       <ListItem>
         <ListItemButton disableRipple onClick={() => handleClick()}>
-          <ListItemText primary={item} />
+          <ListItemText primary={item} secondary="R$3,50/KG" />
         </ListItemButton>
         <QuantityInput />
       </ListItem>

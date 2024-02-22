@@ -10,10 +10,10 @@ import ListItemText from "@mui/material/ListItemText";
 export default function TemporaryDrawer({ drawerState, cbToggleDrawer }) {
   const toggleDrawer = (open) => (event) => {
     if (event.type === "click") {
-      cbToggleDrawer(event.target.textContent, false);
+      cbToggleDrawer(false, event.target.textContent);
     }
 
-    cbToggleDrawer(event.target.textContent, false);
+    cbToggleDrawer(false, event.target.textContent);
   };
 
   const list = (anchor) => (

@@ -68,11 +68,21 @@ const NumericFormatCustom = forwardRef(function NumericFormatCustom(
 });
 
 export default function ListItemInfoModal({ open, callBackFormValues }) {
-  const [itemUnit, setItemUnit] = useState("");
+  const [itemUnit, setItemUnit] = useState("kg");
+  const [itemInfo, setItemInfo] = useState([
+    {
+      price: null,
+      unit: null,
+    },
+  ]);
   const [drawerState, setDrawerState] = useState(false);
 
-  const cbToggleDrawer = (data, drawerState) => {
-    setItemUnit(data);
+  const cbToggleDrawer = (drawerState, data = null) => {
+    if (data !== null) {
+      setItemInfo(...itemInfo, (itemInfo[0].unit = data));
+      console.log(itemInfo);
+    }
+
     setDrawerState(drawerState);
   };
 
@@ -80,8 +90,8 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
     <div>
       <TemporaryDrawer
         drawerState={drawerState}
-        cbToggleDrawer={(data, drawerState) =>
-          cbToggleDrawer(data, drawerState)
+        cbToggleDrawer={(drawerState, data) =>
+          cbToggleDrawer(drawerState, data)
         }
       />
       <Box>
@@ -118,7 +128,9 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                             size="small"
                             onClick={() => cbToggleDrawer(true)}
                           >
-                            <Typography sx={{ color: "#FFF" }}>/ Kg</Typography>
+                            <Typography sx={{ color: "#FFF" }}>
+                              / {itemInfo[0].unit ?? "KG"}
+                            </Typography>
                           </IconButton>
                         </Tooltip>
                       </Fragment>
