@@ -16,6 +16,7 @@ import Button from "../Button";
 import TemporaryDrawer from "../Drawer";
 import Input from "../Input";
 import { Fragment } from "react";
+import { useCallback } from "react";
 
 const gridStyles = {
   backgroundColor: "blue",
@@ -68,14 +69,17 @@ const NumericFormatCustom = forwardRef(function NumericFormatCustom(
 });
 
 export default function ListItemInfoModal({ open, callBackFormValues }) {
-  const [itemUnit, setItemUnit] = useState("kg");
+  const [drawerState, setDrawerState] = useState(false);
   const [itemInfo, setItemInfo] = useState([
     {
       price: null,
       unit: null,
     },
   ]);
-  const [drawerState, setDrawerState] = useState(false);
+
+  const handleSubmit = useCallback(() => {
+    callBackFormValues(itemInfo);
+  });
 
   const cbToggleDrawer = (drawerState, data = null) => {
     if (data !== null) {
@@ -110,7 +114,7 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
               >
                 Item info
               </Typography>
-              <Form callBackSubmit={(data) => callBackFormValues(data)}>
+              <Form callBackSubmit={(data) => handleSubmit(data)}>
                 <Input
                   label="Price"
                   name="itemPrice"
@@ -129,7 +133,7 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                             onClick={() => cbToggleDrawer(true)}
                           >
                             <Typography sx={{ color: "#FFF" }}>
-                              / {itemInfo[0].unit ?? "KG"}
+                              / {itemInfo.unit ?? "KG"}
                             </Typography>
                           </IconButton>
                         </Tooltip>

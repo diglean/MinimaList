@@ -73,9 +73,9 @@ export default function Input(props) {
   };
 
   useEffect(() => {
-    if (props.value) {}
+    if (props.value) {
       setInputValue(props.value);
-    
+    }
   }, [props]);
 
   return (
