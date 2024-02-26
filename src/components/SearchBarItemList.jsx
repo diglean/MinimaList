@@ -9,31 +9,37 @@ import ListItemInfoModal from "./modals/ListItemInfoModal";
 
 export default function CustomListItem({ list, callbackFormValues }) {
   const [openModal, setOpenModal] = useState(false);
-  const [itemInfo, setItemInfo] = useState([{}]);
+  const [tmpItemInfo, setTmpItemInfo] = useState([{}]);
 
   const handleClick = (data) => {
     setOpenModal(true);
   };
 
   const setTmpItemDetails = (data) => {
-    if (data === false) {
-      setOpenModal(false);
+    if (data !== false) {
+      setTmpItemInfo(data);
     }
 
-    setItemInfo(data);
-
-    return;
+    setOpenModal(false);
   };
 
   return list.map(({ item, qty }, index) => (
     <div className={styles.container} key={index + item}>
       <ListItemInfoModal
         open={openModal}
+        itemData={tmpItemInfo}
         callBackFormValues={(data) => setTmpItemDetails(data)}
       />
       <ListItem>
         <ListItemButton disableRipple onClick={() => handleClick()}>
-          <ListItemText primary={item} secondary="R$3,50/KG" />
+          <ListItemText
+            primary={item}
+            secondary={
+              tmpItemInfo[0].price
+                ? "R$ " + tmpItemInfo[0].price + " / " + tmpItemInfo[0].unit
+                : ""
+            }
+          />
         </ListItemButton>
         <QuantityInput />
       </ListItem>

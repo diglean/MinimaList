@@ -17,16 +17,7 @@ import TemporaryDrawer from "../Drawer";
 import Input from "../Input";
 import { Fragment } from "react";
 import { useCallback } from "react";
-
-const gridStyles = {
-  backgroundColor: "blue",
-  paddingBottom: 2,
-  paddingRight: 2,
-  marginTop: 2,
-  marginLeft: "auto",
-  marginRight: "auto",
-  maxWidth: 500,
-};
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -41,54 +32,51 @@ const style = {
   borderRadius: "10px",
 };
 
-const NumericFormatCustom = forwardRef(function NumericFormatCustom(
-  props,
-  ref
-) {
-  const { onChange, ...other } = props;
-
-  return (
-    <NumericFormat
-      {...other}
-      getInputRef={ref}
-      onValueChange={(values) => {
-        onChange({
-          target: {
-            name: props.name,
-            value: values.value,
-          },
-        });
-      }}
-      thousandSeparator="."
-      decimalSeparator=","
-      thousandsGroupStyle="thousand"
-      valueIsNumericString
-      prefix="R$"
-    />
-  );
-});
-
 export default function ListItemInfoModal({ open, callBackFormValues }) {
   const [drawerState, setDrawerState] = useState(false);
-  const [itemInfo, setItemInfo] = useState([
-    {
-      price: null,
-      unit: null,
-    },
-  ]);
+  const [itemInfo, setItemInfo] = useState({
+    price: null,
+    unit: "kg",
+  });
 
-  const handleSubmit = useCallback(() => {
-    callBackFormValues(itemInfo);
+  const updatePrice = (newPrice) => {
+    setItemInfo((itemInfo) => ({
+      ...itemInfo, // Spread operator to copy the existing state
+      price: newPrice, // Update the price property with the new value
+    }));
+  };
+
+  const updateUnit = (newUnit) => {
+    setItemInfo((itemInfo) => ({
+      ...itemInfo, // Spread operator to copy the existing state
+      unit: newUnit, // Update the price property with the new value
+    }));
+  };
+
+  const handleSubmit = useCallback((data) => {
+    if (data.itemPrice.trim() !== "") {
+      updatePrice(data.itemPrice.trim());
+    } else {
+      console.log("Não tem preço");
+      return;
+    }
   });
 
   const cbToggleDrawer = (drawerState, data = null) => {
     if (data !== null) {
-      setItemInfo(...itemInfo, (itemInfo[0].unit = data));
-      console.log(itemInfo);
+      updateUnit(data);
     }
 
     setDrawerState(drawerState);
   };
+
+  // Use useEffect to react to changes in itemInfo
+  useEffect(() => {
+    // Ensure itemInfo has the data you expect before calling callBackFormValues
+    if (itemInfo.price !== null) {
+      callBackFormValues(itemInfo);
+    }
+  }, [itemInfo]); // This effect depends on itemInfo, so it runs whenever itemInfo changes
 
   return (
     <div>
