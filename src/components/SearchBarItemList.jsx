@@ -7,7 +7,7 @@ import QuantityInput from "./NumberInput";
 import { useState } from "react";
 import ListItemInfoModal from "./modals/ListItemInfoModal";
 
-export default function CustomListItem({ list, callbackFormValues }) {
+export default function CustomListItem({ item, callbackFormValues }) {
   const [openModal, setOpenModal] = useState(false);
   const [tmpItemInfo, setTmpItemInfo] = useState({
     price: null,
@@ -27,7 +27,7 @@ export default function CustomListItem({ list, callbackFormValues }) {
   };
 
   return(
-    list.length &&
+    item.length &&
    (<div className={styles.container} key={Math.random()}>
       <ListItemInfoModal
         open={openModal}
@@ -37,7 +37,7 @@ export default function CustomListItem({ list, callbackFormValues }) {
       <ListItem>
         <ListItemButton disableRipple onClick={() => handleClick()}>
           <ListItemText
-            primary={item}
+            primary={item[0].item}
             secondary={
               tmpItemInfo.price
                 ? "R$ " + tmpItemInfo.price + " / " + tmpItemInfo.unit

@@ -135,7 +135,7 @@ export default function ListItemInfoModal({
                             onClick={() => cbToggleDrawer(true)}
                           >
                             <Typography sx={{ color: "#FFF" }}>
-                              / {itemInfo.unit ?? "KG"}
+                              / {itemInfo.unit ?? "kg"}
                             </Typography>
                           </IconButton>
                         </Tooltip>

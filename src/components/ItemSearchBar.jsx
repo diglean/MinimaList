@@ -35,11 +35,9 @@ export default function ItemSearchBar() {
   };
 
   const addItemToList = (data) => {
-    fetch("", {
+    fetch("http://localhost:5000/lists", {
       method: "POST",
-      data: {
-
-      },
+      body: JSON.stringify(data[0]),
       headers: {
         "Content-Type": "application/json",
       },
@@ -51,9 +49,9 @@ export default function ItemSearchBar() {
       <Form callBackSubmit={(data) => handleChange(data)}>
         <Input label="Item Name" name="itemName" variant="outlined" />
       </Form>
-      {tmpItemInfo && (
+      {tmpItemInfo.length > 0 && (
         <div>
-          <CustomListItem list={tmpItemInfo} />
+          <CustomListItem item={tmpItemInfo} />
           <Grid
             container
             display="flex"
@@ -71,7 +69,7 @@ export default function ItemSearchBar() {
             </Grid>
             <Grid item>
               <Button
-                onClick={() => addItemToList()}
+                onClick={() => addItemToList(tmpItemInfo)}
                 variant="contained"
                 text="Confirm"
               />
