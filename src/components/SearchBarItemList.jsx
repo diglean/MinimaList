@@ -26,8 +26,9 @@ export default function CustomListItem({ list, callbackFormValues }) {
     setOpenModal(false);
   };
 
-  return list.map(({ item, qty }, index) => (
-    <div className={styles.container} key={index + item}>
+  return(
+    list.length &&
+   (<div className={styles.container} key={Math.random()}>
       <ListItemInfoModal
         open={openModal}
         itemData={tmpItemInfo}
@@ -44,8 +45,8 @@ export default function CustomListItem({ list, callbackFormValues }) {
             }
           />
         </ListItemButton>
-        <QuantityInput />
+        <QuantityInput defaultValue="1"/>
       </ListItem>
-    </div>
-  ));
+    </div>)
+  )
 }

@@ -21,7 +21,7 @@ const style = {
 const filter = createFilterOptions();
 
 export default function ItemSearchBar() {
-  const [tmpItemInfo, setTmpItemInfo] = useState([]);
+  const [tmpItemInfo, setTmpItemInfo] = useState({});
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -35,7 +35,15 @@ export default function ItemSearchBar() {
   };
 
   const addItemToList = (data) => {
-    // setItemList([ item: data]);
+    fetch("", {
+      method: "POST",
+      data: {
+
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
   };
 
   return (

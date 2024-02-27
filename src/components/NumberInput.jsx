@@ -3,8 +3,16 @@ import { Unstable_NumberInput as BaseNumberInput } from "@mui/base/Unstable_Numb
 import { styled } from "@mui/system";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import { useState } from "react";
+import { forwardRef } from "react";
 
-const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
+const NumberInput = forwardRef(function CustomNumberInput(props, ref) {
+  const [value, setValue] = useState(1);
+
+  const handleChange = (data) => {
+    setValue(data);
+  }
+
   return (
     <BaseNumberInput
       slots={{
@@ -24,6 +32,8 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
       }}
       {...props}
       ref={ref}
+      onChange={(event, newValue) => handleChange(newValue)}
+      value={value}
     />
   );
 });
