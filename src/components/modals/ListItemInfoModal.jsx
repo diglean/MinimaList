@@ -32,7 +32,20 @@ const style = {
   borderRadius: "10px",
 };
 
-export default function ListItemInfoModal({ open, callBackFormValues }) {
+export default function ListItemInfoModal({
+  open,
+  itemData,
+  callBackFormValues,
+}) {
+  useEffect(
+    (itemData) => {
+      if (typeof itemData !== "undefined") {
+        setItemInfo(itemData);
+      }
+    },
+    [itemData]
+  );
+
   const [drawerState, setDrawerState] = useState(false);
   const [itemInfo, setItemInfo] = useState({
     price: null,
@@ -41,15 +54,15 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
 
   const updatePrice = (newPrice) => {
     setItemInfo((itemInfo) => ({
-      ...itemInfo, // Spread operator to copy the existing state
-      price: newPrice, // Update the price property with the new value
+      ...itemInfo,
+      price: newPrice,
     }));
   };
 
   const updateUnit = (newUnit) => {
     setItemInfo((itemInfo) => ({
-      ...itemInfo, // Spread operator to copy the existing state
-      unit: newUnit, // Update the price property with the new value
+      ...itemInfo,
+      unit: newUnit,
     }));
   };
 
@@ -107,6 +120,7 @@ export default function ListItemInfoModal({ open, callBackFormValues }) {
                   label="Price"
                   name="itemPrice"
                   variant="outlined"
+                  value={itemInfo.price ?? null}
                   InputProps={{
                     startAdornment: (
                       <Fragment>

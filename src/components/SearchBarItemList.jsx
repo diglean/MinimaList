@@ -9,7 +9,10 @@ import ListItemInfoModal from "./modals/ListItemInfoModal";
 
 export default function CustomListItem({ list, callbackFormValues }) {
   const [openModal, setOpenModal] = useState(false);
-  const [tmpItemInfo, setTmpItemInfo] = useState([{}]);
+  const [tmpItemInfo, setTmpItemInfo] = useState({
+    price: null,
+    unit: "kg",
+  });
 
   const handleClick = (data) => {
     setOpenModal(true);
@@ -35,8 +38,8 @@ export default function CustomListItem({ list, callbackFormValues }) {
           <ListItemText
             primary={item}
             secondary={
-              tmpItemInfo[0].price
-                ? "R$ " + tmpItemInfo[0].price + " / " + tmpItemInfo[0].unit
+              tmpItemInfo.price
+                ? "R$ " + tmpItemInfo.price + " / " + tmpItemInfo.unit
                 : ""
             }
           />
