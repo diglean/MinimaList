@@ -7,6 +7,7 @@ import QuantityInput from "./NumberInput";
 import { useState } from "react";
 import ListItemInfoModal from "./modals/ListItemInfoModal";
 import { useCallback } from "react";
+import { useEffect } from "react";
 
 const CustomListItem = ({ item, callbackFormValues }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -15,6 +16,20 @@ const CustomListItem = ({ item, callbackFormValues }) => {
     price: null,
     unit: "kg",
   });
+
+  useEffect(
+    (item) => {
+      itemProperty("name", item.name);
+    },
+    [item]
+  );
+
+  const itemProperty = (property, newValue) => {
+    setTmpItemInfo((tmpItemInfo) => ({
+      ...tmpItemInfo,
+      [property]: newValue,
+    }));
+  };
 
   const handleClick = useCallback((data) => {
     setOpenModal(true);
@@ -28,18 +43,19 @@ const CustomListItem = ({ item, callbackFormValues }) => {
     setOpenModal(false);
   };
 
-  return(
-    item.length &&
-   (<div className={styles.container} key={Math.random()}>
-      <ListItemInfoModal
-        open={openModal}
-        itemData={tmpItemInfo}
-        callbackFormValues={(data) => setTmpItemDetails(data)}
-      >
-        <QuantityInput defaultValue="1"/>
-      </ListItemInfoModal>
-    </div>)
-  )
-}
+  return (
+    item.length && (
+      <div className={styles.container} key={Math.random()}>
+        <ListItemInfoModal
+          open={openModal}
+          itemData={tmpItemInfo}
+          callbackFormValues={(data) => setTmpItemDetails(data)}
+        >
+          <QuantityInput defaultValue="1" />
+        </ListItemInfoModal>
+      </div>
+    )
+  );
+};
 
 export default CustomListItem;

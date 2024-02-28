@@ -27,7 +27,7 @@ export default function ItemSearchBar() {
   const [searchValue, setSearchValue] = useState("");
 
   const handleChange = (data) => {
-    setTmpItemInfo([{ item: data.itemName, qty: 1 }]);
+    setTmpItemInfo([{ item: data.name, qty: 1 }]);
     setSearchValue("");
   };
 
@@ -42,13 +42,13 @@ export default function ItemSearchBar() {
       headers: {
         "Content-Type": "application/json",
       },
-    })
+    });
   };
 
   return (
     <div className={styles.component}>
       <Form callBackSubmit={(data) => handleChange(data)}>
-        <Input label="Item Name" name="itemName" variant="outlined" />
+        <Input label="Item Name" name="name" variant="outlined" />
       </Form>
       {tmpItemInfo.length > 0 && (
         <div>
