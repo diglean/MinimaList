@@ -2,24 +2,14 @@ import * as React from "react";
 import { useState } from "react";
 
 import { Grid } from "@mui/material";
-import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-import { styled } from "@mui/material/styles";
 
 import styles from "./styles/ItemSearchBar.module.css";
 import CustomListItem from "./SearchBarItemList";
 import Button from "./Button";
 import Input from "./Input";
 import Form from "./Form";
-import QuantityInput from "./NumberInput";
 
-const style = {
-  height: "10px",
-  position: "fixed",
-  bottom: "15%",
-  width: "100%",
-};
 
-const filter = createFilterOptions();
 
 export default function ItemSearchBar() {
   const [tmpItemInfo, setTmpItemInfo] = useState({});
@@ -27,7 +17,7 @@ export default function ItemSearchBar() {
   const [searchValue, setSearchValue] = useState("");
 
   const handleChange = (data) => {
-    setTmpItemInfo([{ item: data.name, qty: 1 }]);
+    setTmpItemInfo([{ name: data.name, qty: 1 }]);
     setSearchValue("");
   };
 
@@ -48,7 +38,12 @@ export default function ItemSearchBar() {
   return (
     <div className={styles.component}>
       <Form callBackSubmit={(data) => handleChange(data)}>
-        <Input label="Item Name" name="name" variant="outlined" />
+        <Input 
+          label="Item Name" 
+          name="name" 
+          variant="outlined" 
+          value={searchValue}
+        />
       </Form>
       {tmpItemInfo.length > 0 && (
         <div>

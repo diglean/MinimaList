@@ -17,11 +17,13 @@ const CustomListItem = ({ item, callbackFormValues }) => {
     unit: "kg",
   });
 
+  let itemData = item;
+
   useEffect(
-    (item) => {
-      itemProperty("name", item.name);
+    () => {
+      itemProperty("name", itemData[0].name);
     },
-    [item]
+    [itemData]
   );
 
   const itemProperty = (property, newValue) => {
@@ -47,7 +49,6 @@ const CustomListItem = ({ item, callbackFormValues }) => {
     item.length && (
       <div className={styles.container} key={Math.random()}>
         <ListItemInfoModal
-          open={openModal}
           itemData={tmpItemInfo}
           callbackFormValues={(data) => setTmpItemDetails(data)}
         >

@@ -34,12 +34,14 @@ const style = {
   borderRadius: "10px",
 };
 
-const CustomModal = ({ open, itemData, callbackFormValues }) => {
+const CustomModal = ({ open, item, callbackFormValues }) => {
   const [drawerState, setDrawerState] = useState(false);
   const [itemInfo, setItemInfo] = useState({
     price: null,
     unit: "kg",
   });
+
+  let itemData = item;
 
   useEffect(
     (itemData) => {
@@ -167,12 +169,21 @@ export default function ListItemInfoModal({
 }) {
   const [modalOpen, setModalOpen] = useState(false);
 
+  const callbackFormValuesChild = (data) => {
+    if (data === false) {
+      setModalOpen(false);
+      return;
+    }
+
+    callbackFormValues(data);
+  }
+
   return (
     <>
       <CustomModal
         open={modalOpen}
-        itemData={itemData}
-        callbackFormValues={(data) => callbackFormValues(data)}
+        item={itemData}
+        callbackFormValues={(data) => callbackFormValuesChild(data)}
       />
       <ListItem>
         <ListItemButton disableRipple onClick={() => setModalOpen(true)}>
