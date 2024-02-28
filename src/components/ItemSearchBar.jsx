@@ -10,6 +10,7 @@ import CustomListItem from "./SearchBarItemList";
 import Button from "./Button";
 import Input from "./Input";
 import Form from "./Form";
+import QuantityInput from "./NumberInput";
 
 const style = {
   height: "10px",

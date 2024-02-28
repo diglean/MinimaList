@@ -7,7 +7,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 
-export default function TemporaryDrawer({ drawerState, cbToggleDrawer }) {
+export default function TemporaryDrawer({ open, cbToggleDrawer }) {
   const toggleDrawer = (open) => (event) => {
     if (event.type === "click") {
       cbToggleDrawer(false, event.target.textContent);
@@ -37,7 +37,7 @@ export default function TemporaryDrawer({ drawerState, cbToggleDrawer }) {
 
   return (
     <div>
-      <Drawer anchor="bottom" open={drawerState} style={{ zIndex: "1300" }}>
+      <Drawer anchor="bottom" open={open} style={{ zIndex: "1300" }}>
         {list("bottom")}
       </Drawer>
     </div>

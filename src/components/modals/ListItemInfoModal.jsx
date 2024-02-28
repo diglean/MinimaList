@@ -1,11 +1,13 @@
-import { useState, forwardRef } from "react";
-import { NumericFormat } from "react-number-format";
+import { useState } from "react";
 
 import {
   Box,
   Fade,
   Grid,
   IconButton,
+  ListItem,
+  ListItemButton,
+  ListItemText,
   Modal,
   Tooltip,
   Typography,
@@ -32,11 +34,13 @@ const style = {
   borderRadius: "10px",
 };
 
-export default function ListItemInfoModal({
-  open,
-  itemData,
-  callBackFormValues,
-}) {
+const CustomModal = ({ open, itemData, callbackFormValues }) => {
+  const [drawerState, setDrawerState] = useState(false);
+  const [itemInfo, setItemInfo] = useState({
+    price: null,
+    unit: "kg",
+  });
+
   useEffect(
     (itemData) => {
       if (typeof itemData !== "undefined") {
@@ -46,11 +50,11 @@ export default function ListItemInfoModal({
     [itemData]
   );
 
-  const [drawerState, setDrawerState] = useState(false);
-  const [itemInfo, setItemInfo] = useState({
-    price: null,
-    unit: "kg",
-  });
+  useEffect(() => {
+    if (itemInfo.price !== null) {
+      callbackFormValues(itemInfo);
+    }
+  }, [itemInfo, callbackFormValues]);
 
   const updatePrice = (newPrice) => {
     setItemInfo((itemInfo) => ({
@@ -73,7 +77,7 @@ export default function ListItemInfoModal({
       console.log("Não tem preço");
       return;
     }
-  });
+  }, []);
 
   const cbToggleDrawer = (drawerState, data = null) => {
     if (data !== null) {
@@ -83,18 +87,10 @@ export default function ListItemInfoModal({
     setDrawerState(drawerState);
   };
 
-  // Use useEffect to react to changes in itemInfo
-  useEffect(() => {
-    // Ensure itemInfo has the data you expect before calling callBackFormValues
-    if (itemInfo.price !== null) {
-      callBackFormValues(itemInfo);
-    }
-  }, [itemInfo]); // This effect depends on itemInfo, so it runs whenever itemInfo changes
-
   return (
-    <div>
+    <>
       <TemporaryDrawer
-        drawerState={drawerState}
+        open={drawerState}
         cbToggleDrawer={(drawerState, data) =>
           cbToggleDrawer(drawerState, data)
         }
@@ -148,7 +144,7 @@ export default function ListItemInfoModal({
                     <Button
                       variant="text"
                       text="Cancel"
-                      onClick={() => callBackFormValues(false)}
+                      onClick={() => callbackFormValues(false)}
                     />
                   </Grid>
                   <Grid item>
@@ -160,6 +156,37 @@ export default function ListItemInfoModal({
           </Fade>
         </Modal>
       </Box>
-    </div>
+    </>
+  );
+};
+
+export default function ListItemInfoModal({
+  itemData,
+  callbackFormValues,
+  children,
+}) {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  return (
+    <>
+      <CustomModal
+        open={modalOpen}
+        itemData={itemData}
+        callbackFormValues={(data) => callbackFormValues(data)}
+      />
+      <ListItem>
+        <ListItemButton disableRipple onClick={() => setModalOpen(true)}>
+          <ListItemText
+            primary={itemData.name}
+            secondary={
+              itemData.price
+                ? "R$ " + itemData.price + " / " + itemData.unit
+                : ""
+            }
+          />
+        </ListItemButton>
+        {children}
+      </ListItem>
+    </>
   );
 }

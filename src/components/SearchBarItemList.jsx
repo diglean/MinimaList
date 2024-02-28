@@ -6,17 +6,19 @@ import styles from "./styles/SearchBarItemList.module.css";
 import QuantityInput from "./NumberInput";
 import { useState } from "react";
 import ListItemInfoModal from "./modals/ListItemInfoModal";
+import { useCallback } from "react";
 
-export default function CustomListItem({ item, callbackFormValues }) {
+const CustomListItem = ({ item, callbackFormValues }) => {
   const [openModal, setOpenModal] = useState(false);
   const [tmpItemInfo, setTmpItemInfo] = useState({
+    name: null,
     price: null,
     unit: "kg",
   });
 
-  const handleClick = (data) => {
+  const handleClick = useCallback((data) => {
     setOpenModal(true);
-  };
+  }, []);
 
   const setTmpItemDetails = (data) => {
     if (data !== false) {
@@ -32,21 +34,12 @@ export default function CustomListItem({ item, callbackFormValues }) {
       <ListItemInfoModal
         open={openModal}
         itemData={tmpItemInfo}
-        callBackFormValues={(data) => setTmpItemDetails(data)}
-      />
-      <ListItem>
-        <ListItemButton disableRipple onClick={() => handleClick()}>
-          <ListItemText
-            primary={item[0].item}
-            secondary={
-              tmpItemInfo.price
-                ? "R$ " + tmpItemInfo.price + " / " + tmpItemInfo.unit
-                : ""
-            }
-          />
-        </ListItemButton>
+        callbackFormValues={(data) => setTmpItemDetails(data)}
+      >
         <QuantityInput defaultValue="1"/>
-      </ListItem>
+      </ListItemInfoModal>
     </div>)
   )
 }
+
+export default CustomListItem;

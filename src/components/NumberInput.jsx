@@ -5,6 +5,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import { forwardRef } from "react";
+import { memo } from "react";
 
 const NumberInput = forwardRef(function CustomNumberInput(props, ref) {
   const [value, setValue] = useState(1);
@@ -38,9 +39,11 @@ const NumberInput = forwardRef(function CustomNumberInput(props, ref) {
   );
 });
 
-export default function QuantityInput() {
+const QuantityInput = () => {
   return <NumberInput aria-label="Quantity Input" min={1} max={99} />;
 }
+
+export default memo(QuantityInput);
 
 const StyledInputRoot = styled("div")(
   ({ theme }) => `
