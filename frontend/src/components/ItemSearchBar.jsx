@@ -19,6 +19,10 @@ export default function ItemSearchBar() {
     setSearchValue("");
   };
 
+  const handleItemDetailsChange = (data) => {
+    setTmpItemInfo([data]);
+  }
+
   const cleanTmpItemInfo = () => {
     setTmpItemInfo([]);
   };
@@ -45,7 +49,7 @@ export default function ItemSearchBar() {
       </Form>
       {tmpItemInfo.length > 0 && (
         <div>
-          <CustomListItem item={tmpItemInfo} />
+          <CustomListItem item={tmpItemInfo} callbackFormValues={(data) => handleItemDetailsChange(data)}/>
           <Grid
             container
             display="flex"

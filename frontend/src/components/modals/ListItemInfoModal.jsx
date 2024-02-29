@@ -46,7 +46,7 @@ const CustomModal = ({ open, item, callbackFormValues }) => {
     if (typeof item !== "undefined" && item.name !== null) {
       setItemInfo(item);
     }
-  });
+  },[item]);
 
   useEffect(() => {
     if (itemInfo.price !== null) {

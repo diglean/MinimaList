@@ -6,14 +6,20 @@ import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import { forwardRef } from "react";
 import { memo } from "react";
-import { useFormContext } from "react-hook-form";
+import { useEffect } from "react";
 
 const NumberInput = forwardRef(function CustomNumberInput(props, ref) {
   const [value, setValue] = useState(1);
 
+  useEffect(() => {
+    if (typeof props !== "undefined") {
+      setValue(props.value);
+    }
+  },[props])
+
   const handleChange = (data) => {
-    setValue(data);
     props.cbValue(data);
+    setValue(data);
   };
 
   return (
@@ -41,7 +47,7 @@ const NumberInput = forwardRef(function CustomNumberInput(props, ref) {
   );
 });
 
-const QuantityInput = ({ cbValue }) => {
+const QuantityInput = ({ value, cbValue }) => {
   return (
     <NumberInput
       aria-label="Quantity Input"
@@ -49,6 +55,7 @@ const QuantityInput = ({ cbValue }) => {
       max={99}
       name="qty"
       cbValue={(data) => cbValue(data)}
+      value={value}
     />
   );
 };

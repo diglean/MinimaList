@@ -1,7 +1,3 @@
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-
 import styles from "./styles/SearchBarItemList.module.css";
 import QuantityInput from "./NumberInput";
 import { useState } from "react";
@@ -12,14 +8,15 @@ import { useEffect } from "react";
 const CustomListItem = ({ item, callbackFormValues }) => {
   const [tmpItemInfo, setTmpItemInfo] = useState({
     name: null,
-    qty: null,
+    qty: 1,
     price: null,
     unit: "kg",
   });
 
   const handleChangeNumberInput = useCallback((data) => {
     itemProperty("qty", data);
-  });
+    callbackFormValues(tmpItemInfo);
+  },[]);
 
   useEffect(() => {
     itemProperty("name", item[0].name);
@@ -46,7 +43,7 @@ const CustomListItem = ({ item, callbackFormValues }) => {
           callbackFormValues={(data) => setTmpItemDetails(data)}
         >
           <QuantityInput
-            defaultValue="1"
+            value={tmpItemInfo.qty}
             cbValue={(data) => handleChangeNumberInput(data)}
           />
         </ListItemInfoModal>
