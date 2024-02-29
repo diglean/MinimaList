@@ -6,13 +6,15 @@ import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import { forwardRef } from "react";
 import { memo } from "react";
+import { useFormContext } from "react-hook-form";
 
 const NumberInput = forwardRef(function CustomNumberInput(props, ref) {
   const [value, setValue] = useState(1);
 
   const handleChange = (data) => {
     setValue(data);
-  }
+    props.cbValue(data);
+  };
 
   return (
     <BaseNumberInput
@@ -39,9 +41,17 @@ const NumberInput = forwardRef(function CustomNumberInput(props, ref) {
   );
 });
 
-const QuantityInput = () => {
-  return <NumberInput aria-label="Quantity Input" min={1} max={99} />;
-}
+const QuantityInput = ({ cbValue }) => {
+  return (
+    <NumberInput
+      aria-label="Quantity Input"
+      min={1}
+      max={99}
+      name="qty"
+      cbValue={(data) => cbValue(data)}
+    />
+  );
+};
 
 export default memo(QuantityInput);
 

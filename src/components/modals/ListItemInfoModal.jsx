@@ -37,20 +37,16 @@ const style = {
 const CustomModal = ({ open, item, callbackFormValues }) => {
   const [drawerState, setDrawerState] = useState(false);
   const [itemInfo, setItemInfo] = useState({
+    name: null,
     price: null,
     unit: "kg",
   });
 
-  let itemData = item;
-
-  useEffect(
-    (itemData) => {
-      if (typeof itemData !== "undefined") {
-        setItemInfo(itemData);
-      }
-    },
-    [itemData]
-  );
+  useEffect(() => {
+    if (typeof item !== "undefined" && item.name !== null) {
+      setItemInfo(item);
+    }
+  });
 
   useEffect(() => {
     if (itemInfo.price !== null) {
@@ -176,7 +172,7 @@ export default function ListItemInfoModal({
     }
 
     callbackFormValues(data);
-  }
+  };
 
   return (
     <>

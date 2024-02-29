@@ -9,8 +9,6 @@ import Button from "./Button";
 import Input from "./Input";
 import Form from "./Form";
 
-
-
 export default function ItemSearchBar() {
   const [tmpItemInfo, setTmpItemInfo] = useState({});
 
@@ -38,10 +36,10 @@ export default function ItemSearchBar() {
   return (
     <div className={styles.component}>
       <Form callBackSubmit={(data) => handleChange(data)}>
-        <Input 
-          label="Item Name" 
-          name="name" 
-          variant="outlined" 
+        <Input
+          label="Item Name"
+          name="name"
+          variant="outlined"
           value={searchValue}
         />
       </Form>

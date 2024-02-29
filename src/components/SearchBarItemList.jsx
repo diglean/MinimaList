@@ -10,21 +10,20 @@ import { useCallback } from "react";
 import { useEffect } from "react";
 
 const CustomListItem = ({ item, callbackFormValues }) => {
-  const [openModal, setOpenModal] = useState(false);
   const [tmpItemInfo, setTmpItemInfo] = useState({
     name: null,
+    qty: null,
     price: null,
     unit: "kg",
   });
 
-  let itemData = item;
+  const handleChangeNumberInput = useCallback((data) => {
+    itemProperty("qty", data);
+  });
 
-  useEffect(
-    () => {
-      itemProperty("name", itemData[0].name);
-    },
-    [itemData]
-  );
+  useEffect(() => {
+    itemProperty("name", item[0].name);
+  }, [item]);
 
   const itemProperty = (property, newValue) => {
     setTmpItemInfo((tmpItemInfo) => ({
@@ -33,16 +32,10 @@ const CustomListItem = ({ item, callbackFormValues }) => {
     }));
   };
 
-  const handleClick = useCallback((data) => {
-    setOpenModal(true);
-  }, []);
-
   const setTmpItemDetails = (data) => {
     if (data !== false) {
       setTmpItemInfo(data);
     }
-
-    setOpenModal(false);
   };
 
   return (
@@ -52,7 +45,10 @@ const CustomListItem = ({ item, callbackFormValues }) => {
           itemData={tmpItemInfo}
           callbackFormValues={(data) => setTmpItemDetails(data)}
         >
-          <QuantityInput defaultValue="1" />
+          <QuantityInput
+            defaultValue="1"
+            cbValue={(data) => handleChangeNumberInput(data)}
+          />
         </ListItemInfoModal>
       </div>
     )
