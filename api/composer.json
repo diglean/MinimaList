@@ -1,5 +1,9 @@
 {
-    "require": {
-        "laravel/laravel": "^10.3"
-    }
+    "name": "diglean/api",
+    "autoload": {
+        "psr-4": {
+            "Diglean\\Api\\": "src/"
+        }
+    },
+    "require": {}
 }

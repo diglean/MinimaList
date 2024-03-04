@@ -15,8 +15,7 @@ const CustomListItem = ({ item, callbackFormValues }) => {
 
   const handleChangeNumberInput = useCallback((data) => {
     itemProperty("qty", data);
-    callbackFormValues(tmpItemInfo);
-  },[]);
+  }, []);
 
   useEffect(() => {
     itemProperty("name", item[0].name);

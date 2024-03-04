@@ -9,7 +9,7 @@ import Button from "./Button";
 import Input from "./Input";
 import Form from "./Form";
 
-export default function ItemSearchBar() {
+export default function ItemSearchBar({ callbackFormValues }) {
   const [tmpItemInfo, setTmpItemInfo] = useState({});
 
   const [searchValue, setSearchValue] = useState("");
@@ -21,20 +21,10 @@ export default function ItemSearchBar() {
 
   const handleItemDetailsChange = (data) => {
     setTmpItemInfo([data]);
-  }
+  };
 
   const cleanTmpItemInfo = () => {
     setTmpItemInfo([]);
-  };
-
-  const addItemToList = (data) => {
-    fetch("http://localhost:5000/lists", {
-      method: "POST",
-      body: JSON.stringify(data[0]),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
   };
 
   return (
@@ -49,7 +39,10 @@ export default function ItemSearchBar() {
       </Form>
       {tmpItemInfo.length > 0 && (
         <div>
-          <CustomListItem item={tmpItemInfo} callbackFormValues={(data) => handleItemDetailsChange(data)}/>
+          <CustomListItem
+            item={tmpItemInfo}
+            callbackFormValues={(data) => handleItemDetailsChange(data)}
+          />
           <Grid
             container
             display="flex"
@@ -67,7 +60,7 @@ export default function ItemSearchBar() {
             </Grid>
             <Grid item>
               <Button
-                onClick={() => addItemToList(tmpItemInfo)}
+                onClick={() => callbackFormValues(tmpItemInfo)}
                 variant="contained"
                 text="Confirm"
               />

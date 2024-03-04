@@ -1,0 +1,15 @@
+{
+    "name": "diglean/minima-list",
+    "autoload": {
+        "psr-4": {
+            "Diglean\\MinimaList\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "diglean",
+            "email": "diegoleandro2002@gmail.com"
+        }
+    ],
+    "require": {}
+}
