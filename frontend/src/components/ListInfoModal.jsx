@@ -28,7 +28,7 @@ export default function ListInfoModal({ open, callBackFormValues }) {
   const navigate = useNavigate();
   const addItensToList = useCallback((data) => {
     navigate("/additenstolist", { state: { listName: data.name } });
-  });
+  },[navigate]);
 
   return (
     <div>

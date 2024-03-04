@@ -2,7 +2,6 @@ import styles from "./styles/AddItensToList.module.css";
 import ItemSearchBar from "../components/ItemSearchBar";
 import { useLocation } from "react-router-dom";
 import { useCallback } from "react";
-import { useState } from "react";
 
 export default function AddItensToList() {
   const [listData, setListData] = useState({});
@@ -29,9 +28,19 @@ export default function AddItensToList() {
     listProperty("items", data);
   });
 
+  const addItensToList = useCallback((data) => {
+    fetch("http://localhost:5000/lists", {
+      method: "POST",
+      body: JSON.stringify(data[0]),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },[]);
+
   return (
     <div className={styles.container}>
-      <ItemSearchBar callbackFormValues={(data) => setListItems(data)} />
+      <ItemSearchBar callbackFormValues={(data) => addItensToList(data)} />
     </div>
   );
 }

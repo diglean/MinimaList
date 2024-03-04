@@ -13,13 +13,14 @@ const CustomListItem = ({ item, callbackFormValues }) => {
     unit: "kg",
   });
 
-  const handleChangeNumberInput = useCallback((data) => {
-    itemProperty("qty", data);
-  }, []);
-
   useEffect(() => {
     itemProperty("name", item[0].name);
   }, [item]);
+
+  const handleChangeNumberInput = useCallback((data) => {
+    itemProperty("qty", data);
+    callbackFormValues(tmpItemInfo);
+  },[tmpItemInfo, callbackFormValues]);
 
   const itemProperty = (property, newValue) => {
     setTmpItemInfo((tmpItemInfo) => ({
