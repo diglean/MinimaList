@@ -2,8 +2,11 @@
     "name": "diglean/api",
     "autoload": {
         "psr-4": {
-            "Diglean\\Api\\": "src/"
+            "App\\": "src/App/",
+            "Domain\\": "src/Domain"
         }
     },
-    "require": {}
+    "require": {
+        "barryvdh/laravel-ide-helper": "^3.0"
+    }
 }
