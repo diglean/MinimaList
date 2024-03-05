@@ -2,11 +2,13 @@
     "name": "diglean/api",
     "autoload": {
         "psr-4": {
-            "App\\": "src/App/",
+            "App\\": "src/app/",
             "Domain\\": "src/Domain"
         }
     },
     "require": {
-        "barryvdh/laravel-ide-helper": "^3.0"
+        "barryvdh/laravel-ide-helper": "^3.0",
+        "spatie/laravel-data": "^4.2",
+        "laravel/laravel": "^10.3"
     }
 }

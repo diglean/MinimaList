@@ -2,6 +2,7 @@ import styles from "./styles/AddItensToList.module.css";
 import ItemSearchBar from "../components/ItemSearchBar";
 import { useLocation } from "react-router-dom";
 import { useCallback } from "react";
+import { useState } from "react";
 
 export default function AddItensToList() {
   const [listData, setListData] = useState({});
