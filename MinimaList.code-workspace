@@ -20,10 +20,10 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "XDebug - Minimalist",
+        "name": "XDebug - Teste",
         "type": "php",
         "request": "launch",
-        "port": 8000,
+        "port": 9003,
         "pathMappings": {
           "/api": "${workspaceFolder:api}"
         },
