@@ -24,22 +24,25 @@ const style = {
   borderRadius: "10px",
 };
 
+const ROOT = "http://localhost:3000";
+
 export default function ListInfoModal({ open, callBackFormValues }) {
   const navigate = useNavigate();
-  const addItensToList = useCallback((data) => {
-    fetch('../../../api/src/app/Http/Controllers/CreateListController', {
-      method: "POST",
-      body: JSON.stringify({
-        name: data.name,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(
-        navigate("/additenstolist", { state: { listName: data.name } })
-      );
-  },[navigate]);
+  const addItensToList = useCallback(
+    (data) => {
+      fetch(ROOT + "/api/list/new", {
+        method: "POST",
+        body: JSON.stringify(data.name),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((resp) => resp.json())
+        .then(navigate("/additenstolist", { state: { listName: data.name } }))
+        .catch((err) => console.log(err));
+    },
+    [navigate]
+  );
 
   return (
     <div>
