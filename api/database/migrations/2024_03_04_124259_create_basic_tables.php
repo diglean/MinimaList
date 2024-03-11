@@ -27,6 +27,7 @@ return new class extends Migration {
                 `id` SMALLINT NOT NULL AUTO_INCREMENT,
                 `name` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
                 `items_id` SMALLINT NULL,
+                `customer_id` SMALLINT NOT NULL DEFAULT 1,
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL,
                 PRIMARY KEY (`id`),
@@ -48,13 +49,13 @@ return new class extends Migration {
     {
         DB::unprepared(
             <<<SQL
-            DROP TABLE IF EXISTS`list`;
+            DROP TABLE IF EXISTS `list`;
             SQL,
         );
 
         DB::unprepared(
             <<<SQL
-            DROP TABLE IF EXISTS`list_items`;
+            DROP TABLE IF EXISTS `list_items`;
             SQL,
         );
     }

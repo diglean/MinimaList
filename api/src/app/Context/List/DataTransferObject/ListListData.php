@@ -4,15 +4,15 @@ namespace App\Context\List\DataTransferObject;
 
 use Spatie\LaravelData\Data;
 
-class CreateListData extends Data
+class ListListData extends Data
 {
     public function __construct(
-        public string $name,
+        public int $customer_id,
     ) {
     }
 
     public function rules(): array
     {
-        return ['name' => ['required', 'string', 'max:30']];
+        return ['customer_id' => ['required', 'integer', 'min:1']];
     }
 }

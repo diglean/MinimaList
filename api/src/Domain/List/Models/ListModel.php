@@ -16,6 +16,12 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|ListModel newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListModel newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListModel query()
+ * @property int|null $items_id
+ * @method static \Illuminate\Database\Eloquent\Builder|ListModel whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListModel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListModel whereItemsId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListModel whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListModel whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class ListModel extends Model
