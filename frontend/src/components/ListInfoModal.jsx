@@ -24,21 +24,33 @@ const style = {
   borderRadius: "10px",
 };
 
-const ROOT = "http://localhost:3000";
+const ROOT = "http://localhost:8000";
 
 export default function ListInfoModal({ open, callBackFormValues }) {
   const navigate = useNavigate();
   const addItensToList = useCallback(
     (data) => {
+      const body = JSON.stringify({
+        name: data.name,
+      });
+
       fetch(ROOT + "/api/list/new", {
         method: "POST",
-        body: JSON.stringify(data.name),
+        body: body,
         headers: {
           "Content-Type": "application/json",
         },
       })
-        .then((resp) => resp.json())
-        .then(navigate("/additenstolist", { state: { listName: data.name } }))
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+
+          let data = response.json();
+          let id = data.value.id;
+
+          // navigate("/additenstolist", { state: { list_id: id } });
+        })
         .catch((err) => console.log(err));
     },
     [navigate]
