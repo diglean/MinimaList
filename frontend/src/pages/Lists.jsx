@@ -6,8 +6,9 @@ import { List } from "@mui/material";
 export default function Lists() {
   const [lists, setLists] = useState([]);
 
-  const ROOT = "http://localhost:8000";
+  const ROOT = "http://127.0.0.1:8000";
 
+  // Laravel api
   useEffect(() => {
     fetch(ROOT + "/api/list/list", {
       method: "POST",
@@ -24,6 +25,21 @@ export default function Lists() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  // Json server api
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/lists", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       setLists(data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <div>

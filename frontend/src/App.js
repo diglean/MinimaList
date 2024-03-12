@@ -12,6 +12,7 @@ import Lists from "./pages/Lists";
 import Config from "./pages/Config";
 import Profile from "./pages/Profile";
 import AddItensToList from "./pages/AddItensToList";
+import SelectedItems from "./pages/SelectedItems";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/config" element={ <Config/> }/>
           <Route path="/profile" element={ <Profile/> }/>
           <Route path="/additenstolist" element={ <AddItensToList/> }/>
+          <Route path="/selecteditems" element={ <SelectedItems/> }/>
         </Routes>
         {window.location.pathname !== '/additenstolist' && (<BottomNavigation/>)}
       </Router>
