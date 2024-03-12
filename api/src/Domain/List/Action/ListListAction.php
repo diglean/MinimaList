@@ -17,11 +17,6 @@ class ListListAction
     {
         $lists = $this->listModel->whereCustomerId($data->customer_id)->get();
 
-        return $lists->map(fn (ListModel $listModel) => [
-            'name' => $listModel->name,
-            'created_at' => $listModel->created_at,
-            'updated_at' => $listModel->updated_at,
-            'items_id' => $listModel->items_id,
-        ]);
+        return $lists;
     }
 }

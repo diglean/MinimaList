@@ -6,9 +6,14 @@ import { List } from "@mui/material";
 export default function Lists() {
   const [lists, setLists] = useState([]);
 
+  const ROOT = "http://localhost:8000";
+
   useEffect(() => {
-    fetch("http://localhost:5000/lists", {
-      method: "GET",
+    fetch(ROOT + "/api/list/list", {
+      method: "POST",
+      body: JSON.stringify({
+        customer_id: 1,
+      }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -24,7 +29,7 @@ export default function Lists() {
     <div>
       {lists.length > 0 ? (
         <List>
-          <ListItem list={lists} listItens={["name", "created_at"]}/>
+          <ListItem list={lists} listItens={["name", "created_at"]} />
         </List>
       ) : (
         <NoListRegistered />
