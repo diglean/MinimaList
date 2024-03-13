@@ -49,7 +49,7 @@ export default function ListInfoModal({ open, callBackFormValues }) {
           let data = response.json();
           let id = data.value.id;
 
-          // navigate("/additenstolist", { state: { list_id: id } });
+          navigate("/additenstolist", { state: { list_id: id } });
         })
         .catch((err) => console.log(err));
     },

@@ -6,7 +6,7 @@ import { List } from "@mui/material";
 export default function Lists() {
   const [lists, setLists] = useState([]);
 
-  const ROOT = "http://127.0.0.1:8000";
+  const ROOT = "http://localhost:8000";
 
   // Laravel api
   useEffect(() => {

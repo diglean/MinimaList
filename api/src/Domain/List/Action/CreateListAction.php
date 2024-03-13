@@ -2,6 +2,7 @@
 
 namespace Domain\List\Action;
 
+use App\Context\List\DataTransferObject\CreateListData;
 use Domain\List\Models\ListModel;
 use Illuminate\Support\Carbon;
 
@@ -12,7 +13,7 @@ class CreateListAction
     ) {
     }
 
-    public function execute($data): array
+    public function execute(CreateListData $data): array
     {
         $createdList = $this->listModel->create([
             'name' => $data->name,
