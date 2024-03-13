@@ -30,13 +30,11 @@ export default function ListInfoModal({ open, callBackFormValues }) {
   const navigate = useNavigate();
   const addItensToList = useCallback(
     (data) => {
-      const body = JSON.stringify({
-        name: data.name,
-      });
-
       fetch(ROOT + "/api/list/new", {
         method: "POST",
-        body: body,
+        body: JSON.stringify({
+          name: data.name,
+        }),
         headers: {
           "Content-Type": "application/json",
         },

@@ -1,13 +1,14 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-const SelectedItems = ({ items_id }) => {
-  const [listData, setListData] = useState({});
+const SelectedItems = () => {
+  const [items, setItems] = useState([]);
   const { state } = useLocation();
 
   const ROOT = "localhost:8000";
 
   useEffect(
-    (items_id) => {
+    (state) => {
       fetch(ROOT + "/api/list", {
         method: "POST",
         body: JSON.stringify({
@@ -16,10 +17,15 @@ const SelectedItems = ({ items_id }) => {
         headers: {
           "Content-Type": "application/json",
         },
-      });
+      })
+        .then(() => {
+
+        });
     },
-    [items_id]
+    [state]
   );
+
+
 };
 
 export default SelectedItems;
