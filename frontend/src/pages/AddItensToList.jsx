@@ -8,6 +8,8 @@ export default function AddItensToList() {
   const [listData, setListData] = useState({});
   const { state } = useLocation();
 
+  const ROOT = "localhost:8000";
+
   const listProperty = (property, newValue) => {
     setListData((listItem) => ({
       ...listItem,
@@ -30,14 +32,14 @@ export default function AddItensToList() {
   });
 
   const addItensToList = useCallback((data) => {
-    fetch("http://localhost:5000/lists", {
+    fetch(ROOT + "/api/lists-itens/create", {
       method: "POST",
       body: JSON.stringify(data[0]),
       headers: {
         "Content-Type": "application/json",
       },
     });
-  },[]);
+  }, []);
 
   return (
     <div className={styles.container}>

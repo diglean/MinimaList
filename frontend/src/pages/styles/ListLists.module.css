@@ -1,0 +1,15 @@
+.container p {
+    color: #FFF;
+    font-size: 10px;
+}
+
+.container span {
+    color: #FFF;
+    font-size: 1em;
+}
+
+.container li {
+    color: #FFF;
+    border-width: 1px solid;
+    border-color: rgb(104, 104, 104);
+}

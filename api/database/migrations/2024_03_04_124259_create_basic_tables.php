@@ -12,7 +12,8 @@ return new class extends Migration {
         DB::unprepared(
             <<<SQL
             CREATE TABLE `list_items` (
-                `id` SMALLINT NOT NULL AUTO_INCREMENT,
+                `id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                `list_id` SMALLINT UNSIGNED NOT NULL, 
                 `items` JSON NOT NULL,
                 `comment` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
                 `created_at` DATETIME NOT NULL,
@@ -24,10 +25,11 @@ return new class extends Migration {
         DB::unprepared(
             <<<SQL
             CREATE TABLE `list` (
-                `id` SMALLINT NOT NULL AUTO_INCREMENT,
+                `id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `name` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                `items_id` SMALLINT NULL,
-                `customer_id` SMALLINT NOT NULL DEFAULT 1,
+                `items_id` SMALLINT UNSIGNED NULL,
+                `items_qty` SMALLINT NULL DEFAULT 0,
+                `customer_id` SMALLINT UNSIGNED NOT NULL DEFAULT 1,
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL,
                 PRIMARY KEY (`id`),
@@ -40,6 +42,20 @@ return new class extends Migration {
             );
             SQL,
         );
+
+        // DB::unprepared(
+        //     <<<SQL
+        //     ALTER TABLE `list_item`
+        //     CREATE INDEX `list_id_idx` (`list_id` ASC),
+        //     CONSTRAINT `fk_list1`
+        //     FOREIGN KEY (`list`)
+        //     REFERENCES `list` (`id`)
+        //     ON DELETE NO ACTION
+        //     ON UPDATE NO ACTION
+        //     SQL,
+        // );
+
+        // TODO - CRIAR INDEX E FK
     }
 
     /**

@@ -7,7 +7,7 @@ use Domain\List\Action\ListItensAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
 use Illuminate\Http\Request;
 
-class ListItensController extends Controller
+class ListItemsController extends Controller
 {
   public function __construct(
     public readonly Response $response,
