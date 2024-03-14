@@ -5,6 +5,7 @@ import { useCallback } from "react";
 import { useState } from "react";
 
 export default function AddItensToList() {
+  const [listItems, setListItems] = useState([]);
   const [listData, setListData] = useState({});
   const { state } = useLocation();
 
@@ -17,21 +18,11 @@ export default function AddItensToList() {
     }));
   };
 
-  const createNewList = useCallback((data) => {
-    fetch("http://localhost:5000/lists", {
-      method: state.id ? "PUT" : "POST",
-      body: JSON.stringify(listData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  });
+  // const setListItems = useCallback((data) => {
+  //   listProperty("items", data);
+  // });
 
-  const setListItems = useCallback((data) => {
-    listProperty("items", data);
-  });
-
-  const addItensToList = useCallback((data) => {
+  const addItemToList = useCallback((data) => {
     fetch(ROOT + "/api/lists-itens/create", {
       method: "POST",
       body: JSON.stringify(data[0]),
@@ -43,7 +34,7 @@ export default function AddItensToList() {
 
   return (
     <div className={styles.container}>
-      <ItemSearchBar callbackFormValues={(data) => addItensToList(data)} />
+      <ItemSearchBar callbackFormValues={(data) => addItemToList(data)} />
     </div>
   );
 }

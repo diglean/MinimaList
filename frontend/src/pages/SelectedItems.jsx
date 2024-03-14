@@ -1,19 +1,56 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 
 import { List } from "@mui/material";
 
 import ListItems from "./ListItems";
-import AddItensToList from "./AddItensToList";
+import ItemSearchBar from "../components/ItemSearchBar";
+import styles from "./styles/SelectedItems.module.css";
 
 const SelectedItems = () => {
-  const [items, setItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([
+    {
+      id: 1,
+      name: "Tomato sauce",
+      quantity: 1,
+      unit: "kg",
+      price: 2.5,
+    },
+    {
+      id: 2,
+      name: "Onion",
+      quantity: 1,
+      unit: "kg",
+      price: 1.5,
+    },
+    {
+      id: 3,
+      name: "Potato",
+      quantity: 1,
+      unit: "kg",
+      price: 1.5,
+    },
+    {
+      id: 4,
+      name: "Carrot",
+      quantity: 1,
+      unit: "kg",
+      price: 1.5,
+    },
+    {
+      id: 5,
+      name: "Cabbage",
+      quantity: 1,
+      unit: "kg",
+      price: 1.5,
+    },
+  ]);
   const { state } = useLocation();
 
   const ROOT = "localhost:8000";
 
   const fetchListItems = (data) => {
-    fetch(ROOT + "/api/list-itens/list", {
+    fetch(ROOT + "/api/list-items/list", {
       method: "POST",
       body: JSON.stringify({
         id: data,
@@ -22,24 +59,41 @@ const SelectedItems = () => {
         "Content-Type": "application/json",
       },
     }).then((resp) => {
-      setItems(resp);
+      setSelectedItems(resp);
     });
   };
 
   useEffect(() => {
-    const items_id = state.items_id;
+    // const items_id = state.items_id;
 
-    if (items_id !== null) {
-      fetchListItems(items_id);
-    }
+    // if (typeof items_id !== "undefined" && items_id !== null) {
+    //   fetchListItems(items_id);
+    // }
   }, [state]);
+
+  const listProperty = (property, newValue) => {
+    setSelectedItems((listItem) => ({
+      ...listItem,
+      [property]: newValue,
+    }));
+  };
+
+  const setListItems = useCallback((data) => {
+    listProperty("items", data);
+  }, []);
+
+  const addItemToList = useCallback((data) => {
+    setListItems()
+  }, [setListItems]);
 
   return (
     <div>
-      <AddItensToList />
-      {items.length > 0 && (
+      <div class={styles.container}>
+        <ItemSearchBar callbackFormValues={(data) => addItemToList(data)} />
+      </div>
+      {selectedItems.length > 0 && (
         <List>
-          <ListItems list={items} />
+          <ListItems list={selectedItems} />
         </List>
       )}
     </div>

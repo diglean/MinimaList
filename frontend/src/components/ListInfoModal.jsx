@@ -30,7 +30,7 @@ export default function ListInfoModal({ open, callBackFormValues }) {
   const navigate = useNavigate();
   const addItensToList = useCallback(
     (data) => {
-      fetch(ROOT + "/api/list/new", {
+      fetch(ROOT + "/api/list/create", {
         method: "POST",
         body: JSON.stringify({
           name: data.name,
@@ -47,7 +47,7 @@ export default function ListInfoModal({ open, callBackFormValues }) {
           let data = response.json();
           let id = data.value.id;
 
-          navigate("/additenstolist", { state: { list_id: id } });
+          navigate("/selected-items", { state: { list_id: id } });
         })
         .catch((err) => console.log(err));
     },

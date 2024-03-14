@@ -11,23 +11,21 @@ import theme from './components/theme';
 import Lists from "./pages/Lists";
 import Config from "./pages/Config";
 import Profile from "./pages/Profile";
-import AddItensToList from "./pages/AddItensToList";
 import SelectedItems from "./pages/SelectedItems";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {window.location.pathname !== '/additenstolist' && (<AppBar/>)}
+        {window.location.pathname !== '/selected-items' && (<AppBar/>)}
         <Routes>
           <Route path="/" element={ <Lists/> }/>
           <Route path="/lists" element={ <Lists/> }/>
           <Route path="/config" element={ <Config/> }/>
           <Route path="/profile" element={ <Profile/> }/>
-          <Route path="/additenstolist" element={ <AddItensToList/> }/>
-          <Route path="/selecteditems" element={ <SelectedItems/> }/>
+          <Route path="/selected-items" element={ <SelectedItems/> }/>
         </Routes>
-        {window.location.pathname !== '/additenstolist' && (<BottomNavigation/>)}
+        {window.location.pathname !== '/selected-items' && (<BottomNavigation/>)}
       </Router>
     </ThemeProvider>
   )

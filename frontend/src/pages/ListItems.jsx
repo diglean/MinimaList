@@ -7,17 +7,23 @@ import {
 import styles from "./styles/ListItems.module.css";
 
 const ListItems = ({ list }) => {
-  return list.map(({ name, created_at, items_qty, items_id }, index) => (
+  const CURRENCY = "R$";
+
+  const handleClick = (id) => {
+    console.log(id);
+  }
+
+  return list.map(({ id, name, unit, price }, index) => (
     <div className={styles.container} key={index + name}>
       <ListItemButton>
         <ListItemText
           primary={name}
           secondary={
             <>
-              <Typography component="span">{items_qty} Itens</Typography>
+              <Typography component="span">{CURRENCY + " " + price} / {unit}</Typography>
             </>
           }
-          // onClick={() => handleClick(items_id)}
+          onClick={() => handleClick(id)}
         />
       </ListItemButton>
       <Divider variant="middle" component="li" />

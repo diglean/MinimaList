@@ -30,6 +30,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
             Route::group([], base_path('routes/List/List.php'));
+            Route::group([], base_path('routes/List/ListItem.php'));
         });
     }
 }
