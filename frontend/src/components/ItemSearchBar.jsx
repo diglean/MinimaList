@@ -3,23 +3,37 @@ import { useState } from "react";
 
 import { Grid } from "@mui/material";
 
-import styles from "./styles/ItemSearchBar.module.css";
-import CustomListItem from "./SearchBarItemList";
 import Button from "./Button";
 import Input from "./Input";
 import Form from "./Form";
+import QuantityInput from "./NumberInput";
+
+import ListItemInfoModal from "./modals/ListItemInfoModal";
+
+import styles from "./styles/ItemSearchBar.module.css";
+import { useCallback } from "react";
 
 export default function ItemSearchBar({ callbackFormValues }) {
-  const [tmpItemInfo, setTmpItemInfo] = useState({});
+  const [tmpItemInfo, setTmpItemInfo] = useState({
+    name: null,
+    qty: 1,
+    price: null,
+    unit: "kg",
+  });
 
   const [searchValue, setSearchValue] = useState("");
 
-  const handleChange = (data) => {
-    setTmpItemInfo([{ name: data.name, qty: 1 }]);
+  const handleSubmit = (data) => {
+    itemProperty("name", data.name);
     setSearchValue("");
   };
 
   const handleItemDetailsChange = (data) => {
+    if (data === false) {
+      setTmpItemInfo({});
+      return;
+    }
+
     setTmpItemInfo([data]);
   };
 
@@ -27,9 +41,30 @@ export default function ItemSearchBar({ callbackFormValues }) {
     setTmpItemInfo([]);
   };
 
+  const itemProperty = (property, newValue) => {
+    setTmpItemInfo((tmpItemInfo) => ({
+      ...tmpItemInfo,
+      [property]: newValue,
+    }));
+  };
+
+  const handleChangeNumberInput = useCallback(
+    (data) => {
+      itemProperty("qty", data);
+      callbackFormValues(tmpItemInfo);
+    },
+    [tmpItemInfo, callbackFormValues]
+  );
+
+  const setTmpItemDetails = (data) => {
+    if (data !== false) {
+      setTmpItemInfo(data);
+    }
+  };
+
   return (
     <div className={styles.component}>
-      <Form callBackSubmit={(data) => handleChange(data)}>
+      <Form callBackSubmit={(data) => handleSubmit(data)}>
         <Input
           label="Item Name"
           name="name"
@@ -37,12 +72,17 @@ export default function ItemSearchBar({ callbackFormValues }) {
           value={searchValue}
         />
       </Form>
-      {tmpItemInfo.length > 0 && (
-        <div>
-          <CustomListItem
-            item={tmpItemInfo}
-            callbackFormValues={(data) => handleItemDetailsChange(data)}
-          />
+      {tmpItemInfo.name && (
+        <div className={styles.container} key={Math.random()}>
+          <ListItemInfoModal
+            itemData={tmpItemInfo}
+            callbackFormValues={(data) => setTmpItemDetails(data)}
+          >
+            <QuantityInput
+              value={tmpItemInfo.qty}
+              cbValue={(data) => handleChangeNumberInput(data)}
+            />
+          </ListItemInfoModal>
           <Grid
             container
             display="flex"

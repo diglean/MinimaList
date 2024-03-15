@@ -39,15 +39,9 @@ export default function ListInfoModal({ open, callBackFormValues }) {
           "Content-Type": "application/json",
         },
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-
-          let data = response.json();
-          let id = data.value.id;
-
-          navigate("/selected-items", { state: { list_id: id } });
+        .then((response) => response.json())
+        .then((data) => {
+          navigate("/selected-items", { state: { list_id: data.id } });
         })
         .catch((err) => console.log(err));
     },

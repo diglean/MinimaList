@@ -4,6 +4,8 @@ import { useState } from "react";
 import ListItemInfoModal from "./modals/ListItemInfoModal";
 import { useCallback } from "react";
 import { useEffect } from "react";
+import { Grid } from "@mui/material";
+import Button from "./Button";
 
 const CustomListItem = ({ item, callbackFormValues }) => {
   const [tmpItemInfo, setTmpItemInfo] = useState({
@@ -17,10 +19,13 @@ const CustomListItem = ({ item, callbackFormValues }) => {
     itemProperty("name", item[0].name);
   }, [item]);
 
-  const handleChangeNumberInput = useCallback((data) => {
-    itemProperty("qty", data);
-    callbackFormValues(tmpItemInfo);
-  },[tmpItemInfo, callbackFormValues]);
+  const handleChangeNumberInput = useCallback(
+    (data) => {
+      itemProperty("qty", data);
+      callbackFormValues(tmpItemInfo);
+    },
+    [tmpItemInfo, callbackFormValues]
+  );
 
   const itemProperty = (property, newValue) => {
     setTmpItemInfo((tmpItemInfo) => ({
@@ -47,6 +52,29 @@ const CustomListItem = ({ item, callbackFormValues }) => {
             cbValue={(data) => handleChangeNumberInput(data)}
           />
         </ListItemInfoModal>
+        <Grid
+          container
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          spacing={2}
+          className={styles.button_container}
+        >
+          <Grid item>
+            <Button
+              onClick={() => callbackFormValues(false)}
+              variant="outlined"
+              text="Cancel"
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              onClick={() => callbackFormValues(tmpItemInfo)}
+              variant="contained"
+              text="Confirm"
+            />
+          </Grid>
+        </Grid>
       </div>
     )
   );

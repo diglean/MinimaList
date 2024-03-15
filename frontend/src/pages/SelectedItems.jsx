@@ -9,42 +9,43 @@ import styles from "./styles/SelectedItems.module.css";
 
 const SelectedItems = () => {
   const [selectedItems, setSelectedItems] = useState([
-    {
-      id: 1,
-      name: "Tomato sauce",
-      quantity: 1,
-      unit: "kg",
-      price: 2.5,
-    },
-    {
-      id: 2,
-      name: "Onion",
-      quantity: 1,
-      unit: "kg",
-      price: 1.5,
-    },
-    {
-      id: 3,
-      name: "Potato",
-      quantity: 1,
-      unit: "kg",
-      price: 1.5,
-    },
-    {
-      id: 4,
-      name: "Carrot",
-      quantity: 1,
-      unit: "kg",
-      price: 1.5,
-    },
-    {
-      id: 5,
-      name: "Cabbage",
-      quantity: 1,
-      unit: "kg",
-      price: 1.5,
-    },
+    // {
+    //   id: 1,
+    //   name: "Tomato sauce",
+    //   quantity: 1,
+    //   unit: "kg",
+    //   price: 2.5,
+    // },
+    // {
+    //   id: 2,
+    //   name: "Onion",
+    //   quantity: 1,
+    //   unit: "kg",
+    //   price: 1.5,
+    // },
+    // {
+    //   id: 3,
+    //   name: "Potato",
+    //   quantity: 1,
+    //   unit: "kg",
+    //   price: 1.5,
+    // },
+    // {
+    //   id: 4,
+    //   name: "Carrot",
+    //   quantity: 1,
+    //   unit: "kg",
+    //   price: 1.5,
+    // },
+    // {
+    //   id: 5,
+    //   name: "Cabbage",
+    //   quantity: 1,
+    //   unit: "kg",
+    //   price: 1.5,
+    // },
   ]);
+
   const { state } = useLocation();
 
   const ROOT = "localhost:8000";
@@ -65,7 +66,6 @@ const SelectedItems = () => {
 
   useEffect(() => {
     // const items_id = state.items_id;
-
     // if (typeof items_id !== "undefined" && items_id !== null) {
     //   fetchListItems(items_id);
     // }
@@ -82,13 +82,16 @@ const SelectedItems = () => {
     listProperty("items", data);
   }, []);
 
-  const addItemToList = useCallback((data) => {
-    setListItems()
-  }, [setListItems]);
+  const addItemToList = useCallback(
+    (data) => {
+      setListItems(data);
+    },
+    [setListItems]
+  );
 
   return (
     <div>
-      <div class={styles.container}>
+      <div className={styles.container}>
         <ItemSearchBar callbackFormValues={(data) => addItemToList(data)} />
       </div>
       {selectedItems.length > 0 && (
