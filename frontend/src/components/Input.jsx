@@ -14,6 +14,7 @@ const TextField = styled(MuiTextField)({
   },
   "& .MuiOutlinedInput-input": {
     color: "white",
+    textAlign: 'center'
   },
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
@@ -28,8 +29,8 @@ const TextField = styled(MuiTextField)({
   },
 });
 
-const Input = () => {
-  return <TextField value="100" />;
+const Input = ({ value }) => {
+  return <TextField value={value} />;
 };
 
 export default Input;
