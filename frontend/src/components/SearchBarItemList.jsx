@@ -22,7 +22,7 @@ const CustomListItem = ({ item, callbackFormValues }) => {
   const handleChangeNumberInput = useCallback(
     (data) => {
       itemProperty("qty", data);
-      callbackFormValues(tmpItemInfo);
+      // callbackFormValues(tmpItemInfo);
     },
     [tmpItemInfo, callbackFormValues]
   );

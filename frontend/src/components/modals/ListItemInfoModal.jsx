@@ -16,10 +16,12 @@ import {
 import Form from "../Form";
 import Button from "../Button";
 import TemporaryDrawer from "../Drawer";
-import Input from "../Input";
+import Input from "../FormInput";
 import { Fragment } from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";
+
+import styles from "./styles/ListItemInfoModal.module.css";
 
 const style = {
   position: "absolute",
@@ -181,7 +183,7 @@ export default function ListItemInfoModal({
         item={itemData}
         callbackFormValues={(data) => callbackFormValuesChild(data)}
       />
-      <ListItem>
+      <ListItem className={styles.list_item_container}>
         <ListItemButton disableRipple onClick={() => setModalOpen(true)}>
           <ListItemText
             primary={itemData.name}

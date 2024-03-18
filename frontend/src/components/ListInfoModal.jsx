@@ -9,7 +9,7 @@ import Modal from "@mui/material/Modal";
 
 import Form from "../components/Form";
 import Button from "../components/Button";
-import Input from "../components/Input";
+import Input from "../components/FormInput";
 
 const style = {
   position: "absolute",

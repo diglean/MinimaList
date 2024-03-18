@@ -3,17 +3,16 @@ import { useState } from "react";
 
 import { Grid } from "@mui/material";
 
+import styles from "./styles/ItemSearchBar.module.css";
+
 import Button from "./Button";
-import Input from "./Input";
+import Input from "./FormInput";
 import Form from "./Form";
-import QuantityInput from "./NumberInput";
+import NumberInput from "./NumberInput";
 
 import ListItemInfoModal from "./modals/ListItemInfoModal";
 
-import styles from "./styles/ItemSearchBar.module.css";
-import { useCallback } from "react";
-
-export default function ItemSearchBar({ callbackFormValues }) {
+const ItemSearchBar = ({ callbackFormValues }) => {
   const [tmpItemInfo, setTmpItemInfo] = useState({
     name: null,
     qty: 1,
@@ -28,14 +27,14 @@ export default function ItemSearchBar({ callbackFormValues }) {
     setSearchValue("");
   };
 
-  const handleItemDetailsChange = (data) => {
-    if (data === false) {
-      setTmpItemInfo({});
-      return;
-    }
+  // const handleItemDetailsChange = (data) => {
+  //   if (data === false) {
+  //     setTmpItemInfo({});
+  //     return;
+  //   }
 
-    setTmpItemInfo([data]);
-  };
+  //   setTmpItemInfo([data]);
+  // };
 
   const cleanTmpItemInfo = () => {
     setTmpItemInfo([]);
@@ -48,13 +47,11 @@ export default function ItemSearchBar({ callbackFormValues }) {
     }));
   };
 
-  const handleChangeNumberInput = useCallback(
-    (data) => {
-      itemProperty("qty", data);
-      callbackFormValues(tmpItemInfo);
-    },
-    [tmpItemInfo, callbackFormValues]
-  );
+  // const handleChangeNumberInput = useCallback((data) => {
+  //   itemProperty("qty", data);
+
+  //   // callbackFormValues(tmpItemInfo);
+  // }, []);
 
   const setTmpItemDetails = (data) => {
     if (data !== false) {
@@ -78,10 +75,7 @@ export default function ItemSearchBar({ callbackFormValues }) {
             itemData={tmpItemInfo}
             callbackFormValues={(data) => setTmpItemDetails(data)}
           >
-            <QuantityInput
-              value={tmpItemInfo.qty}
-              cbValue={(data) => handleChangeNumberInput(data)}
-            />
+            <NumberInput />
           </ListItemInfoModal>
           <Grid
             container
@@ -110,4 +104,6 @@ export default function ItemSearchBar({ callbackFormValues }) {
       )}
     </div>
   );
-}
+};
+
+export default ItemSearchBar;
