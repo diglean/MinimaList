@@ -13,12 +13,14 @@ import NumberInput from "./NumberInput";
 import ListItemInfoModal from "./modals/ListItemInfoModal";
 
 const ItemSearchBar = ({ callbackFormValues }) => {
-  const [tmpItemInfo, setTmpItemInfo] = useState({
+  const DEFAULT_ITEM_INFO = {
     name: null,
     qty: 1,
     price: null,
     unit: "kg",
-  });
+  };
+
+  const [tmpItemInfo, setTmpItemInfo] = useState(DEFAULT_ITEM_INFO);
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -27,17 +29,8 @@ const ItemSearchBar = ({ callbackFormValues }) => {
     setSearchValue("");
   };
 
-  // const handleItemDetailsChange = (data) => {
-  //   if (data === false) {
-  //     setTmpItemInfo({});
-  //     return;
-  //   }
-
-  //   setTmpItemInfo([data]);
-  // };
-
   const cleanTmpItemInfo = () => {
-    setTmpItemInfo([]);
+    setTmpItemInfo(DEFAULT_ITEM_INFO);
   };
 
   const itemProperty = (property, newValue) => {
@@ -46,12 +39,6 @@ const ItemSearchBar = ({ callbackFormValues }) => {
       [property]: newValue,
     }));
   };
-
-  // const handleChangeNumberInput = useCallback((data) => {
-  //   itemProperty("qty", data);
-
-  //   // callbackFormValues(tmpItemInfo);
-  // }, []);
 
   const setTmpItemDetails = (data) => {
     if (data !== false) {
@@ -75,7 +62,12 @@ const ItemSearchBar = ({ callbackFormValues }) => {
             itemData={tmpItemInfo}
             callbackFormValues={(data) => setTmpItemDetails(data)}
           >
-            <NumberInput />
+            <NumberInput
+              inputValue={tmpItemInfo.qty}
+              cbHandleChange={(data) => {
+                itemProperty("qty", data);
+              }}
+            />
           </ListItemInfoModal>
           <Grid
             container

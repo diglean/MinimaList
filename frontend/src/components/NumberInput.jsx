@@ -6,38 +6,38 @@ import Form from "./Form";
 import Input from "./Input";
 
 import styles from "./styles/NumberInput.module.css";
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 
-const NumberInput = () => {
-  const [inputValue, setInputValue] = useState(0);
+const NumberInput = ({ inputValue, cbHandleChange }) => {
+  const updateValue = useCallback(
+    (data) => {
+      switch (data) {
+        case "increment":
+          inputValue = inputValue + 1;
+          break;
+        case "decrement":
+          inputValue = inputValue - 1;
+          break;
+        default:
+          break;
+      }
 
-  const updateValue = useCallback((data) => {
-    console.log("test");
-    
-    switch (data) {
-      case "increment":
-        setInputValue(inputValue => inputValue + 1);
-        break;
-      case "decrement":
-        setInputValue(inputValue => inputValue - 1);
-        break;
-      default:
-        break;
-    }
-  }, []);
+      cbHandleChange(inputValue);
+    },
+    [cbHandleChange]
+  );
 
   return (
     <div>
       <Grid container className={styles.grid_container}>
         <Grid item xs={1} className={styles.grid_item}>
-          <button onClick={() => updateValue("decrement")} style={{ position: "fixed", zIndex: 5555 }}>Teste</button>
           <Button onClick={() => updateValue("decrement")}>
             <FaMinusCircle size={20} />
           </Button>
         </Grid>
         <Grid item xs={3}>
           <Form>
-            <Input name="quantity" value={inputValue}/>
+            <Input name="quantity" value={inputValue} />
           </Form>
         </Grid>
         <Grid item xs={1} className={styles.grid_item}>

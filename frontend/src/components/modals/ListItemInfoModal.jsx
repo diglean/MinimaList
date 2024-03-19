@@ -24,7 +24,7 @@ import { useEffect } from "react";
 import styles from "./styles/ListItemInfoModal.module.css";
 
 const style = {
-  position: "absolute",
+  position: "relative",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
