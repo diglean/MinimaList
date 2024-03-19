@@ -1,12 +1,17 @@
-.container {
-    margin: 1em;
-    color: #FFF;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .component {
-    display: flex;
-    width: 100%;
-  }
+.container_search_bar {
+  width: 91vw;
+  margin: 1em;
+  z-index: 1;
+  color: #FFF;
+  background-color: #000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  line-height:50px;
+}
+
+.container_list {
+  /* padding-top: 60px; */
+  position: relative;
+}

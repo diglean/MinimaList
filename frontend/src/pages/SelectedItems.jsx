@@ -9,41 +9,41 @@ import styles from "./styles/SelectedItems.module.css";
 
 const SelectedItems = () => {
   const [selectedItems, setSelectedItems] = useState([
-    // {
-    //   id: 1,
-    //   name: "Tomato sauce",
-    //   quantity: 1,
-    //   unit: "kg",
-    //   price: 2.5,
-    // },
-    // {
-    //   id: 2,
-    //   name: "Onion",
-    //   quantity: 1,
-    //   unit: "kg",
-    //   price: 1.5,
-    // },
-    // {
-    //   id: 3,
-    //   name: "Potato",
-    //   quantity: 1,
-    //   unit: "kg",
-    //   price: 1.5,
-    // },
-    // {
-    //   id: 4,
-    //   name: "Carrot",
-    //   quantity: 1,
-    //   unit: "kg",
-    //   price: 1.5,
-    // },
-    // {
-    //   id: 5,
-    //   name: "Cabbage",
-    //   quantity: 1,
-    //   unit: "kg",
-    //   price: 1.5,
-    // },
+    {
+      id: 1,
+      name: "Tomato sauce",
+      quantity: 1,
+      unit: "kg",
+      price: 2.5,
+    },
+    {
+      id: 2,
+      name: "Onion",
+      quantity: 1,
+      unit: "kg",
+      price: 1.5,
+    },
+    {
+      id: 3,
+      name: "Potato",
+      quantity: 1,
+      unit: "kg",
+      price: 1.5,
+    },
+    {
+      id: 4,
+      name: "Carrot",
+      quantity: 1,
+      unit: "kg",
+      price: 1.5,
+    },
+    {
+      id: 5,
+      name: "Cabbage",
+      quantity: 1,
+      unit: "kg",
+      price: 1.5,
+    },
   ]);
 
   const { state } = useLocation();
@@ -91,13 +91,15 @@ const SelectedItems = () => {
 
   return (
     <div>
-      <div className={styles.container}>
+      <div className={styles.container_search_bar}>
         <ItemSearchBar callbackFormValues={(data) => addItemToList(data)} />
       </div>
       {selectedItems.length > 0 && (
-        <List>
-          <ListItems list={selectedItems} />
-        </List>
+        <div className={styles.container_list}>
+          <List>
+            <ListItems list={selectedItems} />
+          </List>
+        </div>
       )}
     </div>
   );
