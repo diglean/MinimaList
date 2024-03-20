@@ -8,43 +8,7 @@ import ItemSearchBar from "../components/ItemSearchBar";
 import styles from "./styles/SelectedItems.module.css";
 
 const SelectedItems = () => {
-  const [selectedItems, setSelectedItems] = useState([
-    {
-      id: 1,
-      name: "Tomato sauce",
-      quantity: 1,
-      unit: "kg",
-      price: 2.5,
-    },
-    {
-      id: 2,
-      name: "Onion",
-      quantity: 1,
-      unit: "kg",
-      price: 1.5,
-    },
-    {
-      id: 3,
-      name: "Potato",
-      quantity: 1,
-      unit: "kg",
-      price: 1.5,
-    },
-    {
-      id: 4,
-      name: "Carrot",
-      quantity: 1,
-      unit: "kg",
-      price: 1.5,
-    },
-    {
-      id: 5,
-      name: "Cabbage",
-      quantity: 1,
-      unit: "kg",
-      price: 1.5,
-    },
-  ]);
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const { state } = useLocation();
 
@@ -82,12 +46,25 @@ const SelectedItems = () => {
     listProperty("items", data);
   }, []);
 
-  const addItemToList = useCallback(
-    (data) => {
-      setListItems(data);
-    },
-    [setListItems]
-  );
+  const addItemToList = useCallback((data) => {
+    const method = state.id ? "PUT" : "POST";
+    const url = state.id ? "/api/list-item/edit" : "/api/list-items/create";
+    let body = {
+      item: data,
+    };
+
+    if (state.id) {
+      body.id = state.id;
+    }
+
+    fetch(ROOT + url, {
+      method,
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }, []);
 
   return (
     <div>
