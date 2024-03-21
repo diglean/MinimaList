@@ -24,7 +24,7 @@ const ItemSearchBar = ({ callbackFormValues }) => {
 
   const [searchValue, setSearchValue] = useState("");
 
-  const handleSubmit = (data) => {
+  const setItemName = (data) => {
     itemProperty("name", data.name);
     setSearchValue("");
   };
@@ -48,7 +48,7 @@ const ItemSearchBar = ({ callbackFormValues }) => {
 
   return (
     <div className={styles.component}>
-      <Form callBackSubmit={(data) => handleSubmit(data)}>
+      <Form callBackSubmit={(data) => setItemName(data)}>
         <Input
           label="Item Name"
           name="name"

@@ -11,7 +11,7 @@ export default function ListList({ list }) {
   const navigate = useNavigate();
 
   const handleClick = (data) => {
-    navigate("/selecteditems", { state: { items_id: data } });
+    navigate("/selected-items", { state: { items_id: data } });
   };
 
   return list.map(({ name, created_at, items_qty, items_id }, index) => (

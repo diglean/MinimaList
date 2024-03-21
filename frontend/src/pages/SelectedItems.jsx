@@ -12,7 +12,7 @@ const SelectedItems = () => {
 
   const { state } = useLocation();
 
-  const ROOT = "localhost:8000";
+  const ROOT = "http://localhost:8000";
 
   const fetchListItems = (data) => {
     fetch(ROOT + "/api/list-items/list", {
@@ -46,25 +46,27 @@ const SelectedItems = () => {
     listProperty("items", data);
   }, []);
 
-  const addItemToList = useCallback((data) => {
-    const method = state.id ? "PUT" : "POST";
-    const url = state.id ? "/api/list-item/edit" : "/api/list-items/create";
-    let body = {
-      item: data,
-    };
-
-    if (state.id) {
-      body.id = state.id;
-    }
-
-    fetch(ROOT + url, {
-      method,
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }, []);
+  const addItemToList = useCallback(
+    (data) => {
+      fetch(ROOT + "/api/list-items/create", {
+        method: "POST",
+        body: JSON.stringify({
+          // TODO - FIX THIS, ONLY TESTING
+          list_id: 1,
+          items: data,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .catch((err) => console.log(err))
+        .then((data) => {
+          console.log(data);
+        });
+    },
+    [state]
+  );
 
   return (
     <div>
