@@ -23,16 +23,19 @@ const SelectedItems = () => {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((resp) => {
-      setSelectedItems(resp);
-    });
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setListItems(data.items);
+      });
+    setSelectedItems();
   };
 
   useEffect(() => {
-    // const items_id = state.items_id;
-    // if (typeof items_id !== "undefined" && items_id !== null) {
-    //   fetchListItems(items_id);
-    // }
+    const items_id = state.items_id;
+    if (typeof items_id !== "undefined" && items_id !== null) {
+      fetchListItems(items_id);
+    }
   }, [state]);
 
   const listProperty = (property, newValue) => {
@@ -46,14 +49,17 @@ const SelectedItems = () => {
     listProperty("items", data);
   }, []);
 
+  async function fetchItems() {
+    await fetch;
+  }
+
   const addItemToList = useCallback(
     (data) => {
       fetch(ROOT + "/api/list-items/create", {
         method: "POST",
         body: JSON.stringify({
-          // TODO - FIX THIS, ONLY TESTING
-          list_id: 1,
-          items: data,
+          list_id: state.list_id,
+          items: [data],
         }),
         headers: {
           "Content-Type": "application/json",

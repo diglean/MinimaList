@@ -31,6 +31,7 @@ class ListItem extends Model
   use HasFactory;
 
   protected $fillable = [
+    'list_id',
     'items',
     'comment',
     'created_at',

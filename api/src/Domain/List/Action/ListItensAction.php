@@ -14,7 +14,7 @@ class ListItensAction
 
     public function execute(ListItensData $data): array
     {
-        $listItems = $this->listItem->whereId($data->id)->get();
+        $listItems = $this->listItem->whereId($data->id)->first();
 
         $items = json_decode($listItems->items, true);
 
