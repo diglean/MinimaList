@@ -7,6 +7,9 @@ use Illuminate\Contracts\Routing\ResponseFactory as Response;
 use Domain\List\Action\CreateListAction;
 use Illuminate\Http\Request;
 
+/**
+ * @author Diego Leandro - <https://github.com/diglean>
+ */
 class CreateListController extends Controller
 {
     public function __construct(

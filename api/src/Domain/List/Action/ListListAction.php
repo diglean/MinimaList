@@ -13,10 +13,18 @@ class ListListAction
     ) {
     }
 
+    /**
+     * Executes the action to list lists.
+     *
+     * @param ListListData $data The data for listing the lists.
+     * @return Collection The lists.
+     */
     public function execute(ListListData $data): Collection
     {
+        /** @var Collection $lists */
         $lists = $this->listModel->whereCustomerId($data->customer_id)->get();
 
         return $lists;
     }
+
 }

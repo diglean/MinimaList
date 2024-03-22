@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property int|null $items_id
  * @method static \Illuminate\Database\Eloquent\Builder|ListModel newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListModel newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListModel query()
- * @property int|null $items_id
  * @method static \Illuminate\Database\Eloquent\Builder|ListModel whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListModel whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListModel whereItemsId($value)

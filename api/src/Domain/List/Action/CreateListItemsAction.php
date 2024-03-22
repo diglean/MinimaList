@@ -15,14 +15,20 @@ class CreateListItemsAction
     ) {
     }
 
+    /**
+     * Executes the action to create list items.
+     *
+     * @param CreateListItemsData $data The data for creating the list items.
+     * @return array The created list items.
+     */
     public function execute(CreateListItemsData $data): array
     {
         $listItems = $this->listItem->create([
-          'list_id' => $data->list_id,
-          'items' => json_encode($data->items),
-          'comment' => $data->comment,
-          'created_at' => Carbon::now(),
-          'updated_at' => Carbon::now(),
+            'list_id' => $data->list_id,
+            'items' => json_encode($data->items),
+            'comment' => $data->comment,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
         $this->list->whereId($data->list_id)->update([

@@ -4,16 +4,17 @@ namespace Domain\List\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $list_id
  * @property string $items
  * @property string $comment
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|ListItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListItem newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListItem query()
@@ -26,15 +27,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ListItem extends Model
 {
-  public $table = "list_items";
+    public $table = "list_items";
 
-  use HasFactory;
+    use HasFactory;
 
-  protected $fillable = [
-    'list_id',
-    'items',
-    'comment',
-    'created_at',
-    'updated_at',
-  ];
+    protected $fillable = [
+        'list_id',
+        'items',
+        'comment',
+        'created_at',
+        'updated_at',
+    ];
 }

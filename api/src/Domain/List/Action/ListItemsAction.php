@@ -5,13 +5,19 @@ namespace Domain\List\Action;
 use App\Context\List\DataTransferObject\ListItensData;
 use Domain\List\Models\ListItem;
 
-class ListItensAction
+class ListItemsAction
 {
     public function __construct(
         public ListItem $listItem,
     ) {
     }
 
+    /**
+     * Executes the action to retrieve the list items.
+     *
+     * @param ListItensData $data The data for retrieving the list items.
+     * @return array The list items, comments, creation and update timestamps.
+     */
     public function execute(ListItensData $data): array
     {
         $listItems = $this->listItem->whereId($data->id)->first();

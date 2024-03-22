@@ -11,5 +11,16 @@
         "barryvdh/laravel-ide-helper": "^3.0",
         "spatie/laravel-data": "^4.2",
         "laravel/laravel": "^10.3"
+    },
+    "require-dev": {
+        "pestphp/pest-plugin": "^2.1",
+        "pestphp/pest": "^2.34",
+        "mockery/mockery": "^1.6",
+        "pestphp/pest-plugin-laravel": "^2.3"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
