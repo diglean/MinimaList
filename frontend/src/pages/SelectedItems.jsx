@@ -24,34 +24,29 @@ const SelectedItems = () => {
     }));
   };
 
-  function fetchListItems(data) {
-    fetch(ROOT + "/api/list-items/list", {
-      method: "POST",
-      body: JSON.stringify({
-        id: data,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log("waited 3 seconds");
-        setLoading(false);
-        setSelectedItems(data.items);
-      });
-  }
-
   useEffect(() => {
     const items_id = state?.items_id;
 
     if (typeof items_id !== "undefined" && items_id !== null) {
-      setLoading(true);
       setListItemsId(items_id);
-      fetchListItems(items_id);
+
+      fetch(ROOT + "/api/list-items/list", {
+        method: "POST",
+        body: JSON.stringify({
+          id: items_id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          setSelectedItems(data.items);
+          setLoading(false);
+        });
     }
-  }, [state, fetchListItems]);
+  }, [state]);
 
   const addItemToList = useCallback(
     (data) => {
