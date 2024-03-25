@@ -24,6 +24,8 @@ class ListListAction
         /** @var Collection $lists */
         $lists = $this->listModel->whereCustomerId($data->customer_id)->get();
 
+        // For debugging purposes only
+        sleep(3);
         return $lists;
     }
 

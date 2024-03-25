@@ -25,7 +25,6 @@ const SelectedItems = () => {
   };
 
   function fetchListItems(data) {
-    console.log("will wait 3 seconds");
     fetch(ROOT + "/api/list-items/list", {
       method: "POST",
       body: JSON.stringify({
@@ -39,6 +38,7 @@ const SelectedItems = () => {
       .then((resp) => resp.json())
       .then((data) => {
         console.log("waited 3 seconds");
+        setLoading(false);
         setSelectedItems(data.items);
       });
   }
@@ -47,6 +47,7 @@ const SelectedItems = () => {
     const items_id = state?.items_id;
 
     if (typeof items_id !== "undefined" && items_id !== null) {
+      setLoading(true);
       setListItemsId(items_id);
       fetchListItems(items_id);
     }
