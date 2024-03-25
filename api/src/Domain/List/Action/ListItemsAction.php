@@ -24,6 +24,8 @@ class ListItemsAction
 
         $items = json_decode($listItems->items, true);
 
+        sleep(3);
+
         return [
             'items' => $items,
             'comments' => $listItems->comment,

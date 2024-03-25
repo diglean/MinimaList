@@ -86,7 +86,10 @@ const ItemSearchBar = ({ callbackFormValues }) => {
             </Grid>
             <Grid item>
               <Button
-                onClick={() => callbackFormValues(tmpItemInfo)}
+                onClick={() => {
+                  setTmpItemInfo(DEFAULT_ITEM_INFO);
+                  callbackFormValues(tmpItemInfo);
+                }}
                 variant="contained"
                 text="Confirm"
               />

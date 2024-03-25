@@ -11,8 +11,9 @@ import Loading from "../components/Loading";
 const ROOT = "http://localhost:8000";
 
 const SelectedItems = () => {
-  const [selectedItems, setSelectedItems] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [listItemsId, setListItemsId] = useState(null);
 
   const { state } = useLocation();
 
@@ -23,11 +24,8 @@ const SelectedItems = () => {
     }));
   };
 
-  const setListItems = useCallback((data) => {
-    listProperty("items", data);
-  }, []);
-
-  const fetchListItems = useCallback((data) => {
+  function fetchListItems(data) {
+    console.log("will wait 3 seconds");
     fetch(ROOT + "/api/list-items/list", {
       method: "POST",
       body: JSON.stringify({
@@ -35,28 +33,37 @@ const SelectedItems = () => {
       }),
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((resp) => resp.json())
       .then((data) => {
-        setListItems(data.items);
+        console.log("waited 3 seconds");
+        setSelectedItems(data.items);
       });
-    setSelectedItems();
-  }, [setListItems]);
+  }
 
   useEffect(() => {
     const items_id = state?.items_id;
 
     if (typeof items_id !== "undefined" && items_id !== null) {
+      setListItemsId(items_id);
       fetchListItems(items_id);
     }
   }, [state, fetchListItems]);
 
   const addItemToList = useCallback(
     (data) => {
-      setLoading(true);
-      fetch(ROOT + "/api/list-items/create", {
-        method: "POST",
+      let method = "POST";
+      let action = "create";
+
+      if (listItemsId !== null) {
+        method = "PUT";
+        action = "edit";
+      }
+
+      fetch(ROOT + "/api/list-items/" + action, {
+        method,
         body: JSON.stringify({
           list_id: state.list_id,
           items: [data],
@@ -72,14 +79,18 @@ const SelectedItems = () => {
           setLoading(false);
         });
     },
-    [state]
+    [state, listItemsId]
   );
 
   return (
     <div>
-      <Loading open={loading}/>
+      <Loading open={loading} />
       <div className={styles.container_search_bar}>
-        <ItemSearchBar callbackFormValues={(data) => {addItemToList(data)}} />
+        <ItemSearchBar
+          callbackFormValues={(data) => {
+            addItemToList(data);
+          }}
+        />
       </div>
       {selectedItems.length > 0 && (
         <div className={styles.container_list}>

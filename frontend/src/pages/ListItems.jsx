@@ -4,6 +4,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+
 import styles from "./styles/ListItems.module.css";
 
 const ListItems = ({ list }) => {
@@ -11,7 +12,7 @@ const ListItems = ({ list }) => {
 
   const handleClick = (id) => {
     console.log(id);
-  }
+  };
 
   return list.map(({ id, name, unit, price }, index) => (
     <div className={styles.container} key={index + name}>
@@ -20,7 +21,9 @@ const ListItems = ({ list }) => {
           primary={name}
           secondary={
             <>
-              <Typography component="span">{CURRENCY + " " + price} / {unit}</Typography>
+              <Typography component="span">
+                {CURRENCY + " " + price} / {unit}
+              </Typography>
             </>
           }
           onClick={() => handleClick(id)}

@@ -6,20 +6,20 @@ use Spatie\LaravelData\Data;
 class EditListItemData extends Data
 {
     public function __construct(
-        public int $id,
-        public array $item,
+        public int $list_id,
+        public array $items,
     ) {
     }
 
     public function rules(): array
     {
       return [
-        'id' => [
+        'list_id' => [
             'required',
             'integer',
             'min:1',
         ],
-        'item' => [
+        'items' => [
             'required',
             'array',
         ],

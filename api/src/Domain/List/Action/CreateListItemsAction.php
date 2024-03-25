@@ -37,6 +37,9 @@ class CreateListItemsAction
             'updated_at' => Carbon::now(),
         ]);
 
-        return json_decode($listItems->items, true);
+        return [
+            'id' => $listItems->id,
+            'items' => json_decode($listItems->items, true),
+        ];
     }
 }

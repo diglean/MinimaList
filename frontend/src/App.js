@@ -17,7 +17,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {window.location.pathname !== '/selected-items' && (<AppBar/>)}
         <Routes>
           <Route path="/" element={ <Lists/> }/>
           <Route path="/lists" element={ <Lists/> }/>
@@ -25,7 +24,6 @@ function App() {
           <Route path="/profile" element={ <Profile/> }/>
           <Route path="/selected-items" element={ <SelectedItems/> }/>
         </Routes>
-        {window.location.pathname !== '/selected-items' && (<BottomNavigation/>)}
       </Router>
     </ThemeProvider>
   )
