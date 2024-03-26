@@ -3,10 +3,12 @@ import ListList from "./ListList";
 import NoListRegistered from "./NoListRegistered";
 import { List } from "@mui/material";
 import Loading from "../components/Loading";
+import AppBar from "../components/LogoBar";
+import BottomNavigation from "../components/BottomNavigation";
 
 export default function Lists() {
   const [loading, setLoading] = useState(false);
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState(false);
 
   const ROOT = "http://localhost:8000";
 
@@ -30,31 +32,25 @@ export default function Lists() {
       .catch((err) => console.log(err));
   }, []);
 
-  // Json server api
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/lists", {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((resp) => resp.json())
-  //     .then((data) => {
-  //       setLists(data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
-  return (
-    <div>
-      <Loading open={loading} />
-      {lists.length > 0 ? (
-        <List>
-          <ListList list={lists} />
-        </List>
-      ) : (
-        <NoListRegistered />
-      )}
-    </div>
-  );
+  if (lists !== false) {
+    return (
+      <div>
+        {lists.length > 0 ? (
+          <List>
+            <ListList list={lists} />
+          </List>
+        ) : (
+          <NoListRegistered />
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <AppBar />
+        <Loading open={loading} />
+        <BottomNavigation />
+      </div>
+    );
+  }
 }
