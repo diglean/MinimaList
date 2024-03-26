@@ -32,12 +32,17 @@ const GenericModal = ({
           <Fade in={open} timeout={400}>
             <Box sx={style}>
               <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-                sx={{ paddingBottom: "8px" }}
+                id="modal-primary-text"
+                variant="h5"
               >
-                Name of the list
+                {primaryText}
+              </Typography>
+              <Typography
+                id="modal-secondary-text"
+                component="span"
+                sx={{ paddingBottom: "10px" }}
+              >
+                {secondaryText}
               </Typography>
               <Grid container spacing="0.5" justifyContent="flex-end">
                 <Grid item>

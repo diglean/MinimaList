@@ -14,7 +14,7 @@ import Button from "../components/Button";
 
 import styles from "./styles/ListLists.module.css";
 import GenericModal from "../components/modals/GenericModal";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export default function ListList({ list }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -25,6 +25,22 @@ export default function ListList({ list }) {
       state: { items_id: data.list_id, list_id: data.list_id },
     });
   };
+
+  const deleteList = useCallback((data) => {
+    fetch('/api/lsit/delete', {
+      method: "POST",
+      body: JSON.stringify({
+        id: data
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        //
+      });
+  },[]);
 
   return list.map(({ id, name, created_at, items_qty, items_id }, index) => (
     <div>
@@ -37,15 +53,15 @@ export default function ListList({ list }) {
           variant: "contained",
           text: "Yes",
           onClick: () => {
-            console.log("aeeooo");
+            deleteList(id)
             setModalOpen(false);
           },
         }}
         secondaryButtonProps={{
-          variant: "outlined",
+          variant: "text",
           text: "No",
           onClick: () => {
-            console.log("aeeooo #sqn");
+            setModalOpen(false);
           },
         }}
       />

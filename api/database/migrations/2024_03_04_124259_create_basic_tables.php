@@ -13,7 +13,7 @@ return new class extends Migration {
             <<<SQL
             CREATE TABLE `list_items` (
                 `id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-                `list_id` SMALLINT UNSIGNED NOT NULL, 
+                `list_id` SMALLINT UNSIGNED NOT NULL,
                 `items` JSON NOT NULL,
                 `comment` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
                 `created_at` DATETIME NOT NULL,
@@ -30,6 +30,7 @@ return new class extends Migration {
                 `items_id` SMALLINT UNSIGNED NULL,
                 `items_qty` SMALLINT NULL DEFAULT 0,
                 `customer_id` SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+                `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL,
                 PRIMARY KEY (`id`),
