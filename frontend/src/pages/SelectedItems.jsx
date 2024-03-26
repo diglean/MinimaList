@@ -7,6 +7,7 @@ import ListItems from "./ListItems";
 import ItemSearchBar from "../components/ItemSearchBar";
 import styles from "./styles/SelectedItems.module.css";
 import Loading from "../components/Loading";
+import Toast from "../components/Toast";
 
 const ROOT = "http://localhost:8000";
 
@@ -29,6 +30,7 @@ const SelectedItems = () => {
 
     if (typeof items_id !== "undefined" && items_id !== null) {
       setListItemsId(items_id);
+      setLoading(true);
 
       fetch(ROOT + "/api/list-items/list", {
         method: "POST",
@@ -58,6 +60,8 @@ const SelectedItems = () => {
         action = "edit";
       }
 
+      setLoading(true);
+
       fetch(ROOT + "/api/list-items/" + action, {
         method,
         body: JSON.stringify({
@@ -71,11 +75,15 @@ const SelectedItems = () => {
         .then((response) => response.json())
         .catch((err) => console.log(err))
         .then((data) => {
-          console.log(data);
+          setSelectedItems(data.items);
+
+          if (typeof data?.id !== "undefined") {
+            setListItemsId(data.id);
+          }
           setLoading(false);
         });
     },
-    [state, listItemsId]
+    [state, listItemsId, setSelectedItems]
   );
 
   return (

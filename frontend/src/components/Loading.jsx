@@ -1,8 +1,6 @@
 import { Backdrop } from "@mui/material";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
-import "react-toastify/dist/ReactToastify.css";
-
 const Loading = ({ open }) => {
   return (
     <div>
