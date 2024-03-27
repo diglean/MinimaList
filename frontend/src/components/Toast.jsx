@@ -1,13 +1,10 @@
 import { toast, ToastContainer } from "react-toastify";
 
-const Toast = ({ message }) => {
-  toast.success(message, { position: "bottom-center", theme: "dark" });
-
-  return (
-    <div>
-      <ToastContainer autoClose={3000} />
-    </div>
-  );
+const Toast = () => {
+  let toasted = null;
+  const toast = ({message}) => {
+    return toast.success(message, { position: "bottom-center", theme: "dark" });
+  }
 };
 
 export default Toast;
