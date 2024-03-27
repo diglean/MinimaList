@@ -31,33 +31,39 @@ const SelectedItems = () => {
     }));
   };
 
-  const showToastMessage = (message) => {
-    toast.success(message, { position: "bottom-center", theme: "light" });
+  const Toast = (message) => {
+    toast.success(message, { 
+      position: "bottom-center", 
+      theme: "dark",
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+    });
   }
 
   useEffect(() => {
     const items_id = state?.items_id;
 
-    // if (typeof items_id !== "undefined" && items_id !== null) {
-    //   setListItemsId(items_id);
-    //   setLoading(true);
+    if (typeof items_id !== "undefined" && items_id !== null) {
+      setListItemsId(items_id);
+      setLoading(true);
 
-    //   fetch(ROOT + "/api/list-items/list", {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       id: items_id,
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "Access-Control-Allow-Origin": "*",
-    //     },
-    //   })
-    //     .then((resp) => resp.json())
-    //     .then((data) => {
-    //       setSelectedItems(data.items);
-    //       setLoading(false);
-    //     });
-    // }
+      fetch(ROOT + "/api/list-items/list", {
+        method: "POST",
+        body: JSON.stringify({
+          id: items_id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          setSelectedItems(data.items);
+          setLoading(false);
+        });
+    }
   }, [state]);
 
   const addItemToList = useCallback(
@@ -70,59 +76,36 @@ const SelectedItems = () => {
         action = "edit";
       }
 
-      showToastMessage("Item added!", {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: "Bounce",
-      });
+      setLoading(true);
 
-      // setLoading(true);
+      fetch(ROOT + "/api/list-items/" + action, {
+        method,
+        body: JSON.stringify({
+          list_id: state.list_id,
+          items: [data],
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .catch((err) => console.log(err))
+        .then((data) => {
+          setSelectedItems(data.items);
 
-      // fetch(ROOT + "/api/list-items/" + action, {
-      //   method,
-      //   body: JSON.stringify({
-      //     list_id: state.list_id,
-      //     items: [data],
-      //   }),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // })
-      //   .then((response) => response.json())
-      //   .catch((err) => console.log(err))
-      //   .then((data) => {
-      //     setSelectedItems(data.items);
-
-      //     if (typeof data?.id !== "undefined") {
-      //       setListItemsId(data.id);
-      //     }
-      //     setLoading(false);
-      //   });
+          if (typeof data?.id !== "undefined") {
+            setListItemsId(data.id);
+          }
+          setLoading(false);
+          Toast("Item added!");
+        });
     },
     [state, listItemsId, setSelectedItems]
   );
 
   return (
     <div>
-      <ToastContainer 
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition="Slide"
-      />
+      <ToastContainer />
       <Loading open={loading} />
       <div className={styles.container_search_bar}>
         <ItemSearchBar
