@@ -7,7 +7,8 @@ import ListItems from "./ListItems";
 import ItemSearchBar from "../components/ItemSearchBar";
 import styles from "./styles/SelectedItems.module.css";
 import Loading from "../components/Loading";
-import Toast from "../components/Toast";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ROOT = "http://localhost:8000";
 
@@ -29,6 +30,10 @@ const SelectedItems = () => {
       [property]: newValue,
     }));
   };
+
+  const showToastMessage = (message) => {
+    toast.success(message, { position: "bottom-center", theme: "light" });
+  }
 
   useEffect(() => {
     const items_id = state?.items_id;
@@ -65,34 +70,59 @@ const SelectedItems = () => {
         action = "edit";
       }
 
-      setLoading(true);
+      showToastMessage("Item added!", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: "Bounce",
+      });
 
-      fetch(ROOT + "/api/list-items/" + action, {
-        method,
-        body: JSON.stringify({
-          list_id: state.list_id,
-          items: [data],
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .catch((err) => console.log(err))
-        .then((data) => {
-          setSelectedItems(data.items);
+      // setLoading(true);
 
-          if (typeof data?.id !== "undefined") {
-            setListItemsId(data.id);
-          }
-          setLoading(false);
-        });
+      // fetch(ROOT + "/api/list-items/" + action, {
+      //   method,
+      //   body: JSON.stringify({
+      //     list_id: state.list_id,
+      //     items: [data],
+      //   }),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // })
+      //   .then((response) => response.json())
+      //   .catch((err) => console.log(err))
+      //   .then((data) => {
+      //     setSelectedItems(data.items);
+
+      //     if (typeof data?.id !== "undefined") {
+      //       setListItemsId(data.id);
+      //     }
+      //     setLoading(false);
+      //   });
     },
     [state, listItemsId, setSelectedItems]
   );
 
   return (
     <div>
+      <ToastContainer 
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition="Slide"
+      />
       <Loading open={loading} />
       <div className={styles.container_search_bar}>
         <ItemSearchBar
