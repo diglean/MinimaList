@@ -15,7 +15,7 @@ return new class extends Migration {
                 `id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `list_id` SMALLINT UNSIGNED NOT NULL,
                 `items` JSON NOT NULL,
-                `comment` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL,
                 PRIMARY KEY (`id`));
@@ -24,12 +24,12 @@ return new class extends Migration {
 
         DB::unprepared(
             <<<SQL
-            CREATE TABLE `list` (
+            CREATE TABLE `lists` (
                 `id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `name` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
                 `items_id` SMALLINT UNSIGNED NULL,
                 `items_qty` SMALLINT NULL DEFAULT 0,
-                `customer_id` SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+                `user_id` SMALLINT UNSIGNED NOT NULL DEFAULT 1,
                 `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL,

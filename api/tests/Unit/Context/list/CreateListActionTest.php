@@ -4,19 +4,19 @@ namespace Tests\Unit\Context\list;
 
 use App\Context\List\DataTransferObject\CreateListData;
 use Domain\List\Action\CreateListAction;
-use Domain\List\Models\ListModel;
+use Domain\List\Models\Lists;
 use Mockery\MockInterface;
 
 use function Pest\Laravel\mock;
 
 $makeSut = fn () => new class () {
-    public readonly MockInterface|ListModel $listModel;
+    public readonly MockInterface|Lists $listModel;
     public readonly CreateListAction $action;
 
     public function __construct()
     {
-        /** @var MockInterface|ListModel */
-        $this->listModel = mock(ListModel::class);
+        /** @var MockInterface|Lists */
+        $this->listModel = mock(Lists::class);
 
         $this->action = new CreateListAction(
             $this->listModel,

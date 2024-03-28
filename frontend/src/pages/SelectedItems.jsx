@@ -14,12 +14,14 @@ const ROOT = "http://localhost:8000";
 
 const SelectedItems = () => {
   const [loading, setLoading] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([{
-    id: 1,
-    name: 'Lorem',
-    unit: 'kg',
-    price: '10',
-  }]);
+  const [selectedItems, setSelectedItems] = useState([
+    //   {
+    //   id: 1,
+    //   name: 'Lorem',
+    //   unit: 'kg',
+    //   price: '10',
+    // }
+  ]);
   const [listItemsId, setListItemsId] = useState(null);
 
   const { state } = useLocation();
@@ -32,14 +34,14 @@ const SelectedItems = () => {
   };
 
   const Toast = (message) => {
-    toast.success(message, { 
-      position: "bottom-center", 
+    toast.success(message, {
+      position: "bottom-center",
       theme: "dark",
       autoClose: 1500,
       hideProgressBar: true,
       closeOnClick: true,
     });
-  }
+  };
 
   useEffect(() => {
     const items_id = state?.items_id;

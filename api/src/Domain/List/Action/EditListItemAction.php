@@ -4,14 +4,14 @@ namespace Domain\List\Action;
 
 use App\Context\List\DataTransferObject\EditListItemData;
 use Domain\List\Models\ListItem;
-use Domain\List\Models\ListModel;
+use Domain\List\Models\Lists;
 use Illuminate\Support\Carbon;
 
 class EditListItemAction
 {
   public function __construct(
       public ListItem $listItem,
-      public ListModel $list,
+      public Lists $list,
   ) {
   }
 

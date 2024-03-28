@@ -27,10 +27,10 @@ export default function ListList({ list }) {
   };
 
   const deleteList = useCallback((data) => {
-    fetch('/api/lsit/delete', {
+    fetch("/api/list/delete", {
       method: "POST",
       body: JSON.stringify({
-        id: data
+        id: data,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -40,53 +40,57 @@ export default function ListList({ list }) {
       .then((data) => {
         //
       });
-  },[]);
+  }, []);
 
-  return list.map(({ id, name, created_at, items_qty, items_id }, index) => (
-    <div>
+  return (
+    <>
       <AppBar />
-      <GenericModal
-        open={modalOpen}
-        primaryText="Are you sure?"
-        secondaryText="That's a irreversable action!"
-        primaryButtonProps={{
-          variant: "contained",
-          text: "Yes",
-          onClick: () => {
-            deleteList(id)
-            setModalOpen(false);
-          },
-        }}
-        secondaryButtonProps={{
-          variant: "text",
-          text: "No",
-          onClick: () => {
-            setModalOpen(false);
-          },
-        }}
-      />
-      <div className={styles.container} key={index + name}>
-        <ListItemButton disableRipple>
-          <ListItemText
-            primary={name}
-            secondary={
-              <>
-                <Typography component="span">{items_qty} Itens</Typography>
-                <br />
-                <Typography component="span">
-                  {formatDatetime(created_at, "DD/MM/YYYY")}
-                </Typography>
-              </>
-            }
-            onClick={() => handleClick({ list_id: id, items_id: items_id })}
+      {list.map(({ id, name, created_at, items_qty, items_id }, index) => (
+        <div>
+          <GenericModal
+            open={modalOpen}
+            primaryText="Are you sure?"
+            secondaryText="That's a irreversable action!"
+            primaryButtonProps={{
+              variant: "contained",
+              text: "Yes",
+              onClick: () => {
+                deleteList(id);
+                setModalOpen(false);
+              },
+            }}
+            secondaryButtonProps={{
+              variant: "text",
+              text: "No",
+              onClick: () => {
+                setModalOpen(false);
+              },
+            }}
           />
-          <Button onClick={() => setModalOpen(true)}>
-            <FaRegTrashCan />
-          </Button>
-        </ListItemButton>
-        <Divider variant="middle" component="li" />
-      </div>
+          <div className={styles.container} key={index + name}>
+            <ListItemButton disableRipple>
+              <ListItemText
+                primary={name}
+                secondary={
+                  <>
+                    <Typography component="span">{items_qty} Itens</Typography>
+                    <br />
+                    <Typography component="span">
+                      {formatDatetime(created_at, "DD/MM/YYYY")}
+                    </Typography>
+                  </>
+                }
+                onClick={() => handleClick({ list_id: id, items_id: items_id })}
+              />
+              <Button onClick={() => setModalOpen(true)}>
+                <FaRegTrashCan />
+              </Button>
+            </ListItemButton>
+            <Divider variant="middle" component="li" />
+          </div>
+        </div>
+      ))}
       <BottomNavigation />
-    </div>
-  ));
+    </>
+  );
 }

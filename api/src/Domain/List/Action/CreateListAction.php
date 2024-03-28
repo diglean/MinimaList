@@ -3,13 +3,13 @@
 namespace Domain\List\Action;
 
 use App\Context\List\DataTransferObject\CreateListData;
-use Domain\List\Models\ListModel;
+use Domain\List\Models\Lists;
 use Illuminate\Support\Carbon;
 
 class CreateListAction
 {
     public function __construct(
-        public ListModel $listModel,
+        public Lists $listModel,
     ) {
     }
 

@@ -7,7 +7,8 @@ use Spatie\LaravelData\Data;
 class DeleteListData extends Data
 {
     public function __construct(
-        public string $listId
+        public string $listId,
+        public int $userId,
     ) {
     }
 
