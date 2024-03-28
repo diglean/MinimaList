@@ -1,13 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ListItem;
 
 use App\Context\List\DataTransferObject\EditListItemData;
+use App\Http\Controllers\Controller;
 use Domain\List\Action\EditListItemAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
 use Illuminate\Http\Request;
 
-class EditListItemsController extends Controller
+/**
+ * @author Diego Leandro <https://github.com/diglean>
+ */
+class EditListItemController extends Controller
 {
     public function __construct(
         public readonly Response $response,

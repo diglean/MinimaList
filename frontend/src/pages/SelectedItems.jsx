@@ -15,12 +15,12 @@ const ROOT = "http://localhost:8000";
 const SelectedItems = () => {
   const [loading, setLoading] = useState(false);
   const [selectedItems, setSelectedItems] = useState([
-    //   {
-    //   id: 1,
-    //   name: 'Lorem',
-    //   unit: 'kg',
-    //   price: '10',
-    // }
+      {
+      id: 1,
+      name: 'Lorem',
+      unit: 'kg',
+      price: '10',
+    }
   ]);
   const [listItemsId, setListItemsId] = useState(null);
 
@@ -46,26 +46,26 @@ const SelectedItems = () => {
   useEffect(() => {
     const items_id = state?.items_id;
 
-    if (typeof items_id !== "undefined" && items_id !== null) {
-      setListItemsId(items_id);
-      setLoading(true);
+    // if (typeof items_id !== "undefined" && items_id !== null) {
+    //   setListItemsId(items_id);
+    //   setLoading(true);
 
-      fetch(ROOT + "/api/list-items/list", {
-        method: "POST",
-        body: JSON.stringify({
-          id: items_id,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          setSelectedItems(data.items);
-          setLoading(false);
-        });
-    }
+    //   fetch(ROOT + "/api/list-items/list", {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       id: items_id,
+    //     }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Access-Control-Allow-Origin": "*",
+    //     },
+    //   })
+    //     .then((resp) => resp.json())
+    //     .then((data) => {
+    //       setSelectedItems(data.items);
+    //       setLoading(false);
+    //     });
+    // }
   }, [state]);
 
   const addItemToList = useCallback(

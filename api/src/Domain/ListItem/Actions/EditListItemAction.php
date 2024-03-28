@@ -3,7 +3,7 @@
 namespace Domain\List\Action;
 
 use App\Context\List\DataTransferObject\EditListItemData;
-use Domain\List\Models\ListItem;
+use Domain\ListItem\Models\ListItem;
 use Domain\List\Models\Lists;
 use Illuminate\Support\Carbon;
 

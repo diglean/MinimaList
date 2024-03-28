@@ -2,9 +2,9 @@
 
 namespace Routes\List;
 
-use App\Http\Controllers\CreateListController;
-use App\Http\Controllers\DeleteListController;
-use App\Http\Controllers\ListListController;
+use App\Http\Controllers\List\CreateListController;
+use App\Http\Controllers\List\DeleteListController;
+use App\Http\Controllers\List\ListListController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('api/list/create', [CreateListController::class, '__invoke']);

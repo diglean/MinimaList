@@ -2,7 +2,7 @@
   color: #FFF;
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: 25px;
@@ -15,4 +15,20 @@
 
 .main p {
   color: #c4c4c4;
+}
+
+.main svg {
+  color: #c4c4c4
+}
+
+.grid_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.main_grid_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

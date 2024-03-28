@@ -3,9 +3,9 @@
 namespace Domain\List\Action;
 
 use App\Context\List\DataTransferObject\ListItensData;
-use Domain\List\Models\ListItem;
+use Domain\ListItem\Models\ListItem;
 
-class ListItemsAction
+class ListListItemAction
 {
     public function __construct(
         public ListItem $listItem,

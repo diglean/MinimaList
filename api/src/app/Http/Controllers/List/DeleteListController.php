@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\List;
 
 use App\Context\List\DataTransferObject\DeleteListData;
+use App\Http\Controllers\Controller;
 use Domain\List\Action\DeleteListAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
 use Illuminate\Http\Request;

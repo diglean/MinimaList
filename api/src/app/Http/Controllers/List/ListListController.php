@@ -1,27 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\List;
 
-use App\Context\List\DataTransferObject\CreateListItemsData;
-use Domain\List\Action\CreateListItemsAction;
+use App\Context\List\DataTransferObject\ListListData;
+use App\Http\Controllers\Controller;
+use Domain\List\Action\ListListAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
 use Illuminate\Http\Request;
 
 /**
  * @author Diego Leandro - <https://github.com/diglean>
  */
-class CreateListItemsController extends Controller
+class ListListController extends Controller
 {
     public function __construct(
-        public readonly Response $response,
+        private readonly Response $response,
     ) {
     }
 
     public function __invoke(
         Request $request,
-        CreateListItemsAction $action,
+        ListListAction $action,
     ) {
-        $data = CreateListItemsData::from($request->toArray());
+        $data = ListListData::from($request->toArray());
 
         $response = $action->execute($data);
 
