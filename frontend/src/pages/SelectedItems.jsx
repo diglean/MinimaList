@@ -9,19 +9,22 @@ import styles from "./styles/SelectedItems.module.css";
 import Loading from "../components/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AppBar from "../components/LogoBar";
 
 const ROOT = "http://localhost:8000";
 
 const SelectedItems = () => {
-  const [loading, setLoading] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([
-      {
+  const mockItem = [
+    {
       id: 1,
-      name: 'Lorem',
-      unit: 'kg',
-      price: '10',
-    }
-  ]);
+      name: "Lorem",
+      unit: "kg",
+      price: "10",
+    },
+  ];
+
+  const [loading, setLoading] = useState(false);
+  const [selectedItems, setSelectedItems] = useState(false);
   const [listItemsId, setListItemsId] = useState(null);
 
   const { state } = useLocation();
@@ -46,26 +49,26 @@ const SelectedItems = () => {
   useEffect(() => {
     const items_id = state?.items_id;
 
-    // if (typeof items_id !== "undefined" && items_id !== null) {
-    //   setListItemsId(items_id);
-    //   setLoading(true);
+    if (typeof items_id !== "undefined" && items_id !== null) {
+      setListItemsId(items_id);
+      setLoading(true);
 
-    //   fetch(ROOT + "/api/list-items/list", {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       id: items_id,
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "Access-Control-Allow-Origin": "*",
-    //     },
-    //   })
-    //     .then((resp) => resp.json())
-    //     .then((data) => {
-    //       setSelectedItems(data.items);
-    //       setLoading(false);
-    //     });
-    // }
+      fetch(ROOT + "/api/list-items/list", {
+        method: "POST",
+        body: JSON.stringify({
+          id: items_id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          setSelectedItems(data.items);
+          setLoading(false);
+        });
+    }
   }, [state]);
 
   const addItemToList = useCallback(
@@ -107,6 +110,7 @@ const SelectedItems = () => {
 
   return (
     <div>
+      <AppBar goBack="/lists" />
       <ToastContainer />
       <Loading open={loading} />
       <div className={styles.container_search_bar}>
@@ -116,10 +120,10 @@ const SelectedItems = () => {
           }}
         />
       </div>
-      {selectedItems.length > 0 && (
+      {typeof selectedItems !== "undefined" && selectedItems.length > 0 && (
         <div className={styles.container_list}>
           <List>
-            <ListItems list={selectedItems} />
+            <ListItems list={selectedItems} key={Math.random()} />
           </List>
         </div>
       )}

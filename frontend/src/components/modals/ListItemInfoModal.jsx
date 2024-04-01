@@ -74,7 +74,6 @@ const CustomModal = ({ open, item, callbackFormValues }) => {
     if (data.itemPrice.trim() !== "") {
       updatePrice(data.itemPrice.trim());
     } else {
-      console.log("Não tem preço");
       return;
     }
   }, []);

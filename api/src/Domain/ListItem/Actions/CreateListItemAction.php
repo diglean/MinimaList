@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\List\Action;
+namespace Domain\ListItem\Actions;
 
 use App\Context\List\DataTransferObject\CreateListItemsData;
 use Domain\ListItem\Models\ListItem;

@@ -23,7 +23,7 @@ export default function ListList({ list }) {
 
   const handleClick = (data) => {
     navigate("/selected-items", {
-      state: { items_id: data.list_id, list_id: data.list_id },
+      state: { items_id: data.items_id, list_id: data.list_id },
     });
   };
 
@@ -48,7 +48,7 @@ export default function ListList({ list }) {
     <>
       <AppBar />
       {list.map(({ id, name, created_at, items_qty, items_id }, index) => (
-        <div>
+        <div key={index + name}>
           <GenericModal
             open={modalOpen}
             primaryText="Are you sure?"
@@ -69,7 +69,7 @@ export default function ListList({ list }) {
               },
             }}
           />
-          <div className={styles.container} key={index + name}>
+          <div className={styles.container}>
             <ListItemButton disableRipple>
               <ListItemText
                 primary={name}

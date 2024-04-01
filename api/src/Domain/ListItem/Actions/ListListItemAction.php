@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\List\Action;
+namespace Domain\ListItem\Actions;
 
 use App\Context\List\DataTransferObject\ListItensData;
 use Domain\ListItem\Models\ListItem;
@@ -22,13 +22,16 @@ class ListListItemAction
     {
         $listItems = $this->listItem->whereId($data->id)->first();
 
+        if (is_null($listItems)) {
+            return [[]];
+        }
+
         $items = json_decode($listItems->items, true);
 
         sleep(3);
 
         return [
             'items' => $items,
-            'comments' => $listItems->comment,
             'created_at' => $listItems->created_at,
             'updated_at' => $listItems->updated_at,
         ];

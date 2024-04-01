@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ListItem;
 
 use App\Context\List\DataTransferObject\EditListItemData;
 use App\Http\Controllers\Controller;
-use Domain\List\Action\EditListItemAction;
+use Domain\ListItem\Actions\EditListItemAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
 use Illuminate\Http\Request;
 

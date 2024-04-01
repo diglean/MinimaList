@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\List\Action;
+namespace Domain\ListItem\Actions;
 
 use App\Context\List\DataTransferObject\EditListItemData;
 use Domain\ListItem\Models\ListItem;
@@ -23,7 +23,7 @@ class EditListItemAction
 
 		$aListItems[] = $data->items[0];
 
-		$this->list->update([
+		$this->list->whereId($data->list_id)->update([
 			'items_qty' => count($aListItems),
 			'updated_at' => Carbon::now(),
 		]);

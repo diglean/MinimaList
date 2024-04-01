@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ListItem;
 
 use App\Context\List\DataTransferObject\CreateListItemsData;
 use App\Http\Controllers\Controller;
-use Domain\List\Action\CreateListItemAction;
+use Domain\ListItem\Actions\CreateListItemAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
 use Illuminate\Http\Request;
 

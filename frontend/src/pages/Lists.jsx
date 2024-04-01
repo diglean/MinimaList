@@ -56,7 +56,7 @@ export default function Lists() {
     return (
       <div>
         <AppBar />
-        {/* <Loading open={loading} /> */}
+        <Loading open={loading} />
         <BottomNavigation />
       </div>
     );
