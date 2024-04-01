@@ -6,22 +6,32 @@ import {
 } from "@mui/material";
 
 import styles from "./styles/ListItems.module.css";
-import { useCallback } from "react";
 import ListItemInfoGenericModal from "../components/modals/ListItemInfoGenericModal";
 import { useState } from "react";
 
 const ListItems = ({ list }) => {
   const [itemData, setItemData] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
   const CURRENCY = "R$";
 
-  const openModal = (data) => {
-    setItemData;
-    console.log(id);
+  const handleOpenModal = (data) => {
+    setOpenModal(true);
+    setItemData(data);
+  };
+
+  const handleCbFormValues = (data) => {
+    if (data === false) {
+      setOpenModal(false);
+    }
   };
 
   return (
     <>
-      <ListItemInfoGenericModal open={itemData} itemData={itemData} />
+      <ListItemInfoGenericModal
+        open={openModal}
+        itemData={itemData}
+        cbFormValues={(data) => handleCbFormValues(data)}
+      />
       {list.map(({ id, name, unit, price }, index) => (
         <div className={styles.container} key={index + name}>
           <ListItemButton disableRipple key={index + name}>
@@ -34,7 +44,7 @@ const ListItems = ({ list }) => {
                   </Typography>
                 </>
               }
-              onClick={() => openModal({ name, unit, price })}
+              onClick={() => handleOpenModal({ name, unit, price })}
               key={index + name}
             />
           </ListItemButton>
