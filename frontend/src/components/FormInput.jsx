@@ -6,6 +6,7 @@ import { useFormContext } from "react-hook-form";
 
 import styles from "./styles/FormInput.module.css";
 import { useEffect } from "react";
+import { useCallback } from "react";
 
 const TextField = styled(MuiTextField)({
   width: "100%",
@@ -34,11 +35,23 @@ const TextField = styled(MuiTextField)({
   },
 });
 
-const CustomTextField = forwardRef((props, ref) => {
+const Input = forwardRef((props, ref) => {
+  const [inputValue, setInputValue] = useState(props.value ?? "");
+
   const {
     register,
     formState: { errors },
   } = useFormContext();
+
+  const handleValueChanged = useCallback((e) => {
+    setInputValue(e.target.value);
+  });
+
+  useEffect(() => {
+    if (props.value) {
+      setInputValue(props.value);
+    }
+  }, [props]);
 
   return (
     <div className={styles.container}>
@@ -48,8 +61,8 @@ const CustomTextField = forwardRef((props, ref) => {
         label={props.label}
         name={props.name}
         variant={props.variant}
-        onChange={props.handleValueChanged}
-        value={props.inputValue}
+        onChangeCapture={(e) => handleValueChanged(e)}
+        value={inputValue}
         InputProps={props.InputProps}
         {...register(props.name, {
           required: `${props.label} is required`,
@@ -65,31 +78,4 @@ const CustomTextField = forwardRef((props, ref) => {
   );
 });
 
-export default function Input(props) {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleValueChanged = (inputValue, e) => {
-    setInputValue({ ...inputValue, [inputValue]: e.target.value });
-  };
-
-  useEffect(() => {
-    if (props.value) {
-      setInputValue(props.value);
-    }
-  }, [props]);
-
-  return (
-    <div className={styles.container}>
-      <CustomTextField
-        label={props.label}
-        name={props.name}
-        variant={props.variant}
-        onChange={handleValueChanged}
-        value={inputValue}
-        InputProps={props.InputProps}
-      >
-        {props.children}
-      </CustomTextField>
-    </div>
-  );
-}
+export default Input;
