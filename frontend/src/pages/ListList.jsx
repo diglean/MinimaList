@@ -17,7 +17,7 @@ import GenericModal from "../components/modals/GenericModal";
 import { useState, useCallback } from "react";
 
 export default function ListList({ list }) {
-  const ROOT = "https://localhost:8000";
+  const ROOT = "http://localhost:8000";
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ export default function ListList({ list }) {
     fetch(ROOT + "/api/list/delete", {
       method: "POST",
       body: JSON.stringify({
-        id: data,
+        list_id: data,
         user_id: 1,
       }),
       headers: {

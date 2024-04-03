@@ -2,7 +2,7 @@
 
 namespace App\Context\List\Types;
 
-enum ListActiveType: string
+enum ListModelActiveType: string
 {
   case Yes = 'yes';
 

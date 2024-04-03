@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ListItem;
 
-use App\Context\List\DataTransferObject\EditListItemData;
+use App\Context\ListItem\DataTransferObject\EditListItemData;
 use App\Http\Controllers\Controller;
 use Domain\ListItem\Actions\EditListItemAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ListItem;
 
-use App\Context\List\DataTransferObject\ListItensData;
+use App\Context\ListItem\DataTransferObject\ListListItemData;
 use App\Http\Controllers\Controller;
 use Domain\ListItem\Actions\ListListItemAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
@@ -22,7 +22,7 @@ class ListItemController extends Controller
         Request $request,
         ListListItemAction $action,
     ) {
-        $data = ListItensData::from($request->toArray());
+        $data = ListListItemData::from($request->toArray());
 
         $response = $action->execute($data);
 

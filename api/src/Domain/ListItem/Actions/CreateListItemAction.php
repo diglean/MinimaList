@@ -2,7 +2,7 @@
 
 namespace Domain\ListItem\Actions;
 
-use App\Context\List\DataTransferObject\CreateListItemsData;
+use App\Context\ListItem\DataTransferObject\CreateListItemsData;
 use Domain\ListItem\Models\ListItem;
 use Domain\List\Models\Lists;
 use Illuminate\Support\Carbon;

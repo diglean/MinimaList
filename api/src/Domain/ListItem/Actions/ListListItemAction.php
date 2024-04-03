@@ -2,7 +2,7 @@
 
 namespace Domain\ListItem\Actions;
 
-use App\Context\List\DataTransferObject\ListItensData;
+use App\Context\ListItem\DataTransferObject\ListListItemData;
 use Domain\ListItem\Models\ListItem;
 
 class ListListItemAction
@@ -15,10 +15,10 @@ class ListListItemAction
     /**
      * Executes the action to retrieve the list items.
      *
-     * @param ListItensData $data The data for retrieving the list items.
+     * @param ListListItemData $data The data for retrieving the list items.
      * @return array The list items, comments, creation and update timestamps.
      */
-    public function execute(ListItensData $data): array
+    public function execute(ListListItemData $data): array
     {
         $listItems = $this->listItem->whereId($data->id)->first();
 

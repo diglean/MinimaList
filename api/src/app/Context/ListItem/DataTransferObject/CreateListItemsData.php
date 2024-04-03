@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Context\List\DataTransferObject;
+namespace App\Context\ListItem\DataTransferObject;
 
 use Spatie\LaravelData\Data;
 

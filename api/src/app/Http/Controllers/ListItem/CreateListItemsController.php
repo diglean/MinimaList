@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ListItem;
 
-use App\Context\List\DataTransferObject\CreateListItemsData;
+use App\Context\ListItem\DataTransferObject\CreateListItemsData;
 use App\Http\Controllers\Controller;
 use Domain\ListItem\Actions\CreateListItemAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;

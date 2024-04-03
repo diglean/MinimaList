@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Context\List\Types;
+namespace App\Context\ListItem\Types;
 
 enum ListItemActiveType: string
 {

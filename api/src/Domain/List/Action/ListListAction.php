@@ -4,6 +4,7 @@ namespace Domain\List\Action;
 
 use App\Context\List\DataTransferObject\ListListData;
 use App\Context\List\Types\ListActiveType;
+use App\Context\List\Types\ListModelActiveType;
 use Domain\List\Models\Lists;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -23,10 +24,13 @@ class ListListAction
     public function execute(ListListData $data): Collection
     {
         /** @var Collection $lists */
-        $lists = $this->listModel->whereUserId($data->customer_id)->whereActive('yes')->get();
+        $lists = $this->listModel
+            ->whereUserId($data->customer_id)
+            ->whereActive(ListModelActiveType::Yes)
+            ->get();
 
-        // For debugging purposes only
-        sleep(3);
+        // For debugging purposes only - remove in prod
+        sleep(1);
         return $lists;
     }
 

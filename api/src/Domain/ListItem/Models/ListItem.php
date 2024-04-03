@@ -4,7 +4,7 @@ namespace Domain\ListItem\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Context\List\Types\ListItemActiveType;
+use App\Context\ListItem\Types\ListItemActiveType;
 use Illuminate\Support\Carbon;
 
 /**

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Context\List\DataTransferObject;
+namespace App\Context\ListItem\DataTransferObject;
 use Spatie\LaravelData\Data;
 
-class ListItensData extends Data
+class ListListItemData extends Data
 {
   public function __construct(
     public int $id,

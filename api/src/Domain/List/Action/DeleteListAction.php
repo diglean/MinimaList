@@ -3,10 +3,11 @@
 namespace Domain\List\Action;
 
 use App\Context\List\DataTransferObject\DeleteListData;
-use App\Context\List\Types\ListActiveType;
-use App\Context\List\Types\ListItemActiveType;
+use App\Context\List\Types\ListModelActiveType;
+use App\Context\ListItem\Types\ListItemActiveType;
 use Domain\ListItem\Models\ListItem;
 use Domain\List\Models\Lists;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 
 class DeleteListAction
@@ -17,23 +18,39 @@ class DeleteListAction
     ) {
     }
 
-    public function execute(DeleteListData $data): void
+    public function execute(DeleteListData $data): Collection
     {
-        $this->listModel
-            ->whereUserId($data->userId)
-            ->whereId($data->listId)
-            ->first()
-            ->update([
-                'active' => ListActiveType::No,
+        $list = $this->listModel
+            ->whereUserId($data->user_id)
+            ->whereId($data->list_id)
+            ->first();
+
+        if (! is_null($list)) {
+            $list->update([
+                'active' => ListModelActiveType::No,
                 'updated_at' => Carbon::now(),
             ]);
+        }
 
-        $this->listItem
-            ->whereListId($data->listId)
-            ->first()
-            ->update([
+        $listItem = $this->listItem
+            ->whereListId($data->list_id)
+            ->first();
+        
+
+        if (! is_null($listItem)) {
+            $listItem->update([
                 'active' => ListItemActiveType::No,
                 'updated_at' => Carbon::now()
             ]);
+        }
+
+        $lists = $this->listModel
+            ->whereUserId($data->user_id)
+            ->whereActive(ListModelActiveType::Yes)
+            ->get();
+
+        // For debugging purposes only - remove in prod
+        sleep(1);
+        return $lists;
     }
 }
