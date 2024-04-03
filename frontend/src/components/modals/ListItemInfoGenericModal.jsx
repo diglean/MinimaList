@@ -37,32 +37,30 @@ const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
   const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
 
-  // TODO - IMPLEMENT USECONTEXT
-
-  const [item, setItem] = useState(false);
-  const [itemInfo, setItemInfo] = useState({
-    name: null,
-    price: null,
-    unit: "kg",
-  });
-
   useEffect(() => {
     if (typeof itemData !== "undefined" && itemData !== null) {
-      setItem(itemData);
+      setTmpItemInfo(itemData);
     }
-  }, [itemData, setItem]);
+  }, [itemData, setTmpItemInfo]);
 
   const updatePrice = (newPrice) => {
-    setItemInfo((itemInfo) => ({
+    setTmpItemInfo((itemInfo) => ({
       ...itemInfo,
       price: newPrice,
     }));
   };
 
   const updateUnit = (newUnit) => {
-    setItemInfo((itemInfo) => ({
+    setTmpItemInfo((itemInfo) => ({
       ...itemInfo,
       unit: newUnit,
+    }));
+  };
+
+  const itemProperty = (property, newValue) => {
+    setTmpItemInfo((tmpItemInfo) => ({
+      ...tmpItemInfo,
+      [property]: newValue,
     }));
   };
 
@@ -100,15 +98,15 @@ const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
                     label="Name"
                     name="itemName"
                     variant="outlined"
-                    value={item.name}
+                    value={tmpItemInfo.name}
                   />
                 </div>
-                <div>
+                <div className={styles.container_input}>
                   <Input
                     label="Price"
                     name="itemPrice"
                     variant="outlined"
-                    value={item.price ?? "0,00"}
+                    value={tmpItemInfo.price ?? "0,00"}
                     InputProps={{
                       startAdornment: (
                         <Fragment>
@@ -125,7 +123,7 @@ const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
                               onClick={() => cbToggleDrawer(true)}
                             >
                               <Typography sx={{ color: "#FFF" }}>
-                                / {item.unit ?? "kg"}
+                                / {tmpItemInfo.unit ?? "kg"}
                               </Typography>
                             </IconButton>
                           </Tooltip>
@@ -133,6 +131,8 @@ const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
                       ),
                     }}
                   />
+                </div>
+                <div className={styles.container_input}>
                   <NumberInput
                     inputValue={tmpItemInfo.qty}
                     cbHandleChange={(data) => {
