@@ -1,8 +1,9 @@
-import { Grid } from "@mui/material";
-import Button from "./Button";
-import styles from "./styles/AppBar.module.css";
-import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { Grid } from "@mui/material";
+import { FaArrowLeft } from "react-icons/fa";
+import Button from "./Button";
+
+import styles from "./styles/AppBar.module.css";
 
 export default function AppBar({ goBack = false }) {
   const navigate = useNavigate();
