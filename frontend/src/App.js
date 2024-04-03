@@ -13,18 +13,22 @@ import Config from "./pages/Config";
 import Profile from "./pages/Profile";
 import SelectedItems from "./pages/SelectedItems";
 
+import { TmpItemProvider } from "./context/TmpItemContext";
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <Routes>
-          <Route path="/" element={ <Lists/> }/>
-          <Route path="/lists" element={ <Lists/> }/>
-          <Route path="/config" element={ <Config/> }/>
-          <Route path="/profile" element={ <Profile/> }/>
-          <Route path="/selected-items" element={ <SelectedItems/> }/>
-        </Routes>
-      </Router>
+      <TmpItemProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={ <Lists/> }/>
+            <Route path="/lists" element={ <Lists/> }/>
+            <Route path="/config" element={ <Config/> }/>
+            <Route path="/profile" element={ <Profile/> }/>
+            <Route path="/selected-items" element={ <SelectedItems/> }/>
+          </Routes>
+        </Router>
+      </TmpItemProvider>
     </ThemeProvider>
   )
 }

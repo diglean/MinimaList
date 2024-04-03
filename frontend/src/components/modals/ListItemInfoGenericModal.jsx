@@ -15,6 +15,9 @@ import Button from "../Button";
 
 import styles from "./styles/ListItemInfoGenericModal.module.css";
 import TemporaryDrawer from "../Drawer";
+import NumberInput from "../NumberInput";
+import { useContext } from "react";
+import { TmpItemContext } from "../../context/TmpItemContext";
 
 const style = {
   position: "relative",
@@ -31,6 +34,11 @@ const style = {
 
 const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
   const [drawerState, setDrawerState] = useState(false);
+  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
+    useContext(TmpItemContext);
+
+  // TODO - IMPLEMENT USECONTEXT
+
   const [item, setItem] = useState(false);
   const [itemInfo, setItemInfo] = useState({
     name: null,
@@ -86,7 +94,7 @@ const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
               >
                 Item info
               </Typography>
-              <Form callBackSubmit={(data) => console.log()}>
+              <Form callBackSubmit={(data) => console.log(data)}>
                 <div className={styles.container_input}>
                   <Input
                     label="Name"
@@ -123,6 +131,12 @@ const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
                           </Tooltip>
                         </Fragment>
                       ),
+                    }}
+                  />
+                  <NumberInput
+                    inputValue={tmpItemInfo.qty}
+                    cbHandleChange={(data) => {
+                      itemProperty("qty", data);
                     }}
                   />
                 </div>

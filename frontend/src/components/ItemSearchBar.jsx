@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import { Grid } from "@mui/material";
 
@@ -11,26 +11,16 @@ import Form from "./Form";
 import NumberInput from "./NumberInput";
 
 import ListItemInfoModal from "./modals/ListItemInfoModal";
+import { TmpItemContext } from "../context/TmpItemContext";
 
 const ItemSearchBar = ({ callbackFormValues }) => {
-  const DEFAULT_ITEM_INFO = {
-    name: null,
-    qty: 1,
-    price: null,
-    unit: "kg",
-  };
-
-  const [tmpItemInfo, setTmpItemInfo] = useState(DEFAULT_ITEM_INFO);
-
+  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
+    useContext(TmpItemContext);
   const [searchValue, setSearchValue] = useState("");
 
   const setItemName = (data) => {
     itemProperty("name", data.name);
     setSearchValue("");
-  };
-
-  const cleanTmpItemInfo = () => {
-    setTmpItemInfo(DEFAULT_ITEM_INFO);
   };
 
   const itemProperty = (property, newValue) => {
@@ -87,7 +77,7 @@ const ItemSearchBar = ({ callbackFormValues }) => {
             <Grid item>
               <Button
                 onClick={() => {
-                  setTmpItemInfo(DEFAULT_ITEM_INFO);
+                  cleanTmpItemInfo();
                   callbackFormValues(tmpItemInfo);
                 }}
                 variant="contained"
