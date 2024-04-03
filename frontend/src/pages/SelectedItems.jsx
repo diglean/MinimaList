@@ -36,7 +36,7 @@ const SelectedItems = () => {
     }));
   };
 
-  const Toast = (message) => {
+  const ToastSuccess = (message) => {
     toast.success(message, {
       position: "bottom-center",
       theme: "dark",
@@ -102,7 +102,7 @@ const SelectedItems = () => {
             setListItemsId(data.id);
           }
           setLoading(false);
-          Toast("Item added!");
+          ToastSuccess("Item added!");
         });
     },
     [state, listItemsId, setSelectedItems]

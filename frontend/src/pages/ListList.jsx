@@ -1,25 +1,39 @@
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaRegTrashCan } from "react-icons/fa6";
+import { toast, ToastContainer } from "react-toastify";
 
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import { Typography } from "@mui/material";
 
-import { FaRegTrashCan } from "react-icons/fa6";
-
-import { formatDatetime } from "../library/FormatData";
+import GenericModal from "../components/modals/GenericModal";
 import AppBar from "../components/LogoBar";
 import BottomNavigation from "../components/BottomNavigation";
 import Button from "../components/Button";
+import Loading from "../components/Loading";
+
+import { formatDatetime } from "../library/FormatData";
 
 import styles from "./styles/ListLists.module.css";
-import GenericModal from "../components/modals/GenericModal";
-import { useState, useCallback } from "react";
 
 export default function ListList({ list }) {
-  const ROOT = "http://localhost:8000";
+  const ROOT = "https://localhost:8000";
+  
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const ToastSuccess = (message) => {
+    toast.success(message, {
+      position: "bottom-center",
+      theme: "dark",
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+    });
+  };
 
   const handleClick = (data) => {
     navigate("/selected-items", {
@@ -28,6 +42,7 @@ export default function ListList({ list }) {
   };
 
   const deleteList = useCallback((data) => {
+    setLoading(true);
     fetch(ROOT + "/api/list/delete", {
       method: "POST",
       body: JSON.stringify({
@@ -39,14 +54,17 @@ export default function ListList({ list }) {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
-        //
+      .then(() => {
+        setLoading(false);
+        ToastSuccess("List deleted!");
       });
   }, []);
 
   return (
     <>
       <AppBar />
+      <ToastContainer />
+      <Loading open={loading} />
       {list.map(({ id, name, created_at, items_qty, items_id }, index) => (
         <div key={index + name}>
           <GenericModal
