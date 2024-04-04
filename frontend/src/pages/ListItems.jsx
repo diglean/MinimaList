@@ -7,9 +7,12 @@ import {
 
 import styles from "./styles/ListItems.module.css";
 import ListItemInfoGenericModal from "../components/modals/ListItemInfoGenericModal";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TmpItemContext } from "../context/TmpItemContext";
 
 const ListItems = ({ list }) => {
+  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
+    useContext(TmpItemContext);
   const [itemData, setItemData] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const CURRENCY = "R$";
