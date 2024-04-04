@@ -11,7 +11,7 @@ return new class extends Migration {
     {
         DB::unprepared(
             <<<SQL
-            CREATE TABLE `list_items` (
+            CREATE TABLE `list_item` (
                 `id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `list_id` SMALLINT UNSIGNED NOT NULL,
                 `items` JSON NOT NULL,
@@ -43,20 +43,6 @@ return new class extends Migration {
             );
             SQL,
         );
-
-        // DB::unprepared(
-        //     <<<SQL
-        //     ALTER TABLE `list_item`
-        //     CREATE INDEX `list_id_idx` (`list_id` ASC),
-        //     CONSTRAINT `fk_list1`
-        //     FOREIGN KEY (`list`)
-        //     REFERENCES `list` (`id`)
-        //     ON DELETE NO ACTION
-        //     ON UPDATE NO ACTION
-        //     SQL,
-        // );
-
-        // TODO - CRIAR INDEX E FK
     }
 
     /**
