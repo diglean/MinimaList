@@ -19,8 +19,8 @@ import { formatDatetime } from "../library/FormatData";
 import styles from "./styles/ListLists.module.css";
 
 export default function ListList({ list }) {
-  const ROOT = "https://localhost:8000";
-  
+  const ROOT = "http://localhost:8000";
+
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();

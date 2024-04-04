@@ -5,12 +5,12 @@
     flex-direction: column;
 }
 
-.container form {
-    background-color: #000;
-}
-
 /* .button_container {
     right: 0%;
     position: fixed;
     height: 55em;
 } */
+
+.component {
+    padding-top: 60px;
+}

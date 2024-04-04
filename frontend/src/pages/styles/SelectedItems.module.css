@@ -3,16 +3,16 @@
   margin: 1em;
   z-index: 1;
   color: #FFF;
-  background-color: #000;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: fixed;
   line-height:50px;
+  padding-top: 60px;
 }
 
 .container_list {
-  padding-top: 60px;
+  padding-top: 120px;
   /* position: relative; */
   padding-bottom: 60px;
 }

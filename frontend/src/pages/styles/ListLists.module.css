@@ -1,3 +1,7 @@
+.container {
+    padding-top: 60px;
+}
+
 .container p {
     color: #FFF;
     font-size: 10px;
