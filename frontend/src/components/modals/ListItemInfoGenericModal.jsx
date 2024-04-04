@@ -32,16 +32,10 @@ const style = {
   borderRadius: "10px",
 };
 
-const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
+const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
   const [drawerState, setDrawerState] = useState(false);
   const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
-
-  useEffect(() => {
-    if (typeof itemData !== "undefined" && itemData !== null) {
-      setTmpItemInfo(itemData);
-    }
-  }, [itemData, setTmpItemInfo]);
 
   const updatePrice = (newPrice) => {
     setTmpItemInfo((itemInfo) => ({
@@ -98,6 +92,7 @@ const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
                     label="Name"
                     name="itemName"
                     variant="outlined"
+                    cbValueChanged={(data) => itemProperty("name", data)}
                     value={tmpItemInfo.name}
                   />
                 </div>
@@ -107,6 +102,7 @@ const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
                     name="itemPrice"
                     variant="outlined"
                     value={tmpItemInfo.price ?? "0,00"}
+                    cbValueChanged={(data) => itemProperty("price", data)}
                     InputProps={{
                       startAdornment: (
                         <Fragment>
@@ -144,12 +140,12 @@ const ListItemInfoGenericModal = ({ open, itemData, cbFormValues }) => {
                   <Grid item>
                     <Button
                       variant="text"
-                      text="Cancel"
+                      text="Close"
                       onClick={() => cbFormValues(false)}
                     />
                   </Grid>
                   <Grid item>
-                    <Button variant="text" text="Ok" type="submit" />
+                    <Button variant="contained" text="Confirm" onClick={() => cbFormValues(false)} />
                   </Grid>
                 </Grid>
               </Form>

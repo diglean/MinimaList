@@ -36,9 +36,7 @@ const NumberInput = ({ inputValue, cbHandleChange }) => {
           </Button>
         </Grid>
         <Grid item xs={3}>
-          <Form>
-            <Input name="quantity" value={inputValue} />
-          </Form>
+          <Input name="quantity" value={inputValue} />
         </Grid>
         <Grid item xs={1} className={styles.grid_item}>
           <Button onClick={() => updateValue("increment")}>

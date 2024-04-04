@@ -1,12 +1,11 @@
+import { useEffect, useCallback, useState } from "react";
+import { useFormContext } from "react-hook-form";
+
 import MuiTextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
 import { forwardRef } from "react";
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
 
 import styles from "./styles/FormInput.module.css";
-import { useEffect } from "react";
-import { useCallback } from "react";
 
 const TextField = styled(MuiTextField)({
   width: "100%",
@@ -45,7 +44,8 @@ const Input = forwardRef((props, ref) => {
 
   const handleValueChanged = useCallback((e) => {
     setInputValue(e.target.value);
-  });
+    props.cbValueChanged(e.target.value)
+  },[setInputValue, props]);
 
   useEffect(() => {
     if (props.value) {

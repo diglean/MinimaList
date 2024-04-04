@@ -5,6 +5,10 @@
     flex-direction: column;
 }
 
+.list_item_container p{
+    color: #FFF;
+}
+
 /* .button_container {
     right: 0%;
     position: fixed;
@@ -12,5 +16,5 @@
 } */
 
 .component {
-    padding-top: 60px;
+    /* padding-top: 60px; */
 }
