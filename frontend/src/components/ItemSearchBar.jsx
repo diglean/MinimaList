@@ -13,8 +13,7 @@ import NumberInput from "./NumberInput";
 import { TmpItemContext } from "../context/TmpItemContext";
 import ListItemInfoGenericModal from "./modals/ListItemInfoGenericModal";
 
-const ItemSearchBar = ({ callbackFormValues }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+const ItemSearchBar = () => {
   const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
   const [searchValue, setSearchValue] = useState("");
@@ -31,17 +30,8 @@ const ItemSearchBar = ({ callbackFormValues }) => {
     }));
   };
 
-  const setTmpItemDetails = (data) => {
-    if (data !== false) {
-      setTmpItemInfo(data);
-    }
-
-    setModalOpen(false);
-  };
-
   return (
     <div className={styles.component}>
-      <ListItemInfoGenericModal open={modalOpen} cbFormValues={(data) => setTmpItemDetails(data)}/>
       <Form callBackSubmit={(data) => setItemName(data)}>
         <Input
           label="Item Name"
@@ -51,56 +41,6 @@ const ItemSearchBar = ({ callbackFormValues }) => {
           value={searchValue}
         />
       </Form>
-      {tmpItemInfo.name && (
-        <>
-          <div className={styles.container} key={Math.random()}>
-            <ListItem className={styles.list_item_container}>
-              <ListItemButton disableRipple onClick={() => setModalOpen(true)}>
-                <ListItemText
-                  primary={tmpItemInfo.name}
-                  secondary={
-                    tmpItemInfo.price
-                      ? "R$ " + tmpItemInfo.price + " / " + tmpItemInfo.unit
-                      : ""
-                  }
-                />
-              </ListItemButton>
-              <NumberInput
-                inputValue={tmpItemInfo.qty}
-                cbHandleChange={(data) => {
-                  itemProperty("qty", data);
-                }}
-              />
-            </ListItem>
-            <Grid
-              container
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              spacing={2}
-              className={styles.button_container}
-            >
-              <Grid item>
-                <Button
-                  onClick={() => cleanTmpItemInfo()}
-                  variant="outlined"
-                  text="Cancel"
-                />
-              </Grid>
-              <Grid item>
-                <Button
-                  onClick={() => {
-                    cleanTmpItemInfo();
-                    callbackFormValues(tmpItemInfo);
-                  }}
-                  variant="contained"
-                  text="Confirm"
-                />
-              </Grid>
-            </Grid>
-          </div>
-        </>
-      )}
     </div>
   );
 };

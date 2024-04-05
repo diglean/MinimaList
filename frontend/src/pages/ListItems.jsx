@@ -41,11 +41,15 @@ const ListItems = ({ list }) => {
             <ListItemText
               primary={name}
               secondary={
-                <>
-                  <Typography component="span">
-                    {CURRENCY + " " + price} / {unit}
-                  </Typography>
-                </>
+                price ? (
+                  <>
+                    <Typography component="span">
+                      {CURRENCY + " " + price} / {unit}
+                    </Typography>
+                  </>
+                ) : (
+                  ""
+                )
               }
               onClick={() => handleOpenModal({ name, unit, price })}
               key={index + name}

@@ -17,7 +17,7 @@ class EditListItemAction
 
 	public function execute(EditListItemData $data): array
 	{
-		$listItem = $this->listItem->whereId($data->list_id)->first();
+		$listItem = $this->listItem->whereId($data->id)->first();
 
 		$aListItems = json_decode($listItem->items, true);
 
