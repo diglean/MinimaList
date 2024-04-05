@@ -37,13 +37,6 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
   const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
 
-  const updatePrice = (newPrice) => {
-    setTmpItemInfo((itemInfo) => ({
-      ...itemInfo,
-      price: newPrice,
-    }));
-  };
-
   const updateUnit = (newUnit) => {
     setTmpItemInfo((itemInfo) => ({
       ...itemInfo,
@@ -145,7 +138,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                     />
                   </Grid>
                   <Grid item>
-                    <Button variant="contained" text="Confirm" onClick={() => cbFormValues(false)} />
+                    <Button variant="contained" text="Confirm" onClick={() => cbFormValues(true)} />
                   </Grid>
                 </Grid>
               </Form>

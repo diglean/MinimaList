@@ -26,9 +26,9 @@ const style = {
 
 const ROOT = "http://localhost:8000";
 
-export default function ListInfoModal({ open, callBackFormValues }) {
+export default function ListInfoModal({ open, cbCloseModal }) {
   const navigate = useNavigate();
-  const addItensToList = useCallback(
+  const cbCreateList = useCallback(
     (data) => {
       fetch(ROOT + "/api/list/create", {
         method: "POST",
@@ -66,14 +66,14 @@ export default function ListInfoModal({ open, callBackFormValues }) {
               >
                 Name of the list
               </Typography>
-              <Form callBackSubmit={(data) => addItensToList(data)}>
+              <Form callBackSubmit={(data) => cbCreateList(data)}>
                 <Input label="Name" name="name" variant="outlined" />
                 <Grid container spacing="0.5" justifyContent="flex-end">
                   <Grid item>
                     <Button
                       variant="text"
                       text="Cancel"
-                      onClick={() => callBackFormValues(false)}
+                      onClick={() => cbCloseModal(false)}
                     />
                   </Grid>
                   <Grid item>

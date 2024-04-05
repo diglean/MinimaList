@@ -32,7 +32,7 @@ const SelectedItems = () => {
   const [listItemsId, setListItemsId] = useState(null);
 
   const { state } = useLocation();
-  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
+  const { tmpItemInfo, setTempItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
 
   const listProperty = (property, newValue) => {
@@ -117,7 +117,7 @@ const SelectedItems = () => {
   );
 
   const itemProperty = (property, newValue) => {
-    setTmpItemInfo((tmpItemInfo) => ({
+    setTempItemInfo((tmpItemInfo) => ({
       ...tmpItemInfo,
       [property]: newValue,
     }));
@@ -125,7 +125,7 @@ const SelectedItems = () => {
 
   const setTmpItemDetails = (data) => {
     if (data !== false) {
-      setTmpItemInfo(data);
+      setTempItemInfo(data);
     }
 
     setModalOpen(false);

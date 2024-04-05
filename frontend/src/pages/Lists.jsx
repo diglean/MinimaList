@@ -1,10 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+
+import { List } from "@mui/material";
+
 import ListList from "./ListList";
 import NoListRegistered from "./NoListRegistered";
-import { List } from "@mui/material";
+
 import Loading from "../components/Loading";
 import AppBar from "../components/LogoBar";
 import BottomNavigation from "../components/BottomNavigation";
+import ListInfoModal from "../components/ListInfoModal";
+import FloatingAddListButton from "../components/FloatingAddListButton";
 
 export default function Lists() {
   const [loading, setLoading] = useState(false);
@@ -17,6 +22,7 @@ export default function Lists() {
   //   // },
   // ]);
   const [lists, setLists] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const ROOT = "http://localhost:8000";
 
@@ -43,10 +49,14 @@ export default function Lists() {
   if (lists !== false) {
     return (
       <div>
+        <ListInfoModal open={open} cbCloseModal={() => setOpen(false)} />
         {lists.length > 0 ? (
-          <List>
-            <ListList list={lists} />
-          </List>
+          <>
+            <FloatingAddListButton cbOnClick={() => setOpen(true)} open={open === false}/>
+            <List>
+              <ListList list={lists} />
+            </List>
+          </>
         ) : (
           <NoListRegistered />
         )}
