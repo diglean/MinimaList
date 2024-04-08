@@ -160,6 +160,11 @@ const SelectedItems = () => {
               <NumberInput
                 inputValue={tmpItemInfo.qty}
                 cbHandleChange={(data) => {
+                  if (data === 0) {
+                    cleanTmpItemInfo();
+                    return;
+                  }
+                  
                   itemProperty("qty", data);
                 }}
               />
