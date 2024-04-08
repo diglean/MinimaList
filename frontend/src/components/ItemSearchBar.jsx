@@ -1,26 +1,21 @@
 import * as React from "react";
 import { useState, useContext } from "react";
 
-import { Grid, ListItem, ListItemButton, ListItemText } from "@mui/material";
-
 import styles from "./styles/ItemSearchBar.module.css";
 
-import Button from "./Button";
 import Input from "./FormInput";
 import Form from "./Form";
-import NumberInput from "./NumberInput";
 
 import { TmpItemContext } from "../context/TmpItemContext";
-import ListItemInfoGenericModal from "./modals/ListItemInfoGenericModal";
 
 const ItemSearchBar = () => {
-  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
+  const { tmpItemInfo, setTmpItemInfo } =
     useContext(TmpItemContext);
   const [searchValue, setSearchValue] = useState("");
 
   const setItemName = (data) => {
     itemProperty("name", data.name);
-    setSearchValue("");
+    setSearchValue(null);
   };
 
   const itemProperty = (property, newValue) => {

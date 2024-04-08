@@ -11,7 +11,7 @@ import { useState, useContext } from "react";
 import { TmpItemContext } from "../context/TmpItemContext";
 
 const ListItems = ({ list }) => {
-  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
+  const { tmpItemInfo, setTmpItemInfo } =
     useContext(TmpItemContext);
   const [itemData, setItemData] = useState(null);
   const [openModal, setOpenModal] = useState(false);

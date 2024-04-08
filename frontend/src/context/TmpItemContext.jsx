@@ -16,14 +16,9 @@ export const TmpItemProvider = ({ children }) => {
     setTmpItemInfo(DEFAULT_ITEM_INFO);
   };
 
-  const setTempItemInfo = ({ item }) => {
-    setTmpItemInfo(item)
-    cleanTmpItemInfo();
-  };
-
   return (
     <TmpItemContext.Provider
-      value={{ tmpItemInfo, setTempItemInfo }}
+      value={{ tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo }}
     >
       {children}
     </TmpItemContext.Provider>

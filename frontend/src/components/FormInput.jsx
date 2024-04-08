@@ -65,7 +65,7 @@ const Input = forwardRef((props, ref) => {
         value={inputValue}
         InputProps={props.InputProps}
         {...register(props.name, {
-          required: `${props.label} is required`,
+          required: props.required ? `${props.label} is required` : false,
         })}
       />
       {errors?.[props.name]?.type === "required" && (

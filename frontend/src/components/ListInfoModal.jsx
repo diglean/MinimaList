@@ -67,7 +67,7 @@ export default function ListInfoModal({ open, cbCloseModal }) {
                 Name of the list
               </Typography>
               <Form callBackSubmit={(data) => cbCreateList(data)}>
-                <Input label="Name" name="name" variant="outlined" />
+                <Input label="Name" name="name" variant="outlined" required={true}/>
                 <Grid container spacing="0.5" justifyContent="flex-end">
                   <Grid item>
                     <Button

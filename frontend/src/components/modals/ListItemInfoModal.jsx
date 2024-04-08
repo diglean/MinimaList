@@ -137,6 +137,7 @@ const CustomModal = ({ open, item, callbackFormValues }) => {
                       </Fragment>
                     ),
                   }}
+                  required={true}
                 />
                 <Grid container spacing="0.5" justifyContent="flex-end">
                   <Grid item>

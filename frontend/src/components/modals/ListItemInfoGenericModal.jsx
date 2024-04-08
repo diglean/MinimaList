@@ -34,7 +34,7 @@ const style = {
 
 const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
   const [drawerState, setDrawerState] = useState(false);
-  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
+  const { tmpItemInfo, setTmpItemInfo } =
     useContext(TmpItemContext);
 
   const updateUnit = (newUnit) => {
@@ -87,6 +87,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                     variant="outlined"
                     cbValueChanged={(data) => itemProperty("name", data)}
                     value={tmpItemInfo.name}
+                    required={true}
                   />
                 </div>
                 <div className={styles.container_input}>

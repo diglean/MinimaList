@@ -28,11 +28,18 @@ const ROOT = "http://localhost:8000";
 const SelectedItems = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedItems, setSelectedItems] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([
+    {
+      name: "Lorem",
+      unit: "kg",
+      price: 10.5,
+      qty: 1,
+    }
+  ]);
   const [listItemsId, setListItemsId] = useState(null);
 
   const { state } = useLocation();
-  const { tmpItemInfo, setTempItemInfo, cleanTmpItemInfo } =
+  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
 
   const listProperty = (property, newValue) => {
@@ -117,7 +124,7 @@ const SelectedItems = () => {
   );
 
   const itemProperty = (property, newValue) => {
-    setTempItemInfo((tmpItemInfo) => ({
+    setTmpItemInfo((tmpItemInfo) => ({
       ...tmpItemInfo,
       [property]: newValue,
     }));
@@ -125,7 +132,7 @@ const SelectedItems = () => {
 
   const setTmpItemDetails = (data) => {
     if (data !== false) {
-      setTempItemInfo(data);
+      setTmpItemInfo(data);
     }
 
     setModalOpen(false);
@@ -148,14 +155,16 @@ const SelectedItems = () => {
           <div className={styles.container_tmp_item} key={Math.random()}>
             <ListItem className={styles.list_item_container}>
               <ListItemButton disableRipple onClick={() => setModalOpen(true)}>
-                <ListItemText
-                  primary={tmpItemInfo.name}
-                  secondary={
-                    tmpItemInfo.price
-                      ? "R$ " + tmpItemInfo.price + " / " + tmpItemInfo.unit
-                      : ""
-                  }
-                />
+                <div className={styles.tmp_item_text}>
+                  <ListItemText
+                    primary={tmpItemInfo.name}
+                    secondary={
+                      tmpItemInfo.price
+                        ? "R$ " + tmpItemInfo.price + " / " + tmpItemInfo.unit
+                        : ""
+                    }
+                  />
+                </div>
               </ListItemButton>
               <NumberInput
                 inputValue={tmpItemInfo.qty}
