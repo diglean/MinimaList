@@ -11,8 +11,7 @@ import { useState, useContext } from "react";
 import { TmpItemContext } from "../context/TmpItemContext";
 
 const ListItems = ({ list }) => {
-  const { tmpItemInfo, setTmpItemInfo } =
-    useContext(TmpItemContext);
+  const { tmpItemInfo, setTmpItemInfo } = useContext(TmpItemContext);
   const [itemData, setItemData] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const CURRENCY = "R$";
@@ -41,15 +40,15 @@ const ListItems = ({ list }) => {
             <ListItemText
               primary={name}
               secondary={
-                price ? (
-                  <>
+                <>
+                  {price && (
                     <Typography component="span">
-                      {CURRENCY + " " + price} / {unit}
+                      {CURRENCY + " " + (price != null ? price : "0,00")} /{" "}
+                      {unit}
                     </Typography>
-                  </>
-                ) : (
-                  ""
-                )
+                  )}
+                  {!price && <Typography component="span">No Info</Typography>}
+                </>
               }
               onClick={() => handleOpenModal({ name, unit, price })}
               key={index + name}

@@ -42,10 +42,16 @@ const Input = forwardRef((props, ref) => {
     formState: { errors },
   } = useFormContext();
 
-  const handleValueChanged = useCallback((e) => {
-    setInputValue(e.target.value);
-    props.cbValueChanged(e.target.value)
-  },[setInputValue, props]);
+  const handleValueChanged = useCallback(
+    (e) => {
+      setInputValue(e.target.value);
+
+      if (typeof props.cbValueChanged === "function") {
+        props.cbValueChanged(e.target.value);
+      }
+    },
+    [setInputValue, props]
+  );
 
   useEffect(() => {
     if (props.value) {

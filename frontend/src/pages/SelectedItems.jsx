@@ -34,7 +34,7 @@ const SelectedItems = () => {
       unit: "kg",
       price: 10.5,
       qty: 1,
-    }
+    },
   ]);
   const [listItemsId, setListItemsId] = useState(null);
 
@@ -173,7 +173,7 @@ const SelectedItems = () => {
                     cleanTmpItemInfo();
                     return;
                   }
-                  
+
                   itemProperty("qty", data);
                 }}
               />
