@@ -65,51 +65,57 @@ export default function ListList({ list }) {
       <AppBar />
       <ToastContainer />
       <Loading open={loading} />
-      {list.map(({ id, name, created_at, items_qty, items_id }, index) => (
-        <div key={index + name}>
-          <GenericModal
-            open={modalOpen}
-            primaryText="Are you sure?"
-            secondaryText="That's a irreversable action!"
-            primaryButtonProps={{
-              variant: "contained",
-              text: "Yes",
-              onClick: () => {
-                deleteList(id);
-                setModalOpen(false);
-              },
-            }}
-            secondaryButtonProps={{
-              variant: "text",
-              text: "No",
-              onClick: () => {
-                setModalOpen(false);
-              },
-            }}
-          />
-          <div className={styles.container}>
-            <ListItemButton disableRipple>
-              <ListItemText
-                primary={name}
-                secondary={
-                  <>
-                    <Typography component="span">{items_qty} Itens</Typography>
-                    <br />
-                    <Typography component="span">
-                      {formatDatetime(created_at, "DD/MM/YYYY")}
-                    </Typography>
-                  </>
-                }
-                onClick={() => handleClick({ list_id: id, items_id: items_id })}
-              />
-              <Button onClick={() => setModalOpen(true)}>
-                <FaRegTrashCan />
-              </Button>
-            </ListItemButton>
-            <Divider variant="middle" component="li" />
+      <div className={styles.list_container}>
+        {list.map(({ id, name, created_at, items_qty, items_id }, index) => (
+          <div key={index + name}>
+            <GenericModal
+              open={modalOpen}
+              primaryText="Are you sure?"
+              secondaryText="That's a irreversable action!"
+              primaryButtonProps={{
+                variant: "contained",
+                text: "Yes",
+                onClick: () => {
+                  deleteList(id);
+                  setModalOpen(false);
+                },
+              }}
+              secondaryButtonProps={{
+                variant: "text",
+                text: "No",
+                onClick: () => {
+                  setModalOpen(false);
+                },
+              }}
+            />
+            <div className={styles.container}>
+              <ListItemButton disableRipple>
+                <ListItemText
+                  primary={name}
+                  secondary={
+                    <>
+                      <Typography component="span">
+                        {items_qty} Itens
+                      </Typography>
+                      <br />
+                      <Typography component="span">
+                        {formatDatetime(created_at, "DD/MM/YYYY")}
+                      </Typography>
+                    </>
+                  }
+                  onClick={() =>
+                    handleClick({ list_id: id, items_id: items_id })
+                  }
+                />
+                <Button onClick={() => setModalOpen(true)}>
+                  <FaRegTrashCan />
+                </Button>
+              </ListItemButton>
+              <Divider variant="middle" component="li" />
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
       <BottomNavigation />
     </>
   );
