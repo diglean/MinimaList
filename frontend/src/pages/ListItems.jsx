@@ -14,6 +14,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import GenericModal from "../components/modals/GenericModal";
 
 const ListItems = ({ list, cbDeleteItem }) => {
+  const [selectedListItem, setSelectedItem] = useState(null);
   const { tmpItemInfo, setTmpItemInfo } = useContext(TmpItemContext);
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteItemModal, setOpenDeleteItemModal] = useState(false);
@@ -38,14 +39,15 @@ const ListItems = ({ list, cbDeleteItem }) => {
       {list.map(({ id, name, unit, price }, index) => (
         <div key={index + name}>
           <GenericModal
+            data={selectedListItem}
             open={openDeleteItemModal}
             primaryText="Are you sure?"
             secondaryText="That's a irreversable action!"
             primaryButtonProps={{
               variant: "contained",
               text: "Yes",
-              onClick: (data) => {
-                cbDeleteItem(index);
+              onClick: (e, data) => {
+                cbDeleteItem(data);
                 setOpenDeleteItemModal(false);
               },
             }}
@@ -77,7 +79,12 @@ const ListItems = ({ list, cbDeleteItem }) => {
                 onClick={() => handleOpenModal(true)}
                 key={index + name}
               />
-              <Button onClick={() => setOpenDeleteItemModal(true)}>
+              <Button
+                onClick={() => {
+                  setOpenDeleteItemModal(true);
+                  setSelectedItem(index);
+                }}
+              >
                 <FaRegTrashCan />
               </Button>
             </ListItemButton>

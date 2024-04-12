@@ -17,13 +17,20 @@ import Loading from "../components/Loading";
 import { formatDatetime } from "../library/FormatData";
 
 import styles from "./styles/ListLists.module.css";
+import { useEffect } from "react";
 
 export default function ListList({ list }) {
   const ROOT = "http://localhost:8000";
 
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [lists, setLists] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  if (list.count() > 0) {
+    setLists(list);
+  }
 
   const ToastSuccess = (message) => {
     toast.success(message, {
@@ -54,7 +61,8 @@ export default function ListList({ list }) {
       },
     })
       .then((res) => res.json())
-      .then(() => {
+      .then((res) => {
+        setLists(res.data);
         setLoading(false);
         ToastSuccess("List deleted!");
       });
@@ -66,7 +74,7 @@ export default function ListList({ list }) {
       <ToastContainer />
       <Loading open={loading} />
       <div className={styles.list_container}>
-        {list.map(({ id, name, created_at, items_qty, items_id }, index) => (
+        {lists.map(({ id, name, created_at, items_qty, items_id }, index) => (
           <div key={index + name}>
             <GenericModal
               open={modalOpen}
@@ -76,7 +84,8 @@ export default function ListList({ list }) {
                 variant: "contained",
                 text: "Yes",
                 onClick: () => {
-                  deleteList(id);
+                  deleteList(selectedItem);
+                  setSelectedItem(null);
                   setModalOpen(false);
                 },
               }}
@@ -107,7 +116,12 @@ export default function ListList({ list }) {
                     handleClick({ list_id: id, items_id: items_id })
                   }
                 />
-                <Button onClick={() => setModalOpen(true)}>
+                <Button
+                  onClick={() => {
+                    setModalOpen(true);
+                    setSelectedItem(id);
+                  }}
+                >
                   <FaRegTrashCan />
                 </Button>
               </ListItemButton>

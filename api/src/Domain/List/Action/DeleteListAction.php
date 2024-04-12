@@ -49,8 +49,6 @@ class DeleteListAction
             ->whereActive(ListModelActiveType::Yes)
             ->get();
 
-        // For debugging purposes only - remove in prod
-        sleep(1);
         return $lists;
     }
 }
