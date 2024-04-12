@@ -52,7 +52,10 @@ export default function Lists() {
         <ListInfoModal open={open} cbCloseModal={() => setOpen(false)} />
         {lists.length > 0 ? (
           <>
-            <FloatingAddListButton cbOnClick={() => setOpen(true)} open={open === false}/>
+            <FloatingAddListButton
+              cbOnClick={() => setOpen(true)}
+              open={open === false}
+            />
             <List>
               <ListList list={lists} />
             </List>

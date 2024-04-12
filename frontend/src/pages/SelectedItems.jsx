@@ -28,14 +28,8 @@ const ROOT = "http://localhost:8000";
 const SelectedItems = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([
-    {
-      name: "Lorem",
-      unit: "kg",
-      price: 10.5,
-      qty: 1,
-    },
-  ]);
+  const [showTmpItem, setShowTmpItem] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [listItemsId, setListItemsId] = useState(null);
 
   const { state } = useLocation();
@@ -79,6 +73,7 @@ const SelectedItems = () => {
         .then((resp) => resp.json())
         .then((data) => {
           setSelectedItems(data.items);
+          console.log(data.items);
           setLoading(false);
         });
     }
@@ -137,6 +132,26 @@ const SelectedItems = () => {
 
     setModalOpen(false);
   };
+
+  const deleteItem = useCallback(
+    (data) => {
+      let newListItem = selectedItems;
+
+      newListItem = newListItem.splice(data, 1);
+
+      fetch(ROOT + "/api/list-items/delete-item", {
+        method: "POST",
+        body: JSON.stringify({
+          list_items: newListItem,
+          list_id: state.list_id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    },
+    [selectedItems, state]
+  );
 
   return (
     <div>
@@ -214,7 +229,11 @@ const SelectedItems = () => {
           }
         >
           <List>
-            <ListItems list={selectedItems} key={Math.random()} />
+            <ListItems
+              list={selectedItems}
+              key={Math.random()}
+              cbDeleteItem={(data) => deleteItem(data)}
+            />
           </List>
         </div>
       )}

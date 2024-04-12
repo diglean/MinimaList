@@ -9,16 +9,18 @@ import styles from "./styles/ListItems.module.css";
 import ListItemInfoGenericModal from "../components/modals/ListItemInfoGenericModal";
 import { useState, useContext } from "react";
 import { TmpItemContext } from "../context/TmpItemContext";
+import Button from "../components/Button";
+import { FaRegTrashCan } from "react-icons/fa6";
+import GenericModal from "../components/modals/GenericModal";
 
-const ListItems = ({ list }) => {
+const ListItems = ({ list, cbDeleteItem }) => {
   const { tmpItemInfo, setTmpItemInfo } = useContext(TmpItemContext);
-  const [itemData, setItemData] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [openDeleteItemModal, setOpenDeleteItemModal] = useState(false);
   const CURRENCY = "R$";
 
   const handleOpenModal = (data) => {
     setOpenModal(true);
-    setItemData(data);
   };
 
   const handleCbFormValues = (data) => {
@@ -31,30 +33,56 @@ const ListItems = ({ list }) => {
     <>
       <ListItemInfoGenericModal
         open={openModal}
-        itemData={itemData}
         cbFormValues={(data) => handleCbFormValues(data)}
       />
       {list.map(({ id, name, unit, price }, index) => (
-        <div className={styles.container} key={index + name}>
-          <ListItemButton disableRipple key={index + name}>
-            <ListItemText
-              primary={name}
-              secondary={
-                <>
-                  {price && (
-                    <Typography component="span">
-                      {CURRENCY + " " + (price != null ? price : "0,00")} /{" "}
-                      {unit}
-                    </Typography>
-                  )}
-                  {!price && <Typography component="span">No Info</Typography>}
-                </>
-              }
-              onClick={() => handleOpenModal({ name, unit, price })}
-              key={index + name}
-            />
-          </ListItemButton>
-          <Divider variant="middle" component="li" />
+        <div key={index + name}>
+          <GenericModal
+            open={openDeleteItemModal}
+            primaryText="Are you sure?"
+            secondaryText="That's a irreversable action!"
+            primaryButtonProps={{
+              variant: "contained",
+              text: "Yes",
+              onClick: (data) => {
+                cbDeleteItem(index);
+                setOpenDeleteItemModal(false);
+              },
+            }}
+            secondaryButtonProps={{
+              variant: "text",
+              text: "No",
+              onClick: () => {
+                setOpenDeleteItemModal(false);
+              },
+            }}
+          />
+          <div className={styles.container}>
+            <ListItemButton disableRipple key={index + name}>
+              <ListItemText
+                primary={name}
+                secondary={
+                  <>
+                    {price && (
+                      <Typography component="span">
+                        {CURRENCY + " " + (price != null ? price : "0,00")} /{" "}
+                        {unit}
+                      </Typography>
+                    )}
+                    {!price && (
+                      <Typography component="span">No Info</Typography>
+                    )}
+                  </>
+                }
+                onClick={() => handleOpenModal(true)}
+                key={index + name}
+              />
+              <Button onClick={() => setOpenDeleteItemModal(true)}>
+                <FaRegTrashCan />
+              </Button>
+            </ListItemButton>
+            <Divider variant="middle" component="li" />
+          </div>
         </div>
       ))}
     </>

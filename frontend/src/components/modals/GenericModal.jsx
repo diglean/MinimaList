@@ -20,6 +20,7 @@ const GenericModal = ({
   secondaryText,
   primaryButtonProps,
   secondaryButtonProps,
+  data = null,
 }) => {
   return (
     <div>
@@ -31,10 +32,7 @@ const GenericModal = ({
         >
           <Fade in={open} timeout={400}>
             <Box sx={style}>
-              <Typography
-                id="modal-primary-text"
-                variant="h5"
-              >
+              <Typography id="modal-primary-text" variant="h5">
                 {primaryText}
               </Typography>
               <Typography
