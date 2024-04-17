@@ -3,12 +3,13 @@
 namespace Domain\ListItem\Actions;
 
 use App\Context\ListItem\DataTransferObject\ListListItemData;
+use Domain\List\Models\Lists;
 use Domain\ListItem\Models\ListItem;
 
 class ListListItemAction
 {
     public function __construct(
-        public ListItem $listItem,
+        public ListItem $listItemModel,
     ) {
     }
 
@@ -20,18 +21,17 @@ class ListListItemAction
      */
     public function execute(ListListItemData $data): array
     {
-        $listItems = $this->listItem->whereId($data->id)->first();
+        $listItems = $this->listItemModel->whereListId($data->list_id)->get();
 
         if (is_null($listItems)) {
             return [[]];
         }
 
-        $items = json_decode($listItems->items, true);
-
-        sleep(3);
+        // ! Debug purposes only!!
+        sleep(1);
 
         return [
-            'items' => $items,
+            'items' => $listItems,
             'created_at' => $listItems->created_at,
             'updated_at' => $listItems->updated_at,
         ];

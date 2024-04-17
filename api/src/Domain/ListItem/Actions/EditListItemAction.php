@@ -9,27 +9,29 @@ use Illuminate\Support\Carbon;
 
 class EditListItemAction
 {
-  public function __construct(
-      public ListItem $listItem,
-      public Lists $list,
-  ) {
-  }
+	public function __construct(
+		public ListItem $listItemModel,
+		public Lists $listModel,
+	) {
+	}
 
 	public function execute(EditListItemData $data): array
 	{
-		$listItem = $this->listItem->whereId($data->id)->first();
+		$listItem = $this->listItemModel->whereId($data->id)->first();
 
-		$aListItems = json_decode($listItem->items, true);
+		$aListItems = $this->listItemModel->whereListId($data->list_id)->get();
 
-		$aListItems[] = $data->items[0];
-
-		$this->list->whereId($data->list_id)->update([
-			'items_qty' => count($aListItems),
+		$this->listModel->whereId($data->list_id)->update([
+			'items_qty' => $aListItems->count(),
 			'updated_at' => Carbon::now(),
 		]);
 
 		$listItem->update([
-			'items' => json_encode($aListItems),
+			'list_id' => $data->list_id,
+            'name' => $data->name,
+            'price' => floatval($data->price),
+            'unity' => $data->unity,
+            'updated_at' => Carbon::now(),
 		]);
 
 		return ['items' => $aListItems];

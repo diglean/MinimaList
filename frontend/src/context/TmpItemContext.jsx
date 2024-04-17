@@ -8,6 +8,7 @@ export const TmpItemProvider = ({ children }) => {
     qty: 1,
     price: null,
     unit: "kg",
+    category: [{}]
   };
 
   const [tmpItemInfo, setTmpItemInfo] = useState(DEFAULT_ITEM_INFO);

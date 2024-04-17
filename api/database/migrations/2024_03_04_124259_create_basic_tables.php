@@ -21,13 +21,6 @@ return new class extends Migration {
 
         DB::unprepared(
             <<<SQL
-                INSERT INTO `category` (`id`, `nome`, `active`)
-                VALUES (NULL, 'sample', 'yes')
-            SQL,
-        );
-
-        DB::unprepared(
-            <<<SQL
             CREATE TABLE `list_item` (
                 `id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `list_id` SMALLINT UNSIGNED NOT NULL,

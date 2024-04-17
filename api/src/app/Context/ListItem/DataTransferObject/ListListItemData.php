@@ -5,13 +5,13 @@ use Spatie\LaravelData\Data;
 
 class ListListItemData extends Data
 {
-  public function __construct(
-    public int $id,
-  ) {
-  }
+    public function __construct(
+        public int $list_id,
+    ) {
+    }
 
-  public function rules(): array
-  {
-    return ['id' => ['required', 'string', 'min:1']];
-  }
+    public function rules(): array
+    {
+        return ['list_id' => ['required', 'string', 'min:1']];
+    }
 }

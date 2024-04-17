@@ -18,6 +18,7 @@ import TemporaryDrawer from "../Drawer";
 import NumberInput from "../NumberInput";
 import { useContext } from "react";
 import { TmpItemContext } from "../../context/TmpItemContext";
+import MultipleSelectChip from "../Select";
 
 const style = {
   position: "relative",
@@ -122,14 +123,13 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                     }}
                   />
                 </div>
-                <div className={styles.container_input}>
-                  <NumberInput
-                    inputValue={tmpItemInfo.qty}
-                    cbHandleChange={(data) => {
-                      itemProperty("qty", data);
-                    }}
-                  />
-                </div>
+                <MultipleSelectChip />
+                <NumberInput
+                  inputValue={tmpItemInfo.qty}
+                  cbHandleChange={(data) => {
+                    itemProperty("qty", data);
+                  }}
+                />
                 <Grid container spacing="0.5" justifyContent="flex-end">
                   <Grid item>
                     <Button
