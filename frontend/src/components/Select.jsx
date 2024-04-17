@@ -68,7 +68,7 @@ export default function MultipleSelectChip() {
 
   return (
     <div>
-      <FormControl sx={{ width: '100%'}}>
+      <FormControl sx={{ width: '100%' }}>
           <InputLabel id="demo-multiple-chip-label">Category</InputLabel>
           <Select
             labelId="demo-multiple-chip-label"
@@ -76,9 +76,32 @@ export default function MultipleSelectChip() {
             multiple
             value={personName}
             onChange={handleChange}
-            input={<OutlinedInput id="select-multiple-chip" label="Category" sx={{ maxHeight: '100px', border: '#FFF' }}/>}
+            sx={{
+              color: "white",
+              '.MuiOutlinedInput-notchedOutline': {
+                borderColor: '#FFF',
+              },
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#FFF',
+              },
+              '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#FFF',
+              },
+              '.MuiSvgIcon-root ': {
+                fill: "white !important",
+              }
+            }}
+            input={<OutlinedInput id="select-multiple-chip" label="Category" sx={{ maxHeight: '100px', width: '100%' }}/>}
             renderValue={(selected) => (
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, maxHeight: '80px', overflow: 'scroll', paddingTop: '5px' }}>
+              <Box sx={{ 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                gap: 0.5, 
+                maxHeight: '80px', 
+                overflow: 'scroll', 
+                paddingTop: '5px',
+              }}
+              >
                 {selected.map((value) => (
                     <Chip key={value} label={value} sx={style}/>
                 ))}
