@@ -11,10 +11,30 @@ return new class extends Migration {
     {
         DB::unprepared(
             <<<SQL
+            CREATE TABLE `category` (
+                `id` SMALLINT NOT NULL AUTO_INCREMENT,
+                `nome` VARCHAR(30) NOT NULL,
+                `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
+                PRIMARY KEY (`id`));
+            SQL,
+        );
+
+        DB::unprepared(
+            <<<SQL
+                INSERT INTO `category` (`id`, `nome`, `active`)
+                VALUES (NULL, 'sample', 'yes')
+            SQL,
+        );
+
+        DB::unprepared(
+            <<<SQL
             CREATE TABLE `list_item` (
                 `id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `list_id` SMALLINT UNSIGNED NOT NULL,
-                `items` JSON NOT NULL,
+                `name` VARCHAR(30) NOT NULL,
+                `price` FLOAT(8,2) NULL, 
+                `unity` ENUM('g', 'kg', 'unity') NOT NULL DEFAULT 'unity',
+                `category_id` SMALLINT NOT NULL DEFAULT 1,
                 `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL,
@@ -37,7 +57,7 @@ return new class extends Migration {
                 INDEX `items_id_idx` (`items_id` ASC),
                 CONSTRAINT `fk_item_list1`
                     FOREIGN KEY (`items_id`)
-                    REFERENCES `list_items` (`id`)
+                    REFERENCES `list_item` (`id`)
                     ON DELETE NO ACTION
                     ON UPDATE NO ACTION
             );
@@ -58,7 +78,13 @@ return new class extends Migration {
 
         DB::unprepared(
             <<<SQL
-            DROP TABLE IF EXISTS `list_items`;
+            DROP TABLE IF EXISTS `list_item`;
+            SQL,
+        );
+
+        DB::unprepared(
+            <<<SQL
+            DROP TABLE IF EXISTS `category`;
             SQL,
         );
     }

@@ -23,14 +23,9 @@ export default function ListList({ list }) {
   const ROOT = "http://localhost:8000";
 
   const [selectedItem, setSelectedItem] = useState(null);
-  const [lists, setLists] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  if (list.count() > 0) {
-    setLists(list);
-  }
 
   const ToastSuccess = (message) => {
     toast.success(message, {
@@ -62,7 +57,6 @@ export default function ListList({ list }) {
     })
       .then((res) => res.json())
       .then((res) => {
-        setLists(res.data);
         setLoading(false);
         ToastSuccess("List deleted!");
       });
@@ -74,7 +68,7 @@ export default function ListList({ list }) {
       <ToastContainer />
       <Loading open={loading} />
       <div className={styles.list_container}>
-        {lists.map(({ id, name, created_at, items_qty, items_id }, index) => (
+        {list.map(({ id, name, created_at, items_qty, items_id }, index) => (
           <div key={index + name}>
             <GenericModal
               open={modalOpen}

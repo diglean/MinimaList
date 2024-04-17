@@ -23,23 +23,22 @@ class CreateListItemAction
      */
     public function execute(CreateListItemsData $data): array
     {
-        $listItems = $this->listItem->create([
+        $listItem = $this->listItem->create([
             'list_id' => $data->list_id,
-            'items' => json_encode($data->items),
-            'comment' => $data->comment,
+            'name' => $data->name,
+            'price' => floatval($data->price),
+            'unity' => $data->unity,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
-        $this->list->whereId($data->list_id)->update([
-            'items_id' => $listItems->id,
-            'items_qty' => count($data->items),
-            'updated_at' => Carbon::now(),
-        ]);
+        $listItems = $this->listItem
+            ->whereId($data->list_id)
+            ->get();
 
         return [
-            'id' => $listItems->id,
-            'items' => json_decode($listItems->items, true),
+            'id' => $listItem->id,
+            'items' => $listItems,
         ];
     }
 }

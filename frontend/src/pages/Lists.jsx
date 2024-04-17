@@ -61,7 +61,7 @@ export default function Lists() {
             </List>
           </>
         ) : (
-          <NoListRegistered />
+          <NoListRegistered cbOpenModal={() => setOpen(true)} />
         )}
       </div>
     );

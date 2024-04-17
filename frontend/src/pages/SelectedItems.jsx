@@ -81,30 +81,25 @@ const SelectedItems = () => {
 
   const addItemToList = useCallback(
     (data) => {
-      let method = "POST";
-      let action = "create";
-      let body = {
-        list_id: state.list_id,
-        items: [data],
-      };
-
-      if (listItemsId !== null) {
-        method = "PUT";
-        action = "edit";
-        body.id = state.items_id;
-      }
-
       setLoading(true);
 
-      fetch(ROOT + "/api/list-items/" + action, {
-        method,
-        body: JSON.stringify(body),
+      fetch(ROOT + "/api/list-item/create", {
+        method: "POST",
+        body: JSON.stringify({
+          list_id: state.list_id,
+          name: data.name,
+          price: data.price,
+          unity: data.unit,
+        }),
         headers: {
           "Content-Type": "application/json",
         },
       })
         .then((response) => response.json())
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        })
         .then((data) => {
           setSelectedItems(data.items);
 
