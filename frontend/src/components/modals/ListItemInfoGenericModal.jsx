@@ -33,7 +33,10 @@ const style = {
   borderRadius: "10px",
 };
 
+const ROOT = "http://localhost:8000";
+
 const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
+  const [options, setOptions] = useState([{"id": 1, "name": 'teste'}]);
   const [drawerState, setDrawerState] = useState(false);
   const { tmpItemInfo, setTmpItemInfo } =
     useContext(TmpItemContext);
@@ -59,6 +62,19 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
 
     setDrawerState(drawerState);
   };
+
+  // useEffect(() => {
+  //   fetch(ROOT + "/api/category/list-category", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       setOptions(data);
+  //     })
+  // }, [setOptions]);
 
   return (
     <>
@@ -123,7 +139,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                     }}
                   />
                 </div>
-                <MultipleSelectChip />
+                <MultipleSelectChip options={options}/>
                 <NumberInput
                   inputValue={tmpItemInfo.qty}
                   cbHandleChange={(data) => {

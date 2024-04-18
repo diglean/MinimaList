@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import { useState } from 'react';
 
 const ITEM_HEIGHT = 40;
 const ITEM_PADDING_TOP = 2;
@@ -24,25 +25,6 @@ const style = {
   backgroundColor: '#FFF'
 };
 
-const names = [
-  'Cleaning',
-  'Groceries',
-  'Household',
-  'Personal',
-  'Beverages',
-  'Canned',
-  'Frozen',
-  'Pantry',
-  'Vegetables',
-  'Fruits',
-  'Meat',
-  'Dairy',
-  'Drinks',
-  'Snacks',
-  'Cereals',
-  'Other ',
-];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -52,18 +34,13 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelectChip() {
+export default function MultipleSelectChip({ options }) {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    const {target: { value }} = event;
+    setSelectedOptions(typeof value === 'string' ? value.split(',') : value);
   };
 
   return (
@@ -74,7 +51,7 @@ export default function MultipleSelectChip() {
             labelId="demo-multiple-chip-label"
             id="demo-multiple-chip"
             multiple
-            value={personName}
+            value={selectedOptions}
             onChange={handleChange}
             sx={{
               color: "white",
@@ -109,13 +86,13 @@ export default function MultipleSelectChip() {
             )}
             MenuProps={MenuProps}
           >
-          {names.map((name) => (
+          {options.map((item) => (
             <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
+              key={item.id}
+              value={item.name}
+              style={getStyles(item.name, selectedOptions, theme)}
             >
-              {name}
+              {item.name}
             </MenuItem>
           ))}
           </Select>
