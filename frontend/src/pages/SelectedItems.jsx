@@ -36,13 +36,6 @@ const SelectedItems = () => {
   const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
 
-  const listProperty = (property, newValue) => {
-    setSelectedItems((listItem) => ({
-      ...listItem,
-      [property]: newValue,
-    }));
-  };
-
   const ToastSuccess = (message) => {
     toast.success(message, {
       position: "bottom-center",

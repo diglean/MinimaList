@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useContext } from "react";
 import {
   Box,
   Fade,
@@ -16,7 +16,6 @@ import Button from "../Button";
 import styles from "./styles/ListItemInfoGenericModal.module.css";
 import TemporaryDrawer from "../Drawer";
 import NumberInput from "../NumberInput";
-import { useContext } from "react";
 import { TmpItemContext } from "../../context/TmpItemContext";
 import MultipleSelectChip from "../Select";
 
