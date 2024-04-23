@@ -11,7 +11,7 @@ class CreateListItemAction
 {
     public function __construct(
       public ListItem $listItem,
-      public Lists $list,
+      public Lists $listModel,
     ) {
     }
 
@@ -31,6 +31,9 @@ class CreateListItemAction
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+
+        $list = $this->listModel->whereId($data->list_id)->first();
+        $list->update(['items_qty' => $list->items_qty + 1]);
 
         $listItems = $this->listItem
             ->whereId($data->list_id)

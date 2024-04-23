@@ -127,7 +127,7 @@ const SelectedItems = () => {
 
       newListItem = newListItem.splice(data, 1);
 
-      fetch(ROOT + "/api/list-items/delete-item", {
+      fetch(ROOT + "/api/list-items/remove-item", {
         method: "POST",
         body: JSON.stringify({
           list_items: newListItem,

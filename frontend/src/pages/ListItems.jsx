@@ -7,15 +7,13 @@ import {
 
 import styles from "./styles/ListItems.module.css";
 import ListItemInfoGenericModal from "../components/modals/ListItemInfoGenericModal";
-import { useState, useContext } from "react";
-import { TmpItemContext } from "../context/TmpItemContext";
+import { useState } from "react";
 import Button from "../components/Button";
 import { FaRegTrashCan } from "react-icons/fa6";
 import GenericModal from "../components/modals/GenericModal";
 
 const ListItems = ({ list, cbDeleteItem }) => {
-  const [selectedListItem, setSelectedItem] = useState(null);
-  const { tmpItemInfo, setTmpItemInfo } = useContext(TmpItemContext);
+  const [selectedItem, setSelectedItem] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteItemModal, setOpenDeleteItemModal] = useState(false);
   const CURRENCY = "R$";
@@ -39,15 +37,14 @@ const ListItems = ({ list, cbDeleteItem }) => {
       {list.map(({ id, name, unit, price }, index) => (
         <div key={index + name}>
           <GenericModal
-            data={selectedListItem}
             open={openDeleteItemModal}
             primaryText="Are you sure?"
             secondaryText="That's a irreversable action!"
             primaryButtonProps={{
               variant: "contained",
               text: "Yes",
-              onClick: (e, data) => {
-                cbDeleteItem(data);
+              onClick: () => {
+                cbDeleteItem(selectedItem);
                 setOpenDeleteItemModal(false);
               },
             }}
@@ -82,7 +79,7 @@ const ListItems = ({ list, cbDeleteItem }) => {
               <Button
                 onClick={() => {
                   setOpenDeleteItemModal(true);
-                  setSelectedItem(index);
+                  setSelectedItem(id);
                 }}
               >
                 <FaRegTrashCan />
