@@ -4,7 +4,7 @@ namespace Domain\ListItem\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Context\ListItem\Types\ListItemUnityType;
+use App\Context\ListItem\Types\ListItemUnitType;
 use App\Context\ListItem\Types\ListItemActiveType;
 use Illuminate\Support\Carbon;
 
@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $list_id
  * @property string $name
- * @property ListItemUnityType $unity
+ * @property ListItemUnitType $unity
  * @property int $category_id
  * @property ListItemActiveType $active
  * @property Carbon $created_at
@@ -48,7 +48,7 @@ class ListItem extends Model
     ];
 
     protected $casts = [
-        'unity' => ListItemUnityType::class,
+        'unity' => ListItemUnitType::class,
         'active' => ListItemActiveType::class,
         'created_at' => 'date:Y-m-d H:i:s',
         'updated_at' => 'date:Y-m-d H:i:s',

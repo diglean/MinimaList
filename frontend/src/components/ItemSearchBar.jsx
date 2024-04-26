@@ -15,7 +15,7 @@ const ItemSearchBar = () => {
 
   const setItemName = (data) => {
     itemProperty("name", data.name);
-    setSearchValue(null);
+    setSearchValue("");
   };
 
   const itemProperty = (property, newValue) => {

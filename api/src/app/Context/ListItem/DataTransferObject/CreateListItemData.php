@@ -2,17 +2,18 @@
 
 namespace App\Context\ListItem\DataTransferObject;
 
-use App\Context\ListItem\Types\ListItemUnityType;
+use App\Context\ListItem\Types\ListItemUnitType;
 use Illuminate\Validation\Rules\Enum;
 use Spatie\LaravelData\Data;
 
-class CreateListItemsData extends Data
+class CreateListItemData extends Data
 {
     public function __construct(
         public int $list_id,
         public string $name,
         public ?string $price,
-        public ListItemUnityType $unity,
+        public ?int $qty,
+        public ListItemUnitType $unit,
         public ?int $category_id,
     ) {
     }
@@ -33,9 +34,9 @@ class CreateListItemsData extends Data
                 'null',
                 'string',
             ],
-            'unity' => [
+            'unit' => [
                 'nullable',
-                new Enum(ListItemUnityType::class)
+                new Enum(ListItemUnitType::class),
             ],
             'category_id' => [
                 'nullable',

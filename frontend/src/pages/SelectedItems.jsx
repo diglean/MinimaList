@@ -65,7 +65,6 @@ const SelectedItems = () => {
         .then((resp) => resp.json())
         .then((data) => {
           setSelectedItems(data.items);
-          console.log(data.items);
           setLoading(false);
         });
     }

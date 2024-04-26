@@ -2,7 +2,7 @@
 
 namespace Domain\ListItem\Actions;
 
-use App\Context\ListItem\DataTransferObject\CreateListItemsData;
+use App\Context\ListItem\DataTransferObject\CreateListItemData;
 use Domain\ListItem\Models\ListItem;
 use Domain\List\Models\Lists;
 use Illuminate\Support\Carbon;
@@ -18,26 +18,35 @@ class CreateListItemAction
     /**
      * Executes the action to create list items.
      *
-     * @param CreateListItemsData $data The data for creating the list items.
+     * @param CreateListItemData $data The data for creating the list items.
      * @return array The created list items.
      */
-    public function execute(CreateListItemsData $data): array
+    public function execute(CreateListItemData $data): array
     {
+        $total = 0;
+
+        for ($i = 0; $i < $data->qty; $i++) {
+            $total += floatval($data->price);
+        }
+
         $listItem = $this->listItem->create([
             'list_id' => $data->list_id,
             'name' => $data->name,
             'price' => floatval($data->price),
-            'unity' => $data->unity,
+            'unit' => $data->unit,
+            'qty' => $data->qty,
+            'total' => floatval($total),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
         $list = $this->listModel->whereId($data->list_id)->first();
-        $list->update(['items_qty' => $list->items_qty + 1]);
+        $list->update(['items_qty' => $list->items_qty + $data->qty]);
 
-        $listItems = $this->listItem
-            ->whereId($data->list_id)
-            ->get();
+        /**
+		 * Collection of list items that will be sended to frontend.
+		 */
+        $listItems = $this->listItem->whereId($data->list_id)->get();
 
         return [
             'id' => $listItem->id,

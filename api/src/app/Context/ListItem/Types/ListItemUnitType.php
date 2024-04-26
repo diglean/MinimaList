@@ -2,11 +2,11 @@
 
 namespace App\Context\ListItem\Types;
 
-enum ListItemUnityType: string
+enum ListItemUnitType: string
 {
     case G = 'g';
 
     case Kg = 'kg';
 
-    case Unity = 'unity';
+    case Unit = 'unit';
 }

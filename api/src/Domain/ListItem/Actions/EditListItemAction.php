@@ -17,23 +17,35 @@ class EditListItemAction
 
 	public function execute(EditListItemData $data): array
 	{
+		$total = 0;
+
+        for ($i = 0; $i < $data->qty; $i++) {
+            $total += floatval($data->price);
+        }
+
 		$listItem = $this->listItemModel->whereId($data->id)->first();
-
-		$aListItems = $this->listItemModel->whereListId($data->list_id)->get();
-
-		$this->listModel->whereId($data->list_id)->update([
-			'items_qty' => $aListItems->count(),
-			'updated_at' => Carbon::now(),
-		]);
 
 		$listItem->update([
 			'list_id' => $data->list_id,
             'name' => $data->name,
             'price' => floatval($data->price),
-            'unity' => $data->unity,
+            'unit' => $data->unit,
+			'qty' => $data->qty,
+			'total' => $total,
             'updated_at' => Carbon::now(),
 		]);
 
-		return ['items' => $aListItems];
+		$list = $this->listModel->whereId($data->list_id);
+		$list->update([
+			'items_qty' => $list->$listItem + ($listItem - $data->qty),
+			'updated_at' => Carbon::now(),
+		]);
+
+		/**
+		 * Collection of list items that will be sended to frontend.
+		 */
+		$listItems = $this->listItemModel->whereListId($data->list_id)->get();
+
+		return ['items' => $listItems];
 	}
 }

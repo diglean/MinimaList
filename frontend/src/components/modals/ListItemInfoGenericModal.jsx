@@ -37,7 +37,7 @@ const ROOT = "http://localhost:8000";
 const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
   const [options, setOptions] = useState([{"id": 1, "name": "Test"},{"id": 2, "name": "Test2"}]);
   const [drawerState, setDrawerState] = useState(false);
-  const { tmpItemInfo, setTmpItemInfo } =
+  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
 
   const updateUnit = (newUnit) => {
@@ -52,6 +52,10 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
       newValue = newValue.replace(/\D/g, "");
       newValue = newValue.replace(/(\d)(\d{2})$/, "$1,$2");
       newValue = newValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
+    }
+
+    if (property === "name" && newValue === "") {
+      cleanTmpItemInfo();
     }
 
     setTmpItemInfo((tmpItemInfo) => ({
@@ -117,7 +121,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                     label="Price"
                     name="itemPrice"
                     variant="outlined"
-                    value={tmpItemInfo.price ?? "0,00"}
+                    value={tmpItemInfo.price ?? null}
                     cbValueChanged={(data) => itemProperty("price", data)}
                     InputProps={{
                       startAdornment: (
