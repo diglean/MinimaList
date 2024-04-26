@@ -28,7 +28,6 @@ const ROOT = "http://localhost:8000";
 const SelectedItems = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [showTmpItem, setShowTmpItem] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [listItemsId, setListItemsId] = useState(null);
 
@@ -76,14 +75,22 @@ const SelectedItems = () => {
     (data) => {
       setLoading(true);
 
-      fetch(ROOT + "/api/list-item/create", {
-        method: "POST",
-        body: JSON.stringify({
-          list_id: state.list_id,
-          name: data.name,
-          price: data.price,
-          unity: data.unit,
-        }),
+      let method = "POST";
+      let action = "create";
+      let body = {
+        list_id: state.list_id,
+        ...tmpItemInfo
+      };
+
+      if (listItemsId !== null) {
+        method = "PUT";
+        action = "edit";
+        body.id = state.items_id;
+      }
+
+      fetch(ROOT + "/api/list-item/" + action, {
+        method,
+        body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
         },
@@ -99,11 +106,12 @@ const SelectedItems = () => {
           if (typeof data?.id !== "undefined") {
             setListItemsId(data.id);
           }
+          cleanTmpItemInfo();
           setLoading(false);
           ToastSuccess("Item added!");
         });
     },
-    [state, listItemsId, setSelectedItems]
+    [state, tmpItemInfo, listItemsId, cleanTmpItemInfo]
   );
 
   const itemProperty = (property, newValue) => {
@@ -125,9 +133,9 @@ const SelectedItems = () => {
     (data) => {
       let newListItem = selectedItems;
 
-      newListItem = newListItem.splice(data, 1);
+      newListItem = selectedItems.splice(data, 1);
 
-      fetch(ROOT + "/api/list-items/remove-item", {
+      fetch(ROOT + "/api/list-item/remove", {
         method: "POST",
         body: JSON.stringify({
           list_items: newListItem,
@@ -198,10 +206,7 @@ const SelectedItems = () => {
               </Grid>
               <Grid item>
                 <Button
-                  onClick={() => {
-                    cleanTmpItemInfo();
-                    addItemToList(tmpItemInfo);
-                  }}
+                  onClick={() => addItemToList()}
                   variant="contained"
                   text="Confirm"
                 />

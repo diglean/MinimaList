@@ -7,6 +7,22 @@ import Select from '@mui/material/Select';
 import { useContext } from "react";
 import { TmpItemContext } from '../context/TmpItemContext';
 
+const style = {
+  color: "white",
+  '.MuiOutlinedInput-notchedOutline': {
+    borderColor: '#FFF',
+  },
+  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+    borderColor: '#FFF',
+  },
+  '&:hover .MuiOutlinedInput-notchedOutline': {
+    borderColor: '#FFF',
+  },
+  '.MuiSvgIcon-root ': {
+    fill: "white !important",
+  }
+};
+
 export default function BasicSelect({ options }) {
   const { tmpItemInfo, setTmpItemInfo } =
     useContext(TmpItemContext);
@@ -18,8 +34,8 @@ export default function BasicSelect({ options }) {
     }));
   };
 
-  const handleChange = (event) => {
-    itemProperty("category", event.target.value);
+  const handleChange = (e) => {
+    itemProperty("category", e.target.value);
   };
 
   return (
@@ -29,30 +45,15 @@ export default function BasicSelect({ options }) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={tmpItemInfo.category.name}
+          value={tmpItemInfo.category}
           label="Category"
           onChange={handleChange}
           InputLabelProps={{ shrink: true}}
-          sx={{
-            color: "white",
-            '.MuiOutlinedInput-notchedOutline': {
-              borderColor: '#FFF',
-            },
-            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#FFF',
-            },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#FFF',
-            },
-            '.MuiSvgIcon-root ': {
-              fill: "white !important",
-            }
-          }}
+          sx={style}
         >
-          options.map()
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {options.map(({ id, name }, index) => (
+            <MenuItem value={id}>{name}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>

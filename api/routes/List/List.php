@@ -9,4 +9,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('api/list/create', [CreateListController::class, '__invoke']);
 Route::post('api/list/list', [ListListController::class, '__invoke']);
-Route::post('api/list/delete', [DeleteListController::class, '__invoke']);
+Route::post('api/list/remove', [DeleteListController::class, '__invoke']);

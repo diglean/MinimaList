@@ -17,7 +17,7 @@ import styles from "./styles/ListItemInfoGenericModal.module.css";
 import TemporaryDrawer from "../Drawer";
 import NumberInput from "../NumberInput";
 import { TmpItemContext } from "../../context/TmpItemContext";
-import MultipleSelectChip from "../Select";
+import BasicSelect from "../Select";
 
 const style = {
   position: "relative",
@@ -35,7 +35,7 @@ const style = {
 const ROOT = "http://localhost:8000";
 
 const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
-  const [options, setOptions] = useState([{"id": 1, "name": 'teste'}]);
+  const [options, setOptions] = useState([{"id": 1, "name": "Test"},{"id": 2, "name": "Test2"}]);
   const [drawerState, setDrawerState] = useState(false);
   const { tmpItemInfo, setTmpItemInfo } =
     useContext(TmpItemContext);
@@ -48,6 +48,12 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
   };
 
   const itemProperty = (property, newValue) => {
+    if (property === "price") {
+      newValue = newValue.replace(/\D/g, "");
+      newValue = newValue.replace(/(\d)(\d{2})$/, "$1,$2");
+      newValue = newValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
+    }
+
     setTmpItemInfo((tmpItemInfo) => ({
       ...tmpItemInfo,
       [property]: newValue,
@@ -138,7 +144,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                     }}
                   />
                 </div>
-                <MultipleSelectChip options={options}/>
+                <BasicSelect options={options} defaultValue={tmpItemInfo.category}/>
                 <NumberInput
                   inputValue={tmpItemInfo.qty}
                   cbHandleChange={(data) => {

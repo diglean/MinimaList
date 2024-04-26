@@ -14,6 +14,7 @@ return new class extends Migration
         DB::unprepared(
             <<<SQL
             INSERT INTO `category` (`nome`, `active`) VALUES
+            ('Not Defined', 'yes'),
             ('Cleaning', 'yes'),
             ('Groceries', 'yes'),
             ('Household', 'yes'),

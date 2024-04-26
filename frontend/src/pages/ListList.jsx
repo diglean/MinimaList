@@ -45,7 +45,7 @@ export default function ListList({ list }) {
 
   const deleteList = useCallback((data) => {
     setLoading(true);
-    fetch(ROOT + "/api/list/delete", {
+    fetch(ROOT + "/api/list/remove", {
       method: "POST",
       body: JSON.stringify({
         list_id: data,
