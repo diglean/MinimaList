@@ -26,7 +26,7 @@ export default function AppBar({ goBack = false }) {
         <Grid item xs={4} className={styles.main_grid_item}>
           <p>MinimaList</p>
         </Grid>
-        <Grid item xs={4}></Grid>
+        <Grid item xs={4} className={styles.grid_item}></Grid>
       </Grid>
       <div></div>
     </div>
