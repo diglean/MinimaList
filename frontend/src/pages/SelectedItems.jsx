@@ -48,6 +48,9 @@ const SelectedItems = () => {
   useEffect(() => {
     const items_id = state?.items_id;
 
+    // Debug purpose only
+    return;
+
     if (typeof items_id !== "undefined" && items_id !== null) {
       setListItemsId(items_id);
       setLoading(true);
@@ -72,6 +75,10 @@ const SelectedItems = () => {
 
   const addItemToList = useCallback(
     (data) => {
+      // Debug purpose only
+      ToastSuccess("Item added!");
+      return;
+      
       setLoading(true);
 
       let method = "POST";

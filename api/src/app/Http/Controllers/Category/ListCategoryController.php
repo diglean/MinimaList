@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\List;
+namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
+use Domain\Category\Action\ListCategoryAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
-use Illuminate\Http\Request;
 
 class ListCategoryController extends Controller
 {
@@ -14,12 +14,9 @@ class ListCategoryController extends Controller
 	}
 
 	public function __invoke(
-		Request $request,
 		ListCategoryAction $action,
 	) {
-		$data = ListCategoryData::from($request->toArry());
-
-		$response = $action->execute($data);
+		$response = $action->execute();
 
         return $this->response->json($response, 200);
 	}

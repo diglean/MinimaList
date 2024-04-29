@@ -32,7 +32,6 @@ const ItemSearchBar = () => {
           label="Item Name"
           name="name"
           variant="outlined"
-          cbValueChanged={(data) => itemProperty("name", data)}
           value={searchValue}
         />
       </Form>
