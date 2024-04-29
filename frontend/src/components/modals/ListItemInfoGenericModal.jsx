@@ -18,6 +18,7 @@ import TemporaryDrawer from "../Drawer";
 import NumberInput from "../NumberInput";
 import { TmpItemContext } from "../../context/TmpItemContext";
 import BasicSelect from "../Select";
+import { useEffect } from "react";
 
 const style = {
   position: "relative",
@@ -35,7 +36,10 @@ const style = {
 const ROOT = "http://localhost:8000";
 
 const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
-  const [options, setOptions] = useState([{"id": 1, "name": "Test"},{"id": 2, "name": "Test2"}]);
+  const [options, setOptions] = useState([
+    { id: 1, name: "Test" },
+    { id: 2, name: "Test2" },
+  ]);
   const [drawerState, setDrawerState] = useState(false);
   const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
@@ -72,18 +76,19 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
     setDrawerState(drawerState);
   };
 
-  // useEffect(() => {
-  //   fetch(ROOT + "/api/category/list-category", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((resp) => resp.json())
-  //     .then((data) => {
-  //       setOptions(data);
-  //     })
-  // }, [setOptions]);
+  useEffect(() => {
+    fetch(ROOT + "/api/category/list-category", {
+      method: "POST",
+      body: JSON.stringify({}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setOptions(data);
+      });
+  }, [setOptions]);
 
   return (
     <>
@@ -148,7 +153,10 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                     }}
                   />
                 </div>
-                <BasicSelect options={options} defaultValue={tmpItemInfo.category}/>
+                <BasicSelect
+                  options={options}
+                  defaultValue={tmpItemInfo.category}
+                />
                 <NumberInput
                   inputValue={tmpItemInfo.qty}
                   cbHandleChange={(data) => {
@@ -164,7 +172,11 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                     />
                   </Grid>
                   <Grid item>
-                    <Button variant="contained" text="Confirm" onClick={() => cbFormValues(true)} />
+                    <Button
+                      variant="contained"
+                      text="Confirm"
+                      onClick={() => cbFormValues(true)}
+                    />
                   </Grid>
                 </Grid>
               </Form>

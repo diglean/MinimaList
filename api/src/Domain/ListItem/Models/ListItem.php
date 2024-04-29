@@ -33,7 +33,7 @@ use Illuminate\Support\Carbon;
  */
 class ListItem extends Model
 {
-    public $table = "list_item";
+    public $table = 'list_item';
 
     use HasFactory;
 

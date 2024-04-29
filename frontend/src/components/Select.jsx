@@ -9,18 +9,18 @@ import { TmpItemContext } from "../context/TmpItemContext";
 
 const style = {
   color: "white",
-  '.MuiOutlinedInput-notchedOutline': {
-    borderColor: '#FFF',
+  ".MuiOutlinedInput-notchedOutline": {
+    borderColor: "#FFF",
   },
-  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-    borderColor: '#FFF',
+  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#FFF",
   },
-  '&:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: '#FFF',
+  "&:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#FFF",
   },
-  '.MuiSvgIcon-root ': {
+  ".MuiSvgIcon-root ": {
     fill: "white !important",
-  }
+  },
 };
 
 export default function BasicSelect({ options }) {
@@ -50,11 +50,13 @@ export default function BasicSelect({ options }) {
           value={tmpItemInfo.category}
           label="Category"
           onChange={handleChange}
-          InputLabelProps={{ shrink: true}}
+          InputLabelProps={{ shrink: true }}
           sx={style}
         >
           {options.map(({ id, name }, index) => (
-            <MenuItem value={id}>{name}</MenuItem>
+            <MenuItem key={name + id} value={id}>
+              {name}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

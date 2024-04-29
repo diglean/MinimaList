@@ -67,7 +67,7 @@ return new class extends Migration {
     {
         DB::unprepared(
             <<<SQL
-            DROP TABLE IF EXISTS `list`;
+            DROP TABLE IF EXISTS `lists`;
             SQL,
         );
 
