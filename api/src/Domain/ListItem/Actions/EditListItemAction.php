@@ -37,7 +37,7 @@ class EditListItemAction
 
 		$list = $this->listModel->whereId($data->list_id);
 		$list->update([
-			'items_qty' => $list->$listItem + ($listItem - $data->qty),
+			'items_qty' => $list->$listItem + ($listItem->qty - $data->qty),
 			'items_total' => $list->total + $total_item,
 			'updated_at' => Carbon::now(),
 		]);
@@ -47,6 +47,11 @@ class EditListItemAction
 		 */
 		$listItems = $this->listItemModel->whereListId($data->list_id)->get();
 
-		return ['items' => $listItems];
+		$itemsTotal = $this->listModel->whereId($data->list_id)->get('items_total')->items_total;
+
+		return [
+			'items_total' => $itemsTotal,
+			'items' => $listItems
+		];
 	}
 }

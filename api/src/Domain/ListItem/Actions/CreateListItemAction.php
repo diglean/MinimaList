@@ -51,8 +51,11 @@ class CreateListItemAction
 		 */
         $listItems = $this->listItem->whereId($data->list_id)->get();
 
+        $itemsTotal = $this->listModel->whereId($data->list_id)->get('items_total')->items_total;
+
         return [
             'id' => $listItem->id,
+            'items_total' => $itemsTotal,
             'items' => $listItems,
         ];
     }
