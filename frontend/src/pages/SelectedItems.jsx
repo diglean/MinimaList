@@ -22,13 +22,30 @@ import styles from "./styles/SelectedItems.module.css";
 import ListItemInfoGenericModal from "../components/modals/ListItemInfoGenericModal";
 import NumberInput from "../components/NumberInput";
 import Button from "../components/Button";
+import TotalPaying from "../components/TotalPaying";
 
 const ROOT = "http://localhost:8000";
 
 const SelectedItems = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [totalList, setTotalList] = useState(0);
+  const [selectedItems, setSelectedItems] = useState([
+    {
+      id: 1,
+      name: "Alface",
+      price: 10,
+      unit: "Kg",
+      quantity: 10,
+    },
+    {
+      id: 2,
+      name: "Tomate",
+      price: "1,38",
+      unit: "Kg",
+      quantity: 10,
+    },
+  ]);
   const [listItemsId, setListItemsId] = useState(null);
 
   const { state } = useLocation();
@@ -68,6 +85,7 @@ const SelectedItems = () => {
         .then((resp) => resp.json())
         .then((data) => {
           setSelectedItems(data.items);
+          setTotalList(data.items_total);
           setLoading(false);
         });
     }
@@ -128,14 +146,6 @@ const SelectedItems = () => {
     }));
   };
 
-  const setTmpItemDetails = (data) => {
-    if (data !== false) {
-      setTmpItemInfo(data);
-    }
-
-    setModalOpen(false);
-  };
-
   const deleteItem = useCallback(
     (data) => {
       let newListItem = selectedItems;
@@ -158,15 +168,17 @@ const SelectedItems = () => {
 
   return (
     <div>
-      <AppBar goBack="/lists" />
-      <ListItemInfoGenericModal
-        open={modalOpen}
-        cbFormValues={(data) => addItemToList(data)}
-      />
-      <ToastContainer />
-      <Loading open={loading} />
-      <div className={styles.container_search_bar}>
-        <ItemSearchBar />
+      <div className={styles.top_components}>
+        <AppBar goBack="/lists" />
+        <ListItemInfoGenericModal
+          open={modalOpen}
+          cbFormValues={(data) => addItemToList(data)}
+        />
+        <ToastContainer />
+        <Loading open={loading} />
+        <div className={styles.container_search_bar}>
+          <ItemSearchBar />
+        </div>
       </div>
       {tmpItemInfo.name && (
         <>
@@ -235,8 +247,12 @@ const SelectedItems = () => {
               cbDeleteItem={(data) => deleteItem(data)}
             />
           </List>
+          
         </div>
       )}
+      <div className={styles.container_total}>
+        <TotalPaying value={totalList} />
+      </div>
     </div>
   );
 };

@@ -17,10 +17,10 @@ class EditListItemAction
 
 	public function execute(EditListItemData $data): array
 	{
-		$total = 0;
+		$total_item = 0;
 
         for ($i = 0; $i < $data->qty; $i++) {
-            $total += floatval($data->price);
+            $total_item += floatval($data->price);
         }
 
 		$listItem = $this->listItemModel->whereId($data->id)->first();
@@ -31,13 +31,14 @@ class EditListItemAction
             'price' => floatval($data->price),
             'unit' => $data->unit,
 			'qty' => $data->qty,
-			'total' => $total,
+			'total' => $total_item,
             'updated_at' => Carbon::now(),
 		]);
 
 		$list = $this->listModel->whereId($data->list_id);
 		$list->update([
 			'items_qty' => $list->$listItem + ($listItem - $data->qty),
+			'items_total' => $list->total + $total_item,
 			'updated_at' => Carbon::now(),
 		]);
 

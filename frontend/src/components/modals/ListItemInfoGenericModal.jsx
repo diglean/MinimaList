@@ -76,7 +76,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
     setDrawerState(drawerState);
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     fetch(ROOT + "/api/category/list", {
       method: "POST",
       body: JSON.stringify({}),

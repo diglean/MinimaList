@@ -24,7 +24,6 @@ const style = {
 };
 
 export default function BasicSelect({ options }) {
-  const opts = options;
   const { tmpItemInfo, setTmpItemInfo } = useContext(TmpItemContext);
 
   const itemProperty = (property, newValue) => {
@@ -39,7 +38,7 @@ export default function BasicSelect({ options }) {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120, zIndex: 99999 }}>
       <FormControl fullWidth>
         <InputLabel sx={{ color: "white" }} id="demo-simple-select-label">
           Category
@@ -52,6 +51,9 @@ export default function BasicSelect({ options }) {
           onChange={handleChange}
           InputLabelProps={{ shrink: true }}
           sx={style}
+          MenuProps={{
+            style: {zIndex: 99999}
+          }}
         >
           {options.map(({ id, name }, index) => (
             <MenuItem key={name + id} value={id}>

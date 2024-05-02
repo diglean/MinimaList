@@ -37,7 +37,7 @@ export default function TemporaryDrawer({ open, cbToggleDrawer }) {
 
   return (
     <div>
-      <Drawer anchor="bottom" open={open} style={{ zIndex: "1300" }}>
+      <Drawer anchor="bottom" open={open} style={{ zIndex: "99999" }}>
         {list("bottom")}
       </Drawer>
     </div>

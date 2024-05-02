@@ -44,6 +44,7 @@ return new class extends Migration {
                 `name` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
                 `items_id` SMALLINT UNSIGNED NULL,
                 `items_qty` SMALLINT NULL DEFAULT 0,
+                `items_total` FLOAT(8,2) NULL,
                 `user_id` SMALLINT UNSIGNED NOT NULL DEFAULT 1,
                 `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
                 `created_at` DATETIME NOT NULL,

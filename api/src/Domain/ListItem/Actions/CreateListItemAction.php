@@ -41,7 +41,10 @@ class CreateListItemAction
         ]);
 
         $list = $this->listModel->whereId($data->list_id)->first();
-        $list->update(['items_qty' => $list->items_qty + $data->qty]);
+        $list->update([
+            'items_qty' => $list->items_qty + $data->qty,
+            'items_total' => $list->total + $total,
+        ]);
 
         /**
 		 * Collection of list items that will be sended to frontend.
