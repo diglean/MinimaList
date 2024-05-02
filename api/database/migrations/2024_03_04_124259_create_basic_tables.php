@@ -13,7 +13,7 @@ return new class extends Migration {
             <<<SQL
             CREATE TABLE `category` (
                 `id` SMALLINT NOT NULL AUTO_INCREMENT,
-                `nome` VARCHAR(30) NOT NULL,
+                `name` VARCHAR(30) NOT NULL,
                 `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
                 PRIMARY KEY (`id`));
             SQL,

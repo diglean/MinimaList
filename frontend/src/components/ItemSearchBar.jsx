@@ -9,8 +9,7 @@ import Form from "./Form";
 import { TmpItemContext } from "../context/TmpItemContext";
 
 const ItemSearchBar = () => {
-  const { tmpItemInfo, setTmpItemInfo } =
-    useContext(TmpItemContext);
+  const { tmpItemInfo, setTmpItemInfo } = useContext(TmpItemContext);
   const [searchValue, setSearchValue] = useState("");
 
   const setItemName = (data) => {
@@ -33,6 +32,10 @@ const ItemSearchBar = () => {
           name="name"
           variant="outlined"
           value={searchValue}
+          cbValueChanged={(data) => {
+            setSearchValue(data);
+            console.log(searchValue);
+          }}
         />
       </Form>
     </div>

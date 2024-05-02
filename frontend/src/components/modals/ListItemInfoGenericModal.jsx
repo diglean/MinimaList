@@ -77,7 +77,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
   };
 
   useEffect(() => {
-    fetch(ROOT + "/api/category/list-category", {
+    fetch(ROOT + "/api/category/list", {
       method: "POST",
       body: JSON.stringify({}),
       headers: {
@@ -99,7 +99,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
         }
       />
       <Box>
-        <Modal open={open}>
+        <Modal open={open} style={{ zIndex: "99998" }}>
           <Fade in={open}>
             <Box sx={style}>
               <Typography

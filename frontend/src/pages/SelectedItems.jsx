@@ -75,17 +75,18 @@ const SelectedItems = () => {
 
   const addItemToList = useCallback(
     (data) => {
-      // Debug purpose only
-      ToastSuccess("Item added!");
-      return;
-      
+      if (data === false) {
+        setModalOpen(false);
+        return;
+      }
+
       setLoading(true);
 
       let method = "POST";
       let action = "create";
       let body = {
         list_id: state.list_id,
-        ...tmpItemInfo
+        ...tmpItemInfo,
       };
 
       if (listItemsId !== null) {
@@ -160,7 +161,7 @@ const SelectedItems = () => {
       <AppBar goBack="/lists" />
       <ListItemInfoGenericModal
         open={modalOpen}
-        cbFormValues={(data) => setTmpItemDetails(data)}
+        cbFormValues={(data) => addItemToList(data)}
       />
       <ToastContainer />
       <Loading open={loading} />

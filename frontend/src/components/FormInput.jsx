@@ -34,7 +34,7 @@ const TextField = styled(MuiTextField)({
   },
 });
 
-const Input = forwardRef((props, ref) => {
+function Input(props, ref) {
   const [inputValue, setInputValue] = useState(props.value ?? "");
 
   const {
@@ -54,7 +54,7 @@ const Input = forwardRef((props, ref) => {
   );
 
   useEffect(() => {
-    if (props.value) {
+    if (typeof props.value !== "undefined") {
       setInputValue(props.value);
     }
   }, [props]);
@@ -82,6 +82,6 @@ const Input = forwardRef((props, ref) => {
       )}
     </div>
   );
-});
+}
 
 export default Input;
