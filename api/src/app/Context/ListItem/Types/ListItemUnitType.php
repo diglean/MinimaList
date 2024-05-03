@@ -4,9 +4,9 @@ namespace App\Context\ListItem\Types;
 
 enum ListItemUnitType: string
 {
-    case G = 'g';
+    case G = 'G';
 
-    case Kg = 'kg';
+    case Kg = 'Kg';
 
-    case Unit = 'unit';
+    case Unit = 'Unit';
 }

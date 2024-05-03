@@ -13,11 +13,14 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $list_id
  * @property string $name
- * @property ListItemUnitType $unity
+ * @property float|null $price
+ * @property int|null $qty
+ * @property float|null $total
  * @property int $category_id
  * @property ListItemActiveType $active
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property ListItemUnitType $unit
  * @method static \Illuminate\Database\Eloquent\Builder|ListItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListItem newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListItem query()
@@ -27,7 +30,10 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|ListItem whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListItem whereListId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListItem whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListItem whereUnity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListItem wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListItem whereQty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListItem whereTotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListItem whereUnit($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListItem whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -41,14 +47,16 @@ class ListItem extends Model
         'list_id',
         'name',
         'price',
-        'unity',
+        'unit',
+        'qty',
+        'total',
         'active',
         'created_at',
         'updated_at',
     ];
 
     protected $casts = [
-        'unity' => ListItemUnitType::class,
+        'unit' => ListItemUnitType::class,
         'active' => ListItemActiveType::class,
         'created_at' => 'date:Y-m-d H:i:s',
         'updated_at' => 'date:Y-m-d H:i:s',

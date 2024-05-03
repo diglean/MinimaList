@@ -28,7 +28,7 @@ return new class extends Migration {
                 `price` FLOAT(8,2) NULL, 
                 `qty` SMALLINT NULL DEFAULT 1,
                 `total` FLOAT(8,2) NULL,
-                `unit` ENUM('g', 'kg', 'unit') NOT NULL DEFAULT 'unit',
+                `unit` ENUM('G', 'Kg', 'Unit') NOT NULL DEFAULT 'unit',
                 `category_id` SMALLINT NOT NULL DEFAULT 1,
                 `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
                 `created_at` DATETIME NOT NULL,

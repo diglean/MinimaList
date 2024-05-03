@@ -24,7 +24,7 @@ export default function TemporaryDrawer({ open, cbToggleDrawer }) {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Unity", "Kg", "g"].map((text, index) => (
+        {["Unit", "Kg", "G"].map((text, index) => (
           <ListItem key={text}>
             <ListItemButton disableRipple>
               <ListItemText primary={text} />

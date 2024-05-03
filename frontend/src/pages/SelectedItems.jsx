@@ -30,22 +30,7 @@ const SelectedItems = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [totalList, setTotalList] = useState(0);
-  const [selectedItems, setSelectedItems] = useState([
-    {
-      id: 1,
-      name: "Alface",
-      price: 10,
-      unit: "Kg",
-      quantity: 10,
-    },
-    {
-      id: 2,
-      name: "Tomate",
-      price: "1,38",
-      unit: "Kg",
-      quantity: 10,
-    },
-  ]);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [listItemsId, setListItemsId] = useState(null);
 
   const { state } = useLocation();
@@ -247,7 +232,6 @@ const SelectedItems = () => {
               cbDeleteItem={(data) => deleteItem(data)}
             />
           </List>
-          
         </div>
       )}
       <div className={styles.container_total}>

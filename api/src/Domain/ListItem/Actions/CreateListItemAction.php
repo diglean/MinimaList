@@ -26,7 +26,7 @@ class CreateListItemAction
         $total = 0;
 
         for ($i = 0; $i < $data->qty; $i++) {
-            $total += floatval($data->price);
+            $total += (float) $data->price;
         }
 
         $listItem = $this->listItem->create([
