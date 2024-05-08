@@ -10,5 +10,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('api/list-item/list', [ListItemController::class, '__invoke']);
 Route::post('api/list-item/create', [CreateListItemsController::class, '__invoke']);
-Route::post('api/list-item/edit', [EditListItemController::class, '__invoke']);
+Route::put('api/list-item/edit', [EditListItemController::class, '__invoke']);
 Route::post('api/list-item/remove', [RemoveListItemController::class, '__invoke']);

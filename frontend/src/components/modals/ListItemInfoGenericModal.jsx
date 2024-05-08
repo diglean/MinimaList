@@ -76,7 +76,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
     setDrawerState(drawerState);
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     fetch(ROOT + "/api/category/list", {
       method: "POST",
       body: JSON.stringify({}),
@@ -144,7 +144,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                               onClick={() => cbToggleDrawer(true)}
                             >
                               <Typography sx={{ color: "#FFF" }}>
-                                / {tmpItemInfo.unit ?? "kg"}
+                                / {tmpItemInfo.unit ?? "Kg"}
                               </Typography>
                             </IconButton>
                           </Tooltip>

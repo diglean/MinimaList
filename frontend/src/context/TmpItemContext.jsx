@@ -4,11 +4,11 @@ export const TmpItemContext = createContext();
 
 export const TmpItemProvider = ({ children }) => {
   const DEFAULT_ITEM_INFO = {
-    name: null,
+    name: "",
     qty: 1,
-    price: null,
-    unit: "kg",
-    category: 1,
+    price: "",
+    unit: "Kg",
+    category_id: 1,
   };
 
   const [tmpItemInfo, setTmpItemInfo] = useState(DEFAULT_ITEM_INFO);

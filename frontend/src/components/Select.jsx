@@ -34,7 +34,7 @@ export default function BasicSelect({ options }) {
   };
 
   const handleChange = (e) => {
-    itemProperty("category", e.target.value);
+    itemProperty("category_id", e.target.value);
   };
 
   return (
@@ -46,13 +46,12 @@ export default function BasicSelect({ options }) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={tmpItemInfo.category}
+          value={tmpItemInfo.category_id}
           label="Category"
           onChange={handleChange}
-          InputLabelProps={{ shrink: true }}
           sx={style}
           MenuProps={{
-            style: {zIndex: 99999}
+            style: { zIndex: 99999 },
           }}
         >
           {options.map(({ id, name }, index) => (

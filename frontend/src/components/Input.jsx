@@ -14,17 +14,17 @@ const TextField = styled(MuiTextField)({
   },
   "& .MuiOutlinedInput-input": {
     color: "white",
-    textAlign: 'center'
+    textAlign: "center",
   },
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "#000",
+      borderColor: "transparent",
     },
     "&:hover fieldset": {
-      borderColor: "white",
+      borderColor: "transparent",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "white",
+      borderColor: "transparent",
     },
   },
 });

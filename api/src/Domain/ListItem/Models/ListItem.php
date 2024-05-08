@@ -43,17 +43,7 @@ class ListItem extends Model
 
     use HasFactory;
 
-    protected $fillable = [
-        'list_id',
-        'name',
-        'price',
-        'unit',
-        'qty',
-        'total',
-        'active',
-        'created_at',
-        'updated_at',
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'unit' => ListItemUnitType::class,

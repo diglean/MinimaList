@@ -6,6 +6,7 @@ use App\Context\ListItem\DataTransferObject\CreateListItemData;
 use Domain\ListItem\Models\ListItem;
 use Domain\List\Models\Lists;
 use Illuminate\Support\Carbon;
+use Library\Parsers\Money;
 
 class CreateListItemAction
 {
@@ -26,16 +27,20 @@ class CreateListItemAction
         $total = 0;
 
         for ($i = 0; $i < $data->qty; $i++) {
-            $total += (float) $data->price;
+            $formattedValue = str_replace('.', '', $data->price);
+            $formattedValue = str_replace(',', '.', $formattedValue);
+
+            $total += $formattedValue;
         }
 
         $listItem = $this->listItem->create([
             'list_id' => $data->list_id,
             'name' => $data->name,
-            'price' => floatval($data->price),
-            'unit' => $data->unit,
+            'price' => $formattedValue,
             'qty' => $data->qty,
-            'total' => floatval($total),
+            'total' => $total,
+            'unit' => $data->unit,
+            'category_id' => $data->category_id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -43,7 +48,7 @@ class CreateListItemAction
         $list = $this->listModel->whereId($data->list_id)->first();
         $list->update([
             'items_qty' => $list->items_qty + $data->qty,
-            'items_total' => $list->total + $total,
+            'items_total' => $list->items_total + $total,
         ]);
 
         /**
@@ -51,7 +56,7 @@ class CreateListItemAction
 		 */
         $listItems = $this->listItem->whereId($data->list_id)->get();
 
-        $itemsTotal = $this->listModel->whereId($data->list_id)->get('items_total')->items_total;
+        $itemsTotal = $this->listModel->whereId($data->list_id)->get('items_total');
 
         return [
             'id' => $listItem->id,

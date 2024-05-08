@@ -13,6 +13,10 @@ const ItemSearchBar = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const setItemName = (data) => {
+    if (data.name.trim() === "") {
+      return;
+    }
+
     itemProperty("name", data.name);
     setSearchValue("");
   };

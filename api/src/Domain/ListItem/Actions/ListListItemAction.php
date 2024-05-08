@@ -28,7 +28,7 @@ class ListListItemAction
             return [[]];
         }
 
-        $itemsTotal = $this->listModel->whereId($data->list_id)->get('items_total')->items_total;
+        $itemsTotal = $this->listModel->whereId($data->list_id)->get('items_total')->first()->items_total;
 
         // ! Debug purposes only!!
         sleep(1);
@@ -36,8 +36,6 @@ class ListListItemAction
         return [
             'items' => $listItems,
             'items_total' => $itemsTotal,
-            'created_at' => $listItems->created_at,
-            'updated_at' => $listItems->updated_at,
         ];
     }
 }

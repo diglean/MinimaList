@@ -41,7 +41,7 @@ const CustomModal = ({ open, item, callbackFormValues }) => {
   const [itemInfo, setItemInfo] = useState({
     name: null,
     price: null,
-    unit: "kg",
+    unit: "Kg",
   });
 
   useEffect(() => {
@@ -130,7 +130,7 @@ const CustomModal = ({ open, item, callbackFormValues }) => {
                             onClick={() => cbToggleDrawer(true)}
                           >
                             <Typography sx={{ color: "#FFF" }}>
-                              / {itemInfo.unit ?? "kg"}
+                              / {itemInfo.unit ?? "Kg"}
                             </Typography>
                           </IconButton>
                         </Tooltip>

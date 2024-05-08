@@ -18,7 +18,7 @@ class DeleteListAction
     ) {
     }
 
-    public function execute(DeleteListData $data): Collection
+    public function execute(DeleteListData $data): array
     {
         $list = $this->listModel
             ->whereUserId($data->user_id)
@@ -49,6 +49,6 @@ class DeleteListAction
             ->whereActive(ListModelActiveType::Yes)
             ->get();
 
-        return $lists;
+        return ['lists' => $lists];
     }
 }

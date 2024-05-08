@@ -38,6 +38,8 @@ class Lists extends Model
     use HasFactory;
 
     protected $fillable = [
+        'items_qty',
+        'items_total',
         'name',
         'active',
         'created_at',

@@ -12,7 +12,7 @@ const CustomListItem = ({ item, callbackFormValues }) => {
     name: null,
     qty: 1,
     price: null,
-    unit: "kg",
+    unit: "Kg",
   });
 
   useEffect(() => {

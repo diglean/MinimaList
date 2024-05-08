@@ -48,19 +48,15 @@ const SelectedItems = () => {
   };
 
   useEffect(() => {
-    const items_id = state?.items_id;
+    const list_id = state?.list_id;
 
-    // Debug purpose only
-    return;
-
-    if (typeof items_id !== "undefined" && items_id !== null) {
-      setListItemsId(items_id);
+    if (typeof list_id !== "undefined" && list_id !== null) {
       setLoading(true);
 
-      fetch(ROOT + "/api/list-items/list", {
+      fetch(ROOT + "/api/list-item/list", {
         method: "POST",
         body: JSON.stringify({
-          id: items_id,
+          list_id: list_id,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -85,22 +81,12 @@ const SelectedItems = () => {
 
       setLoading(true);
 
-      let method = "POST";
-      let action = "create";
-      let body = {
-        list_id: state.list_id,
-        ...tmpItemInfo,
-      };
-
-      if (listItemsId !== null) {
-        method = "PUT";
-        action = "edit";
-        body.id = state.items_id;
-      }
-
-      fetch(ROOT + "/api/list-item/" + action, {
-        method,
-        body: JSON.stringify(body),
+      fetch(ROOT + "/api/list-item/create", {
+        method: "POST",
+        body: JSON.stringify({
+          list_id: state.list_id,
+          ...tmpItemInfo,
+        }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -117,6 +103,9 @@ const SelectedItems = () => {
             setListItemsId(data.id);
           }
           cleanTmpItemInfo();
+          setSelectedItems(data.items);
+          setTotalList(data.items_total);
+          setModalOpen(false);
           setLoading(false);
           ToastSuccess("Item added!");
         });
@@ -235,7 +224,7 @@ const SelectedItems = () => {
         </div>
       )}
       <div className={styles.container_total}>
-        <TotalPaying value={totalList} />
+        {totalList && <TotalPaying value={totalList} />}
       </div>
     </div>
   );

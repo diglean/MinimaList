@@ -62,13 +62,13 @@ const ListItems = ({ list, cbDeleteItem }) => {
                 primary={name}
                 secondary={
                   <>
-                    {price && (
+                    {price != 0 && (
                       <Typography component="span">
                         {CURRENCY + " " + (price != null ? price : "0,00")} /{" "}
                         {unit}
                       </Typography>
                     )}
-                    {!price && (
+                    {!price != 0 && (
                       <Typography component="span">No Info</Typography>
                     )}
                   </>

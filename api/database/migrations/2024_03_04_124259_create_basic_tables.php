@@ -15,7 +15,8 @@ return new class extends Migration {
                 `id` SMALLINT NOT NULL AUTO_INCREMENT,
                 `name` VARCHAR(30) NOT NULL,
                 `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
-                PRIMARY KEY (`id`));
+                PRIMARY KEY (`id`)
+            );
             SQL,
         );
 
@@ -33,7 +34,8 @@ return new class extends Migration {
                 `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL,
-                PRIMARY KEY (`id`));
+                PRIMARY KEY (`id`)
+            );
             SQL,
         );
 
@@ -42,20 +44,13 @@ return new class extends Migration {
             CREATE TABLE `lists` (
                 `id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `name` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                `items_id` SMALLINT UNSIGNED NULL,
                 `items_qty` SMALLINT NULL DEFAULT 0,
-                `items_total` FLOAT(8,2) NULL,
+                `items_total` FLOAT(8,2) NULL DEFAULT "0.00",
                 `user_id` SMALLINT UNSIGNED NOT NULL DEFAULT 1,
                 `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL,
-                PRIMARY KEY (`id`),
-                INDEX `items_id_idx` (`items_id` ASC),
-                CONSTRAINT `fk_item_list1`
-                    FOREIGN KEY (`items_id`)
-                    REFERENCES `list_item` (`id`)
-                    ON DELETE NO ACTION
-                    ON UPDATE NO ACTION
+                PRIMARY KEY (`id`)
             );
             SQL,
         );

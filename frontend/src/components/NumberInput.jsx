@@ -7,8 +7,9 @@ import Input from "./Input";
 
 import styles from "./styles/NumberInput.module.css";
 import { useCallback } from "react";
+import { forwardRef } from "react";
 
-const NumberInput = ({ inputValue, cbHandleChange }) => {
+const NumberInput = forwardRef(({ inputValue, cbHandleChange }) => {
   const updateValue = useCallback(
     (data) => {
       switch (data) {
@@ -46,6 +47,6 @@ const NumberInput = ({ inputValue, cbHandleChange }) => {
       </Grid>
     </div>
   );
-};
+});
 
 export default NumberInput;

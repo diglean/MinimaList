@@ -34,7 +34,7 @@ const TextField = styled(MuiTextField)({
   },
 });
 
-function Input(props, ref) {
+const Input = forwardRef((props, ref) => {
   const [inputValue, setInputValue] = useState(props.value ?? "");
 
   const {
@@ -82,6 +82,6 @@ function Input(props, ref) {
       )}
     </div>
   );
-}
+});
 
 export default Input;
