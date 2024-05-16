@@ -110,7 +110,7 @@ const CustomModal = ({ open, item, callbackFormValues }) => {
               >
                 Item info
               </Typography>
-              <Form callBackSubmit={(data) => handleSubmit(data)}>
+              <Form callbackSubmit={(data) => handleSubmit(data)}>
                 <Input
                   label="Price"
                   name="itemPrice"

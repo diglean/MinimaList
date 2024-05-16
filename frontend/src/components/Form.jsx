@@ -3,11 +3,11 @@ import Box from "@mui/material/Box";
 import styles from "./styles/FormInput.module.css";
 import { FormProvider, useForm } from "react-hook-form";
 
-export default function Form({ children, callBackSubmit }) {
+export default function Form({ children, callbackSubmit }) {
   const methods = useForm();
 
   const onSubmit = (data) => {
-    callBackSubmit(data);
+    callbackSubmit(data);
   };
 
   return (

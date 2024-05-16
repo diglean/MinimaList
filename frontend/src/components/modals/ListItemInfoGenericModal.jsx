@@ -35,12 +35,19 @@ const style = {
 
 const ROOT = "http://localhost:8000";
 
-const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
+const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
   const [options, setOptions] = useState([
     { id: 1, name: "Test" },
     { id: 2, name: "Test2" },
   ]);
   const [drawerState, setDrawerState] = useState(false);
+  const [modalItemInfo, setModalItemInfo] = useState({
+    id: null,
+    name: null,
+    price: null,
+    unit: "Kg",
+    category_id: 1,
+  });
   const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
 
@@ -77,18 +84,24 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
   };
 
   useEffect(() => {
-    fetch(ROOT + "/api/category/list", {
-      method: "POST",
-      body: JSON.stringify({}),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        setOptions(data);
-      });
-  }, [setOptions]);
+    // fetch(ROOT + "/api/category/list", {
+    //   method: "POST",
+    //   body: JSON.stringify({}),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
+    //   .then((resp) => resp.json())
+    //   .then((data) => {
+    //     setOptions(data);
+    //   });
+
+    if (typeof editItemData !== "undefined" && editItemData !== null) {
+      setModalItemInfo(editItemData);
+    } else {
+      setModalItemInfo(tmpItemInfo);
+    }
+  }, [setOptions, editItemData]);
 
   return (
     <>
@@ -110,14 +123,14 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
               >
                 Item info
               </Typography>
-              <Form callBackSubmit={(data) => console.log(data)}>
+              <Form callbackSubmit={(data) => console.log(data)}>
                 <div className={styles.container_input}>
                   <Input
                     label="Name"
                     name="itemName"
                     variant="outlined"
                     cbValueChanged={(data) => itemProperty("name", data)}
-                    value={tmpItemInfo.name}
+                    value={modalItemInfo.name}
                     required={true}
                   />
                 </div>
@@ -126,7 +139,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                     label="Price"
                     name="itemPrice"
                     variant="outlined"
-                    value={tmpItemInfo.price ?? null}
+                    value={modalItemInfo.price ?? null}
                     cbValueChanged={(data) => itemProperty("price", data)}
                     InputProps={{
                       startAdornment: (
@@ -144,7 +157,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                               onClick={() => cbToggleDrawer(true)}
                             >
                               <Typography sx={{ color: "#FFF" }}>
-                                / {tmpItemInfo.unit ?? "Kg"}
+                                / {modalItemInfo.unit ?? "Kg"}
                               </Typography>
                             </IconButton>
                           </Tooltip>
@@ -155,10 +168,10 @@ const ListItemInfoGenericModal = ({ open, cbFormValues }) => {
                 </div>
                 <BasicSelect
                   options={options}
-                  defaultValue={tmpItemInfo.category}
+                  defaultValue={modalItemInfo.category}
                 />
                 <NumberInput
-                  inputValue={tmpItemInfo.qty}
+                  inputValue={modalItemInfo.qty}
                   cbHandleChange={(data) => {
                     itemProperty("qty", data);
                   }}

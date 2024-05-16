@@ -30,7 +30,16 @@ const SelectedItems = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [totalList, setTotalList] = useState(0);
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([
+    {
+      id: 0,
+      name: "Alface",
+      price: "150,37",
+      quantity: 1,
+      unit: "Kg",
+      list_id: 0,
+    }
+  ]);
   const [listItemsId, setListItemsId] = useState(null);
 
   const { state } = useLocation();
@@ -53,22 +62,22 @@ const SelectedItems = () => {
     if (typeof list_id !== "undefined" && list_id !== null) {
       setLoading(true);
 
-      fetch(ROOT + "/api/list-item/list", {
-        method: "POST",
-        body: JSON.stringify({
-          list_id: list_id,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          setSelectedItems(data.items);
-          setTotalList(data.items_total);
-          setLoading(false);
-        });
+      // fetch(ROOT + "/api/list-item/list", {
+      //   method: "POST",
+      //   body: JSON.stringify({
+      //     list_id: list_id,
+      //   }),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Access-Control-Allow-Origin": "*",
+      //   },
+      // })
+      //   .then((resp) => resp.json())
+      //   .then((data) => {
+      //     setSelectedItems(data.items);
+      //     setTotalList(data.items_total);
+      //     setLoading(false);
+      //   });
     }
   }, [state]);
 

@@ -30,7 +30,7 @@ const ItemSearchBar = () => {
 
   return (
     <div className={styles.component}>
-      <Form callBackSubmit={(data) => setItemName(data)}>
+      <Form callbackSubmit={(data) => setItemName(data)}>
         <Input
           label="Item Name"
           name="name"

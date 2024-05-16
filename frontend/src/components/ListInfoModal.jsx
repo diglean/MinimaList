@@ -66,7 +66,7 @@ export default function ListInfoModal({ open, cbCloseModal }) {
               >
                 Name of the list
               </Typography>
-              <Form callBackSubmit={(data) => cbCreateList(data)}>
+              <Form callbackSubmit={(data) => cbCreateList(data)}>
                 <Input
                   label="Name"
                   name="name"
