@@ -8,6 +8,7 @@ const theme = createTheme({
         },
         background: {
             black: '#000',
+            paper: '#333'
         }
     },
     select: {

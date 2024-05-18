@@ -9,7 +9,7 @@ import styles from './App.css';
 import theme from './components/theme';
 
 import Lists from "./pages/Lists";
-import Config from "./pages/Config";
+import Config from "./pages/config/Config";
 import Profile from "./pages/Profile";
 import SelectedItems from "./pages/SelectedItems";
 
