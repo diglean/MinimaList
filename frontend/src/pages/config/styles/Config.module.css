@@ -1,14 +1,24 @@
 .container {
+  padding-top: 55px;
   color: #FFF;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-.typography_config {
+.config_list {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: start;
+  justify-content: start;
+}
+
+.config_list ul {
+  width: 100%;
+}
+
+.container li {
+  border-width: 1px solid;
+  border-color: rgb(104, 104, 104);
+}
+
+.container svg {
+  padding-right: 10px;
 }

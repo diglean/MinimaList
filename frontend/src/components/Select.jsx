@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 
 import { useContext } from "react";
 import { TmpItemContext } from "../context/TmpItemContext";
+import useLocalization from "./customHooks/translation";
 
 const style = {
   color: "white",
@@ -24,6 +25,7 @@ const style = {
 };
 
 export default function BasicSelect({ options }) {
+  const translation = useLocalization();
   const { tmpItemInfo, setTmpItemInfo } = useContext(TmpItemContext);
 
   const itemProperty = (property, newValue) => {
@@ -41,7 +43,7 @@ export default function BasicSelect({ options }) {
     <Box sx={{ minWidth: 120, zIndex: 99999 }}>
       <FormControl fullWidth>
         <InputLabel sx={{ color: "white" }} id="demo-simple-select-label">
-          Category
+          {translation.category}
         </InputLabel>
         <Select
           labelId="demo-simple-select-label"

@@ -1,18 +1,73 @@
-import { Typography } from "@mui/material";
-import CustomPaper from "../../components/Paper";
+import { Divider, List, ListItemButton, ListItemText } from "@mui/material";
+
+import LanguageIcon from '@mui/icons-material/Language';
+import BrushIcon from '@mui/icons-material/Brush';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import InfoIcon from '@mui/icons-material/Info';
+
 import styles from "./styles/Config.module.css";
+import AppBar from "../../components/LogoBar";
+import useTranslation from "../../components/customHooks/translation";
+import { useState } from "react";
+import LanguageModal from "../../components/modals/LanguageModal";
 
 export default function Config() {
+  const translation = useTranslation();
+  const [openedModal, setOpenedModal] = useState(null);
+
   return (
-    <div className={styles.container}>
-      <br />
-      <div className={styles.typography_config}>
-        <Typography>Config</Typography>
+    <div>
+      <LanguageModal open={openedModal === 'language-modal'}/>
+      <AppBar goBack="/"/>
+      <div className={styles.container}>
+        <div className={styles.config_list}>
+          <List>
+            <ListItemButton 
+              disableRipple 
+              key="language" 
+              onClick={() => setOpenedModal("language-modal")}
+            >
+              <LanguageIcon />
+              <ListItemText
+                primary={translation.language}
+              />
+            </ListItemButton>
+            <Divider variant="middle" component="li" />
+            <ListItemButton 
+              disableRipple 
+              key="theme"
+              onClick={() => setOpenedModal("theme-modal")}
+            >
+              <BrushIcon />
+              <ListItemText
+                primary={translation.theme}
+              />
+            </ListItemButton>
+            <Divider variant="middle" component="li" />
+            <ListItemButton 
+              disableRipple 
+              key="currency"
+              onClick={() => setOpenedModal("currency-modal")}
+            >
+              <AttachMoneyIcon />
+              <ListItemText
+                primary={translation.currency}
+              />
+            </ListItemButton>
+            <Divider variant="middle" component="li" />
+            <ListItemButton 
+              disableRipple 
+              key="about"
+              onClick={() => setOpenedModal("about-modal")}
+            >
+              <InfoIcon />
+              <ListItemText
+                primary={translation.about}
+              />
+            </ListItemButton>
+          </List>
+        </div>
       </div>
-      <br />
-      <CustomPaper width={"85vw"} height={"85vh"}>
-        <p>Config</p>
-      </CustomPaper>
     </div>
   );
 }

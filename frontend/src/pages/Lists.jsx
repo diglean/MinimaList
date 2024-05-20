@@ -49,7 +49,16 @@ export default function Lists() {
         setLists(data);
         setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLists([{
+          id: 0,
+          name: "List not found",
+          created_at: 0,
+          items_qty: 10,
+        }]);
+        setLoading(false);
+        console.log(err);
+      });
   }, []);
 
   const ToastSuccess = (message) => {

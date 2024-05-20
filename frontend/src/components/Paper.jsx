@@ -2,9 +2,6 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import { ThemeProvider } from '@mui/system';
-
-import theme from '../components/theme';
 
 const CustomPaper = ({ width, height, children}) => {
   return (
@@ -15,6 +12,7 @@ const CustomPaper = ({ width, height, children}) => {
             '& > :not(style)': {
                 width: width,
                 height: height,
+                borderRadius: 4,
             },
         }}
     >

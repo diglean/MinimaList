@@ -11,8 +11,10 @@ import { useState } from "react";
 import Button from "../components/Button";
 import { FaRegTrashCan } from "react-icons/fa6";
 import GenericModal from "../components/modals/GenericModal";
+import useTranslation from "../components/customHooks/translation";
 
 const ListItems = ({ list, cbDeleteItem }) => {
+  const translation = useTranslation();
   const [selectedItem, setSelectedItem] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteItemModal, setOpenDeleteItemModal] = useState(false);
@@ -39,11 +41,11 @@ const ListItems = ({ list, cbDeleteItem }) => {
         <div key={index + name}>
           <GenericModal
             open={openDeleteItemModal}
-            primaryText="Are you sure?"
-            secondaryText="That's a irreversable action!"
+            primaryText={translation.are_you_sure}
+            secondaryText={translation.irreversable_action}
             primaryButtonProps={{
               variant: "contained",
-              text: "Yes",
+              text: translation.yes,
               onClick: () => {
                 cbDeleteItem(selectedItem);
                 setOpenDeleteItemModal(false);
@@ -51,7 +53,7 @@ const ListItems = ({ list, cbDeleteItem }) => {
             }}
             secondaryButtonProps={{
               variant: "text",
-              text: "No",
+              text: translation.no,
               onClick: () => {
                 setOpenDeleteItemModal(false);
               },

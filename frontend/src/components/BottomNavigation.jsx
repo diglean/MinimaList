@@ -10,6 +10,7 @@ import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 
 import { styled } from "@mui/material/styles";
+import useTranslation from "./customHooks/translation.jsx";
 
 export default function BottomNavigation() {
   const BottomNavigationAction = styled(MuiBottomNavigationAction)(`
@@ -20,6 +21,8 @@ export default function BottomNavigation() {
   `);
 
   const [value, setValue] = React.useState(0);
+
+  const translation = useTranslation();
 
   return (
     <Box sx={{ flexGrow: 1, position: "bottom" }}>
@@ -40,19 +43,19 @@ export default function BottomNavigation() {
         <BottomNavigationAction
           component={Link}
           to="/lists"
-          label="Lists"
+          label={translation.lists}
           icon={<FormatListNumberedIcon />}
         />
         <BottomNavigationAction
           component={Link}
           to="/config"
-          label="Options"
+          label={translation.config}
           icon={<SettingsRoundedIcon />}
         />
         <BottomNavigationAction
           component={Link}
           to="/profile"
-          label="Profile"
+          label={translation.profile}
           icon={<AccountCircleRoundedIcon />}
         />
       </MuiBottomNavigation>

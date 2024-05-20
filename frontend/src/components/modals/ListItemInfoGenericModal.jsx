@@ -20,6 +20,8 @@ import { TmpItemContext } from "../../context/TmpItemContext";
 import BasicSelect from "../Select";
 import { useEffect } from "react";
 
+import useLocalization from '../customHooks/translation'
+
 const style = {
   position: "relative",
   top: "50%",
@@ -36,6 +38,7 @@ const style = {
 const ROOT = "http://localhost:8000";
 
 const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
+  const translation = useLocalization();
   const [options, setOptions] = useState([
     { id: 1, name: "Test" },
     { id: 2, name: "Test2" },
@@ -121,12 +124,12 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                 component="h2"
                 sx={{ paddingBottom: "8px" }}
               >
-                Item info
+                {translation.item_info}
               </Typography>
               <Form callbackSubmit={(data) => console.log(data)}>
                 <div className={styles.container_input}>
                   <Input
-                    label="Name"
+                    label={translation.name}
                     name="itemName"
                     variant="outlined"
                     cbValueChanged={(data) => itemProperty("name", data)}
@@ -136,7 +139,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                 </div>
                 <div className={styles.container_input}>
                   <Input
-                    label="Price"
+                    label={translation.price}
                     name="itemPrice"
                     variant="outlined"
                     value={modalItemInfo.price ?? null}
@@ -180,14 +183,14 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                   <Grid item>
                     <Button
                       variant="text"
-                      text="Close"
+                      text={translation.cancel}
                       onClick={() => cbFormValues(false)}
                     />
                   </Grid>
                   <Grid item>
                     <Button
                       variant="contained"
-                      text="Confirm"
+                      text={translation.confirm}
                       onClick={() => cbFormValues(true)}
                     />
                   </Grid>

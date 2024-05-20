@@ -11,6 +11,9 @@ import Form from "../components/Form";
 import Button from "../components/Button";
 import Input from "../components/FormInput";
 
+import styles from './styles/ListInfoModal.module.css';
+import useTranslation from "./customHooks/translation";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -27,6 +30,7 @@ const style = {
 const ROOT = "http://localhost:8000";
 
 export default function ListInfoModal({ open, cbCloseModal }) {
+  const translation = useTranslation();
   const navigate = useNavigate();
   const cbCreateList = useCallback(
     (data) => {
@@ -64,27 +68,29 @@ export default function ListInfoModal({ open, cbCloseModal }) {
                 component="h2"
                 sx={{ paddingBottom: "8px" }}
               >
-                Name of the list
+                {translation.listName}
               </Typography>
               <Form callbackSubmit={(data) => cbCreateList(data)}>
                 <Input
-                  label="Name"
+                  label={translation.name}
                   name="name"
                   variant="outlined"
                   required={true}
                 />
-                <Grid container spacing="0.5" justifyContent="flex-end">
-                  <Grid item>
-                    <Button
-                      variant="text"
-                      text="Cancel"
-                      onClick={() => cbCloseModal(false)}
-                    />
+                <div className={styles.buttons}>
+                  <Grid container spacing="0.5" justifyContent="flex-end">
+                    <Grid item>
+                      <Button
+                        variant="text"
+                        text={translation.cancel}
+                        onClick={() => cbCloseModal(false)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Button variant="contained" text="Ok" type="submit" />
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Button variant="text" text="Ok" type="submit" />
-                  </Grid>
-                </Grid>
+                </div>
               </Form>
             </Box>
           </Fade>
