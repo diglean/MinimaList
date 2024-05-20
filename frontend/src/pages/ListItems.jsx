@@ -20,10 +20,6 @@ const ListItems = ({ list, cbDeleteItem }) => {
   const [openDeleteItemModal, setOpenDeleteItemModal] = useState(false);
   const CURRENCY = "R$";
 
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
-
   const handleCbFormValues = (data) => {
     if (data === false) {
       setOpenModal(false);
@@ -35,9 +31,8 @@ const ListItems = ({ list, cbDeleteItem }) => {
       <ListItemInfoGenericModal
         open={openModal}
         cbFormValues={(data) => handleCbFormValues(data)}
-        editItemData={selectedItem}
       />
-      {list.map(({ id, name, unit, price, category_id }, index) => (
+      {list.map(({ id, name, qty, unit, price, category_id }, index) => (
         <div key={index + name}>
           <GenericModal
             open={openDeleteItemModal}
@@ -69,14 +64,15 @@ const ListItems = ({ list, cbDeleteItem }) => {
                   </>
                 }
                 onClick={() => {
-                  setSelectedItem({
-                    id,
-                    name,
-                    unit,
-                    price,
-                    category_id,
+                  setTmpEditItemInfo({
+                    id: id,
+                    name: name,
+                    qty: qty,
+                    unit: unit,
+                    price: price,
+                    category_id: category_id,
                   });
-                  handleOpenModal(true);
+                  setOpenModal(true);
                 }}
                 key={index + name}
               />

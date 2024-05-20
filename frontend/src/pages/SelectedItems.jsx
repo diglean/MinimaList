@@ -38,7 +38,7 @@ const SelectedItems = () => {
       quantity: 1,
       unit: "Kg",
       list_id: 0,
-    }
+    },
   ]);
   const [listItemsId, setListItemsId] = useState(null);
 
@@ -79,14 +79,16 @@ const SelectedItems = () => {
           setLoading(false);
         })
         .catch((err) => {
-          setSelectedItems([{
-            id: 0,
-            name: "Alface",
-            price: "150,37",
-            quantity: 1,
-            unit: "Kg",
-            list_id: 0,
-          }])
+          setSelectedItems([
+            {
+              id: 0,
+              name: "Alface",
+              price: "150,37",
+              quantity: 1,
+              unit: "Kg",
+              list_id: 0,
+            },
+          ]);
           setLoading(false);
         });
     }
@@ -164,10 +166,7 @@ const SelectedItems = () => {
     <div>
       <div className={styles.top_components}>
         <AppBar goBack="/lists" />
-        <ListItemInfoGenericModal
-          open={modalOpen}
-          cbFormValues={(data) => addItemToList(data)}
-        />
+        <ListItemInfoGenericModal open={modalOpen} />
         <ToastContainer />
         <Loading open={loading} />
         <div className={styles.container_search_bar}>
