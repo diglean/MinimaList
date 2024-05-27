@@ -20,7 +20,7 @@ import { TmpItemContext } from "../../context/TmpItemContext";
 import BasicSelect from "../Select";
 import { useEffect } from "react";
 
-import useLocalization from '../customHooks/translation'
+import useLocalization from "../customHooks/translation";
 
 const style = {
   position: "relative",
@@ -44,14 +44,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
     { id: 2, name: "Test2" },
   ]);
   const [drawerState, setDrawerState] = useState(false);
-  const [modalItemInfo, setModalItemInfo] = useState({
-    id: null,
-    name: null,
-    price: null,
-    unit: "Kg",
-    category_id: 1,
-  });
-  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
+  const { tmpItemInfo, tmpEditItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
     useContext(TmpItemContext);
 
   const updateUnit = (newUnit) => {
@@ -87,24 +80,18 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
   };
 
   useEffect(() => {
-    // fetch(ROOT + "/api/category/list", {
-    //   method: "POST",
-    //   body: JSON.stringify({}),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((resp) => resp.json())
-    //   .then((data) => {
-    //     setOptions(data);
-    //   });
-
-    if (typeof editItemData !== "undefined" && editItemData !== null) {
-      setModalItemInfo(editItemData);
-    } else {
-      setModalItemInfo(tmpItemInfo);
-    }
-  }, [setOptions, editItemData]);
+    fetch(ROOT + "/api/category/list", {
+      method: "POST",
+      body: JSON.stringify({}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setOptions(data);
+      });
+  }, [setOptions]);
 
   return (
     <>
@@ -133,7 +120,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                     name="itemName"
                     variant="outlined"
                     cbValueChanged={(data) => itemProperty("name", data)}
-                    value={modalItemInfo.name}
+                    value={editItem ? tmpEditItemInfo.name : tmpItemInfo.name}
                     required={true}
                   />
                 </div>
@@ -142,7 +129,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                     label={translation.price}
                     name="itemPrice"
                     variant="outlined"
-                    value={modalItemInfo.price ?? null}
+                    value={editItem ? tmpEditItemInfo.price : tmpItemInfo.price}
                     cbValueChanged={(data) => itemProperty("price", data)}
                     InputProps={{
                       startAdornment: (
@@ -160,7 +147,10 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                               onClick={() => cbToggleDrawer(true)}
                             >
                               <Typography sx={{ color: "#FFF" }}>
-                                / {modalItemInfo.unit ?? "Kg"}
+                                /{" "}
+                                {editItem
+                                  ? tmpEditItemInfo.unit
+                                  : tmpItemInfo.unit}
                               </Typography>
                             </IconButton>
                           </Tooltip>
@@ -171,10 +161,12 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                 </div>
                 <BasicSelect
                   options={options}
-                  defaultValue={modalItemInfo.category}
+                  defaultValue={
+                    editItem ? tmpEditItemInfo.category : tmpItemInfo.category
+                  }
                 />
                 <NumberInput
-                  inputValue={modalItemInfo.qty}
+                  inputValue={editItem ? tmpEditItemInfo.qty : tmpItemInfo.qty}
                   cbHandleChange={(data) => {
                     itemProperty("qty", data);
                   }}

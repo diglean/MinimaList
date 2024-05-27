@@ -12,6 +12,7 @@ export const TmpItemProvider = ({ children }) => {
   };
 
   const [tmpItemInfo, setTmpItemInfo] = useState(DEFAULT_ITEM_INFO);
+  const [tmpEditItemInfo, setTmpEditItemInfo] = useState(DEFAULT_ITEM_INFO);
 
   const cleanTmpItemInfo = () => {
     setTmpItemInfo(DEFAULT_ITEM_INFO);
@@ -19,7 +20,13 @@ export const TmpItemProvider = ({ children }) => {
 
   return (
     <TmpItemContext.Provider
-      value={{ tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo }}
+      value={{
+        tmpItemInfo,
+        setTmpItemInfo,
+        tmpEditItemInfo,
+        setTmpEditItemInfo,
+        cleanTmpItemInfo,
+      }}
     >
       {children}
     </TmpItemContext.Provider>
