@@ -12,7 +12,7 @@ const CustomPaper = ({ width, height, children}) => {
             '& > :not(style)': {
                 width: width,
                 height: height,
-                borderRadius: 4,
+                borderRadius: 3,
             },
         }}
     >

@@ -10,7 +10,7 @@ import theme from './components/theme';
 
 import Lists from "./pages/Lists";
 import Config from "./pages/config/Config";
-import Profile from "./pages/Profile";
+import Profile from "./pages/profile/Profile";
 import SelectedItems from "./pages/SelectedItems";
 
 import { TmpItemProvider } from "./context/TmpItemContext";

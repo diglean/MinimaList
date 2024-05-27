@@ -120,7 +120,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                     name="itemName"
                     variant="outlined"
                     cbValueChanged={(data) => itemProperty("name", data)}
-                    value={editItem ? tmpEditItemInfo.name : tmpItemInfo.name}
+                    value={editItemData ? tmpEditItemInfo.name : tmpItemInfo.name}
                     required={true}
                   />
                 </div>
@@ -129,7 +129,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                     label={translation.price}
                     name="itemPrice"
                     variant="outlined"
-                    value={editItem ? tmpEditItemInfo.price : tmpItemInfo.price}
+                    value={editItemData ? tmpEditItemInfo.price : tmpItemInfo.price}
                     cbValueChanged={(data) => itemProperty("price", data)}
                     InputProps={{
                       startAdornment: (
@@ -148,7 +148,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                             >
                               <Typography sx={{ color: "#FFF" }}>
                                 /{" "}
-                                {editItem
+                                {editItemData
                                   ? tmpEditItemInfo.unit
                                   : tmpItemInfo.unit}
                               </Typography>
@@ -162,11 +162,11 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
                 <BasicSelect
                   options={options}
                   defaultValue={
-                    editItem ? tmpEditItemInfo.category : tmpItemInfo.category
+                    editItemData ? tmpEditItemInfo.category : tmpItemInfo.category
                   }
                 />
                 <NumberInput
-                  inputValue={editItem ? tmpEditItemInfo.qty : tmpItemInfo.qty}
+                  inputValue={editItemData ? tmpEditItemInfo.qty : tmpItemInfo.qty}
                   cbHandleChange={(data) => {
                     itemProperty("qty", data);
                   }}

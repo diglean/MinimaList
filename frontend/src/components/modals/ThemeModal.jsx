@@ -15,12 +15,43 @@ import Button from "../Button";
 import { useContext } from "react";
 import { UserConfigContext } from "../../context/UserConfigContext";
 
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.black",
+  border: "1px solid",
+  p: 2,
+  color: "#FFF",
+  width: "70%",
+  borderRadius: "10px",
+};
+
+const selectStyle = {
+  color: "white",
+  ".MuiOutlinedInput-notchedOutline": {
+    borderColor: "#FFF",
+  },
+  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#FFF",
+  },
+  "&:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#FFF",
+  },
+  ".MuiSvgIcon-root ": {
+    fill: "white !important",
+  },
+  minWidth: 120,
+  zIndex: 99999,
+};
+
 const ThemeModal = ({ open, callbackCloseModal }) => {
   const { userConfig, setUserConfig } = useContext(UserConfigContext);
   const localization = useLocalization();
 
   const handleChange = (e) => {
-    console.log(e.target.value);
+    userConfigProperty("theme_id", e.target.value);
   };
 
   const userConfigProperty = (property, newValue) => {
@@ -97,33 +128,3 @@ const ThemeModal = ({ open, callbackCloseModal }) => {
 };
 
 export default ThemeModal;
-
-const modalStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.black",
-  border: "1px solid",
-  p: 2,
-  color: "#FFF",
-  width: "70%",
-  borderRadius: "10px",
-};
-
-const selectStyle = {
-  ".MuiOutlinedInput-notchedOutline": {
-    borderColor: "#FFF",
-  },
-  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: "#FFF",
-  },
-  "&:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: "#FFF",
-  },
-  ".MuiSvgIcon-root ": {
-    fill: "white !important",
-  },
-  minWidth: 120,
-  zIndex: 99999,
-};

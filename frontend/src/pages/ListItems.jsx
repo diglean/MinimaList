@@ -64,14 +64,6 @@ const ListItems = ({ list, cbDeleteItem }) => {
                   </>
                 }
                 onClick={() => {
-                  setTmpEditItemInfo({
-                    id: id,
-                    name: name,
-                    qty: qty,
-                    unit: unit,
-                    price: price,
-                    category_id: category_id,
-                  });
                   setOpenModal(true);
                 }}
                 key={index + name}
