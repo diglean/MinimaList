@@ -15,13 +15,13 @@ import SelectedItems from "./pages/SelectedItems";
 
 import { TmpItemProvider } from "./context/TmpItemContext";
 import LanguageContextProvider from "./context/LanguageContext";
-import { UserConfigContext } from "./context/userConfigContext";
+import { UserConfigProvider } from "./context/UserConfigContext";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <LanguageContextProvider>
-        <UserConfigContext>
+      <UserConfigProvider>
+        <LanguageContextProvider>
           <TmpItemProvider>
             <Router>
               <Routes>
@@ -33,8 +33,8 @@ function App() {
               </Routes>
             </Router>
           </TmpItemProvider>
-        </UserConfigContext>
-      </LanguageContextProvider>
+        </LanguageContextProvider>
+      </UserConfigProvider>
     </ThemeProvider>
   )
 }

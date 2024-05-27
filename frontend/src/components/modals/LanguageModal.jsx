@@ -1,9 +1,23 @@
-import { Box, Fade, FormControl, Grid, InputLabel, MenuItem, Modal, Select, Typography} from "@mui/material";
+import { useContext } from "react";
+import {
+  Box,
+  Fade,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
+  Typography,
+} from "@mui/material";
+
 import Button from "../Button";
 import useLocalization from "../customHooks/translation";
 
-import styles from './styles/LanguageModal.module.css';
-import { UserConfigContext } from "../../context/userConfigContext";
+import { useLanguageContext } from "../../context/LanguageContext";
+import { UserConfigContext } from "../../context/UserConfigContext";
+
+import styles from "./styles/LanguageModal.module.css";
 
 const modalStyle = {
   position: "absolute",
@@ -19,29 +33,48 @@ const modalStyle = {
 };
 
 const selectStyle = {
-    ".MuiOutlinedInput-notchedOutline": {
-      borderColor: "#FFF",
-    },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#FFF",
-    },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#FFF",
-    },
-    ".MuiSvgIcon-root ": {
-      fill: "white !important",
-    },
-    minWidth: 120,
-    zIndex: 99999,
+  color: "white",
+  ".MuiOutlinedInput-notchedOutline": {
+    borderColor: "#FFF",
+  },
+  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#FFF",
+  },
+  "&:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#FFF",
+  },
+  ".MuiSvgIcon-root ": {
+    fill: "white !important",
+  },
+  minWidth: 120,
+  zIndex: 99999,
+};
+
+const LanguageModal = ({ open, callbackCloseModal }) => {
+  const localization = useLocalization();
+  const { userConfig, setUserConfig } = useContext(UserConfigContext);
+  const { language, changeLanguage } = useLanguageContext();
+
+  const userConfigProperty = (property, newValue) => {
+    setUserConfig((tmpItemInfo) => ({
+      ...tmpItemInfo,
+      [property]: newValue,
+    }));
   };
 
-const LanguageModal = ({ open }) => {
-  const { userConfig, setUserConfig } = UserConfigContext();
-  const localization = useLocalization();
-
   const handleChange = (e) => {
+    changeLanguage(e.target.value);
+  };
 
-  }
+  const handleSubmit = (data) => {
+    if (data === false) {
+      changeLanguage(userConfig.language_id);
+    } else {
+      userConfigProperty("language_id", localization.language_id);
+    }
+
+    callbackCloseModal(false);
+  };
 
   return (
     <div>
@@ -50,20 +83,18 @@ const LanguageModal = ({ open }) => {
           open={open}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          style={{ zIndex: "99998"}}
+          style={{ zIndex: "99998" }}
         >
           <Fade in={open} timeout={400}>
             <Box sx={modalStyle}>
               <div className={styles.typography}>
-                <Typography variant="h5">
-                  {localization.language}
-                </Typography>
+                <Typography variant="h5">{localization.language}</Typography>
               </div>
               <FormControl fullWidth>
                 <Select
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
-                  value={userConfig.language}
+                  value={localization.language_id}
                   sx={selectStyle}
                   MenuProps={{
                     style: { zIndex: 99999 },
@@ -72,7 +103,7 @@ const LanguageModal = ({ open }) => {
                 >
                   <MenuItem value="pt_br">🇧🇷 Português</MenuItem>
                   <MenuItem value="en_us">🇺🇸 English</MenuItem>
-                  <MenuItem value="fr_fr">🇫🇷 Français</MenuItem>
+                  <MenuItem value="es_es">🇪🇸 Español</MenuItem>
                 </Select>
                 <div className={styles.buttons}>
                   <Grid container spacing="0.5" justifyContent="flex-end">
@@ -80,14 +111,16 @@ const LanguageModal = ({ open }) => {
                       <Button
                         variant="text"
                         text={localization.cancel}
-                        // onClick={() => cbFormValues(false)}
+                        onClick={() => handleSubmit(false)}
                       />
                     </Grid>
                     <Grid item>
                       <Button
                         variant="contained"
                         text={localization.confirm}
-                        // onClick={() => cbFormValues(true)}
+                        onClick={() => {
+                          handleSubmit(true);
+                        }}
                       />
                     </Grid>
                   </Grid>
@@ -99,6 +132,6 @@ const LanguageModal = ({ open }) => {
       </Box>
     </div>
   );
-}
+};
 
 export default LanguageModal;

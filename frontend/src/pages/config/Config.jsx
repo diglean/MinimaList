@@ -10,6 +10,7 @@ import AppBar from "../../components/LogoBar";
 import useTranslation from "../../components/customHooks/translation";
 import { useState } from "react";
 import LanguageModal from "../../components/modals/LanguageModal";
+import ThemeModal from "../../components/modals/ThemeModal";
 
 export default function Config() {
   const translation = useTranslation();
@@ -17,7 +18,8 @@ export default function Config() {
 
   return (
     <div>
-      <LanguageModal open={openedModal === 'language-modal'}/>
+      <LanguageModal open={openedModal === 'language-modal'} callbackCloseModal={(data) => setOpenedModal(data)}/>
+      <ThemeModal open={openedModal === 'theme-modal'} callbackCloseModal={(data) => setOpenedModal(data)}/>
       <AppBar goBack="/"/>
       <div className={styles.container}>
         <div className={styles.config_list}>

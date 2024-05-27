@@ -1,4 +1,4 @@
-export default {
+const en_us = {
     lists: "Lists",
     config: "Config",
     profile: "Profile",
@@ -17,11 +17,21 @@ export default {
     price: "Price",
     category: "Category",
 
-    cancel: "Cancel",
     confirm: "Confirm",
     yes: "Yes",
     no: "No",
 
     are_you_sure: "Are you sure?",
     irreversable_action: "This action is irreversible!",
-};  
+
+    language_id: "en_us",
+    pt_br: "Portuguese",
+    es_es: "Spanish",
+    en: "English",
+
+    void: "Void",
+    night: "Night",
+    day_light: "Day Light",
+};
+
+export default en_us;
