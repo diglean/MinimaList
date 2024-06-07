@@ -23,20 +23,23 @@ class CreateListItemAction
      * @return array The created list items.
      */
     public function execute(CreateListItemData $data): array
-    {
+    {   
         $total = 0;
+        $formattedValue = null;
 
-        for ($i = 0; $i < $data->qty; $i++) {
-            $formattedValue = str_replace('.', '', $data->price);
-            $formattedValue = str_replace(',', '.', $formattedValue);
-
-            $total += $formattedValue;
+        if ($data->price) {
+            for ($i = 0; $i < $data->qty; $i++) {
+                $formattedValue = str_replace('.', '', $data->price);
+                $formattedValue = str_replace(',', '.', $formattedValue);
+    
+                $total += $formattedValue;
+            }
         }
 
         $listItem = $this->listItem->create([
             'list_id' => $data->list_id,
             'name' => $data->name,
-            'price' => $formattedValue,
+            'price' => $formattedValue ?? "0.00",
             'qty' => $data->qty,
             'total' => $total,
             'unit' => $data->unit,
@@ -54,7 +57,7 @@ class CreateListItemAction
         /**
 		 * Collection of list items that will be sended to frontend.
 		 */
-        $listItems = $this->listItem->whereId($data->list_id)->get();
+        $listItems = $this->listItem->whereListId($data->list_id)->get();
 
         $itemsTotal = $this->listModel->whereId($data->list_id)->get('items_total');
 

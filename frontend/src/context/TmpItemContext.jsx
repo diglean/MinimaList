@@ -12,20 +12,25 @@ export const TmpItemProvider = ({ children }) => {
   };
 
   const [tmpItemInfo, setTmpItemInfo] = useState(DEFAULT_ITEM_INFO);
-  const [tmpEditItemInfo, setTmpEditItemInfo] = useState(DEFAULT_ITEM_INFO);
+  const [editItemInfo, setEditItemInfo] = useState(DEFAULT_ITEM_INFO);
 
   const cleanTmpItemInfo = () => {
     setTmpItemInfo(DEFAULT_ITEM_INFO);
+  };
+
+  const cleanEditItemInfo = () => {
+    setEditItemInfo(DEFAULT_ITEM_INFO);
   };
 
   return (
     <TmpItemContext.Provider
       value={{
         tmpItemInfo,
+        editItemInfo,
         setTmpItemInfo,
-        tmpEditItemInfo,
-        setTmpEditItemInfo,
+        setEditItemInfo,
         cleanTmpItemInfo,
+        cleanEditItemInfo,
       }}
     >
       {children}

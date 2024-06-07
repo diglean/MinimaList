@@ -1,4 +1,6 @@
 .container_search_bar {
+  z-index: 99996 !important;
+  background-color: #000;
   width: 91vw;
   margin: 1em;
   z-index: 1;
@@ -12,6 +14,8 @@
 }
 
 .container_tmp_item {
+  z-index: 99995;
+  background-color: #000;
   padding-top: 30px;
   width: 100%;
   display: flex;
@@ -45,7 +49,7 @@
 }
 
 .container_list_b {
-  padding-top: 220px;
+  padding-top: 240px;
   padding-bottom: 60px;
 }
 

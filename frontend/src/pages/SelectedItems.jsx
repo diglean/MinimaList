@@ -1,18 +1,12 @@
 import { useState, useEffect, useCallback, useContext } from "react";
 import { useLocation } from "react-router-dom";
 
-import {
-  List,
-  Grid,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { List } from "@mui/material";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import ListItems from "./ListItems";
+import ListListItems from "./ListListItems";
 import ItemSearchBar from "../components/ItemSearchBar";
 import Loading from "../components/Loading";
 import AppBar from "../components/LogoBar";
@@ -20,9 +14,9 @@ import { TmpItemContext } from "../context/TmpItemContext";
 
 import styles from "./styles/SelectedItems.module.css";
 import ListItemInfoGenericModal from "../components/modals/ListItemInfoGenericModal";
-import NumberInput from "../components/NumberInput";
-import Button from "../components/Button";
 import TotalPaying from "../components/TotalPaying";
+import DisplayTmpItem from "../components/DisplayTmpItem";
+import ButtonsTmpItem from "../components/ButtonsTmpItem";
 
 const ROOT = "http://localhost:8000";
 
@@ -30,20 +24,12 @@ const SelectedItems = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [totalList, setTotalList] = useState(0);
-  const [selectedItems, setSelectedItems] = useState([
-    {
-      id: 0,
-      name: "Alface",
-      price: "150,37",
-      quantity: 1,
-      unit: "Kg",
-      list_id: 0,
-    },
-  ]);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [listItemsId, setListItemsId] = useState(null);
 
   const { state } = useLocation();
-  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
+
+  const { tmpItemInfo, setTmpItemInfo, cleanTmpItemInfo, cleanEditItemInfo } =
     useContext(TmpItemContext);
 
   const ToastSuccess = (message) => {
@@ -94,46 +80,44 @@ const SelectedItems = () => {
     }
   }, [state]);
 
-  const addItemToList = useCallback(
-    (data) => {
-      if (data === false) {
+  const addItemToList = (data) => {
+    if (data === false) {
+      setModalOpen(false);
+      return;
+    }
+
+    setLoading(true);
+
+    fetch(ROOT + "/api/list-item/create", {
+      method: "POST",
+      body: JSON.stringify({
+        list_id: state.list_id,
+        ...tmpItemInfo,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setSelectedItems(data.items);
+
+        if (typeof data?.id !== "undefined") {
+          setListItemsId(data.id);
+        }
+
+        cleanTmpItemInfo();
+        setSelectedItems(data.items);
+        setTotalList(data.items_total[0]);
         setModalOpen(false);
-        return;
-      }
-
-      setLoading(true);
-
-      fetch(ROOT + "/api/list-item/create", {
-        method: "POST",
-        body: JSON.stringify({
-          list_id: state.list_id,
-          ...tmpItemInfo,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        setLoading(false);
+        ToastSuccess("Item added!");
       })
-        .then((response) => response.json())
-        .catch((err) => {
-          console.log(err);
-          setLoading(false);
-        })
-        .then((data) => {
-          setSelectedItems(data.items);
-
-          if (typeof data?.id !== "undefined") {
-            setListItemsId(data.id);
-          }
-          cleanTmpItemInfo();
-          setSelectedItems(data.items);
-          setTotalList(data.items_total);
-          setModalOpen(false);
-          setLoading(false);
-          ToastSuccess("Item added!");
-        });
-    },
-    [state, tmpItemInfo, listItemsId, cleanTmpItemInfo]
-  );
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
 
   const itemProperty = (property, newValue) => {
     setTmpItemInfo((tmpItemInfo) => ({
@@ -142,31 +126,56 @@ const SelectedItems = () => {
     }));
   };
 
-  const deleteItem = useCallback(
-    (data) => {
-      let newListItem = selectedItems;
+  const deleteItem = (data) => {
+    let newListItem = selectedItems;
 
-      newListItem = selectedItems.splice(data, 1);
+    newListItem = selectedItems.splice(data, 1);
 
-      fetch(ROOT + "/api/list-item/remove", {
-        method: "POST",
-        body: JSON.stringify({
-          list_items: newListItem,
-          list_id: state.list_id,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+    fetch(ROOT + "/api/list-item/remove", {
+      method: "POST",
+      body: JSON.stringify({
+        list_items: newListItem,
+        list_id: state.list_id,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+  const cbEditItemData = (data) => {
+    setLoading(true);
+
+    const list_id = state?.list_id;
+
+    fetch(ROOT + "/api/list-item/edit", {
+      method: "PUT",
+      body: JSON.stringify({
+        list_id,
+        ...data,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        cleanEditItemInfo();
+        setSelectedItems(data.items);
+        setTotalList(data.items_total[0]);
+        setLoading(false);
       });
-    },
-    [selectedItems, state]
-  );
+  };
 
   return (
     <div>
+      <AppBar goBack="/lists" />
       <div className={styles.top_components}>
-        <AppBar goBack="/lists" />
-        <ListItemInfoGenericModal open={modalOpen} />
+        <ListItemInfoGenericModal
+          open={modalOpen}
+          cbFormValues={(data) => addItemToList(data)}
+          action="create"
+        />
         <ToastContainer />
         <Loading open={loading} />
         <div className={styles.container_search_bar}>
@@ -174,58 +183,10 @@ const SelectedItems = () => {
         </div>
       </div>
       {tmpItemInfo.name && (
-        <>
-          <div className={styles.container_tmp_item} key={Math.random()}>
-            <ListItem className={styles.list_item_container}>
-              <ListItemButton disableRipple onClick={() => setModalOpen(true)}>
-                <div className={styles.tmp_item_text}>
-                  <ListItemText
-                    primary={tmpItemInfo.name}
-                    secondary={
-                      tmpItemInfo.price
-                        ? "R$ " + tmpItemInfo.price + " / " + tmpItemInfo.unit
-                        : ""
-                    }
-                  />
-                </div>
-              </ListItemButton>
-              <NumberInput
-                inputValue={tmpItemInfo.qty}
-                cbHandleChange={(data) => {
-                  if (data === 0) {
-                    cleanTmpItemInfo();
-                    return;
-                  }
-
-                  itemProperty("qty", data);
-                }}
-              />
-            </ListItem>
-            <Grid
-              container
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              spacing={2}
-              className={styles.button_container}
-            >
-              <Grid item>
-                <Button
-                  onClick={() => cleanTmpItemInfo()}
-                  variant="outlined"
-                  text="Cancel"
-                />
-              </Grid>
-              <Grid item>
-                <Button
-                  onClick={() => addItemToList()}
-                  variant="contained"
-                  text="Confirm"
-                />
-              </Grid>
-            </Grid>
-          </div>
-        </>
+        <div className={styles.container_tmp_item} key={Math.random()}>
+          <DisplayTmpItem toggleModal={(data) => setModalOpen(data)} />
+          <ButtonsTmpItem cbAddItemToList={() => addItemToList()} />
+        </div>
       )}
       {typeof selectedItems !== "undefined" && selectedItems.length > 0 && (
         <div
@@ -233,13 +194,12 @@ const SelectedItems = () => {
             tmpItemInfo.name ? styles.container_list_b : styles.container_list_a
           }
         >
-          <List>
-            <ListItems
-              list={selectedItems}
-              key={Math.random()}
-              cbDeleteItem={(data) => deleteItem(data)}
-            />
-          </List>
+          <ListListItems
+            list={selectedItems}
+            key={Math.random()}
+            cbDeleteItem={(data) => deleteItem(data)}
+            cbEditItemData={(data) => cbEditItemData(data)}
+          />
         </div>
       )}
       <div className={styles.container_total}>

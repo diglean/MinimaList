@@ -37,22 +37,35 @@ const style = {
 
 const ROOT = "http://localhost:8000";
 
-const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
-  const translation = useLocalization();
+const ListItemInfoGenericModal = ({ open, cbFormValues, action }) => {
+  const [formData, setFormData] = useState(null);
+  const [drawerState, setDrawerState] = useState(false);
   const [options, setOptions] = useState([
     { id: 1, name: "Test" },
     { id: 2, name: "Test2" },
   ]);
-  const [drawerState, setDrawerState] = useState(false);
-  const { tmpItemInfo, tmpEditItemInfo, setTmpItemInfo, cleanTmpItemInfo } =
-    useContext(TmpItemContext);
 
-  const updateUnit = (newUnit) => {
-    setTmpItemInfo((itemInfo) => ({
-      ...itemInfo,
-      unit: newUnit,
-    }));
-  };
+  const translation = useLocalization();
+
+  const {
+    tmpItemInfo,
+    editItemInfo,
+    setTmpItemInfo,
+    cleanTmpItemInfo,
+    cleanEditItemInfo,
+  } = useContext(TmpItemContext);
+
+  useEffect(() => {
+    if (action === "edit") {
+      if (formData === null) {
+        setFormData(editItemInfo);
+      }
+
+      return;
+    }
+
+    setFormData(true);
+  });
 
   const itemProperty = (property, newValue) => {
     if (property === "price") {
@@ -62,18 +75,25 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
     }
 
     if (property === "name" && newValue === "") {
-      cleanTmpItemInfo();
+      action === "create" ? cleanTmpItemInfo() : cleanEditItemInfo();
     }
 
-    setTmpItemInfo((tmpItemInfo) => ({
-      ...tmpItemInfo,
-      [property]: newValue,
-    }));
+    if (action === "create") {
+      setTmpItemInfo((tmpItemInfo) => ({
+        ...tmpItemInfo,
+        [property]: newValue,
+      }));
+    } else if (action === "edit") {
+      setFormData((formData) => ({
+        ...formData,
+        [property]: newValue,
+      }));
+    }
   };
 
   const cbToggleDrawer = (drawerState, data = null) => {
     if (data !== null) {
-      updateUnit(data);
+      itemProperty("unit", data);
     }
 
     setDrawerState(drawerState);
@@ -94,105 +114,115 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, editItemData }) => {
   }, [setOptions]);
 
   return (
-    <>
-      <TemporaryDrawer
-        open={drawerState}
-        cbToggleDrawer={(drawerState, data) =>
-          cbToggleDrawer(drawerState, data)
-        }
-      />
-      <Box>
-        <Modal open={open} style={{ zIndex: "99998" }}>
-          <Fade in={open}>
-            <Box sx={style}>
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-                sx={{ paddingBottom: "8px" }}
-              >
-                {translation.item_info}
-              </Typography>
-              <Form callbackSubmit={(data) => console.log(data)}>
-                <div className={styles.container_input}>
-                  <Input
-                    label={translation.name}
-                    name="itemName"
-                    variant="outlined"
-                    cbValueChanged={(data) => itemProperty("name", data)}
-                    value={editItemData ? tmpEditItemInfo.name : tmpItemInfo.name}
-                    required={true}
+    formData && (
+      <>
+        <TemporaryDrawer
+          open={drawerState}
+          cbToggleDrawer={(drawerState, data) =>
+            cbToggleDrawer(drawerState, data)
+          }
+        />
+        <Box>
+          <Modal open={open} style={{ zIndex: "99998" }}>
+            <Fade in={open}>
+              <Box sx={style}>
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  component="h2"
+                  sx={{ paddingBottom: "8px" }}
+                >
+                  {translation.item_info}
+                </Typography>
+                <Form callbackSubmit={(data) => console.log(data)}>
+                  <div className={styles.container_input}>
+                    <Input
+                      label={translation.name}
+                      name="itemName"
+                      variant="outlined"
+                      cbValueChanged={(data) => itemProperty("name", data)}
+                      value={
+                        action === "edit" ? formData.name : tmpItemInfo.name
+                      }
+                      required={true}
+                    />
+                  </div>
+                  <div className={styles.container_input}>
+                    <Input
+                      label={translation.price}
+                      name="itemPrice"
+                      variant="outlined"
+                      value={
+                        action === "edit" ? formData.price : tmpItemInfo.price
+                      }
+                      cbValueChanged={(data) => itemProperty("price", data)}
+                      InputProps={{
+                        startAdornment: (
+                          <Fragment>
+                            <Typography sx={{ color: "#FFF" }}>
+                              R$&nbsp;
+                            </Typography>
+                          </Fragment>
+                        ),
+                        endAdornment: (
+                          <Fragment>
+                            <Tooltip title="Change Item Unity">
+                              <IconButton
+                                size="small"
+                                onClick={() => cbToggleDrawer(true)}
+                              >
+                                <Typography sx={{ color: "#FFF" }}>
+                                  /{" "}
+                                  {action === "edit"
+                                    ? formData.unit
+                                    : tmpItemInfo.unit}
+                                </Typography>
+                              </IconButton>
+                            </Tooltip>
+                          </Fragment>
+                        ),
+                      }}
+                    />
+                  </div>
+                  <BasicSelect
+                    options={options}
+                    defaultValue={
+                      action === "edit"
+                        ? formData.category
+                        : tmpItemInfo.category
+                    }
                   />
-                </div>
-                <div className={styles.container_input}>
-                  <Input
-                    label={translation.price}
-                    name="itemPrice"
-                    variant="outlined"
-                    value={editItemData ? tmpEditItemInfo.price : tmpItemInfo.price}
-                    cbValueChanged={(data) => itemProperty("price", data)}
-                    InputProps={{
-                      startAdornment: (
-                        <Fragment>
-                          <Typography sx={{ color: "#FFF" }}>
-                            R$&nbsp;
-                          </Typography>
-                        </Fragment>
-                      ),
-                      endAdornment: (
-                        <Fragment>
-                          <Tooltip title="Change Item Unity">
-                            <IconButton
-                              size="small"
-                              onClick={() => cbToggleDrawer(true)}
-                            >
-                              <Typography sx={{ color: "#FFF" }}>
-                                /{" "}
-                                {editItemData
-                                  ? tmpEditItemInfo.unit
-                                  : tmpItemInfo.unit}
-                              </Typography>
-                            </IconButton>
-                          </Tooltip>
-                        </Fragment>
-                      ),
+                  <NumberInput
+                    inputValue={
+                      action === "edit" ? formData.qty : tmpItemInfo.qty
+                    }
+                    cbHandleChange={(data) => {
+                      itemProperty("qty", data);
                     }}
                   />
-                </div>
-                <BasicSelect
-                  options={options}
-                  defaultValue={
-                    editItemData ? tmpEditItemInfo.category : tmpItemInfo.category
-                  }
-                />
-                <NumberInput
-                  inputValue={editItemData ? tmpEditItemInfo.qty : tmpItemInfo.qty}
-                  cbHandleChange={(data) => {
-                    itemProperty("qty", data);
-                  }}
-                />
-                <Grid container spacing="0.5" justifyContent="flex-end">
-                  <Grid item>
-                    <Button
-                      variant="text"
-                      text={translation.cancel}
-                      onClick={() => cbFormValues(false)}
-                    />
+                  <Grid container spacing="0.5" justifyContent="flex-end">
+                    <Grid item>
+                      <Button
+                        variant="text"
+                        text={translation.cancel}
+                        onClick={() => cbFormValues(false)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        text={translation.confirm}
+                        onClick={() => cbFormValues(formData)}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Button
-                      variant="contained"
-                      text={translation.confirm}
-                      onClick={() => cbFormValues(true)}
-                    />
-                  </Grid>
-                </Grid>
-              </Form>
-            </Box>
-          </Fade>
-        </Modal>
-      </Box>
-    </>
+                </Form>
+              </Box>
+            </Fade>
+          </Modal>
+        </Box>
+      </>
+    )
   );
 };
 
