@@ -8,11 +8,9 @@ export default function Profile() {
     <div>
       <AppBar goBack="/"/>
       <div className={styles.container}>
-
         <div className={styles.profile_container}>
 
-          <Grid container>
-
+          <Grid container spacing="10">
             <Grid item sx={4}>
               <Box
                 component="img"
@@ -26,21 +24,16 @@ export default function Profile() {
                 src="https://avatars.githubusercontent.com/u/72869261?v=4"
               />
             </Grid>
-
-            <Grid item sx={8} className={styles.name_container}>
-
-              <Typography component="h5" sx={{ color: "#FFF", fontSize: "19px" }}>
-                Diego Leandro
-                -
-              </Typography>
-              <Typography component="span" sx={{ color: "#888", fontSize: "12px" }}>
-                Lorem Ipsum
-              </Typography>
-
+            <Grid item sx={8}>
+              <Grid container>
+                <Grid item sx={12} className={styles.name_container}>
+                  <Typography component="h5" sx={{ color: "#FFF", fontSize: "19px" }}>
+                    Diego Leandro
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
-
           </Grid>
-
         </div>
       </div>
     </div>
