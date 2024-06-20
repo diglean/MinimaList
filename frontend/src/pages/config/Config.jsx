@@ -8,13 +8,15 @@ import InfoIcon from '@mui/icons-material/Info';
 import styles from "./styles/Config.module.css";
 import AppBar from "../../components/LogoBar";
 import useTranslation from "../../components/customHooks/translation";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import LanguageModal from "../../components/modals/LanguageModal";
 import ThemeModal from "../../components/modals/ThemeModal";
+import { UserConfigContext } from "../../context/UserConfigContext";
 
 export default function Config() {
   const translation = useTranslation();
   const [openedModal, setOpenedModal] = useState(null);
+  const { userConfig, setUserConfig } = useContext(UserConfigContext);
 
   return (
     <div>
@@ -22,53 +24,54 @@ export default function Config() {
       <ThemeModal open={openedModal === 'theme-modal'} callbackCloseModal={(data) => setOpenedModal(data)}/>
       <AppBar goBack="/"/>
       <div className={styles.container}>
-        <div className={styles.config_list}>
-          <List>
-            <ListItemButton 
-              disableRipple 
-              key="language" 
-              onClick={() => setOpenedModal("language-modal")}
-            >
-              <LanguageIcon />
-              <ListItemText
-                primary={translation.language}
-              />
-            </ListItemButton>
-            <Divider variant="middle" component="li" />
-            <ListItemButton 
-              disableRipple 
-              key="theme"
-              onClick={() => setOpenedModal("theme-modal")}
-            >
-              <BrushIcon />
-              <ListItemText
-                primary={translation.theme}
-              />
-            </ListItemButton>
-            <Divider variant="middle" component="li" />
-            <ListItemButton 
-              disableRipple 
-              key="currency"
-              onClick={() => setOpenedModal("currency-modal")}
-            >
-              <AttachMoneyIcon />
-              <ListItemText
-                primary={translation.currency}
-              />
-            </ListItemButton>
-            <Divider variant="middle" component="li" />
-            <ListItemButton 
-              disableRipple 
-              key="about"
-              onClick={() => setOpenedModal("about-modal")}
-            >
-              <InfoIcon />
-              <ListItemText
-                primary={translation.about}
-              />
-            </ListItemButton>
-          </List>
-        </div>
+        <List>
+          <ListItemButton
+            disableRipple
+            key="language"
+            onClick={() => setOpenedModal("language-modal")}
+          >
+            <LanguageIcon />
+            <ListItemText
+              primary={translation.language}
+              secondary={translation[userConfig.language_id]}
+            />
+          </ListItemButton>
+          <Divider variant="middle" component="li" />
+          <ListItemButton
+            disableRipple
+            key="theme"
+            onClick={() => setOpenedModal("theme-modal")}
+          >
+            <BrushIcon />
+            <ListItemText
+              primary={translation.theme}
+              secondary={translation[userConfig.theme_id]}
+            />
+          </ListItemButton>
+          <Divider variant="middle" component="li" />
+          <ListItemButton
+            disableRipple
+            key="currency"
+            onClick={() => setOpenedModal("currency-modal")}
+          >
+            <AttachMoneyIcon />
+            <ListItemText
+              primary={translation.currency}
+              secondary={userConfig.currency_id}
+            />
+          </ListItemButton>
+          <Divider variant="middle" component="li" />
+          <ListItemButton
+            disableRipple
+            key="about"
+            onClick={() => setOpenedModal("about-modal")}
+          >
+            <InfoIcon />
+            <ListItemText
+              primary={translation.about}
+            />
+          </ListItemButton>
+        </List>
       </div>
     </div>
   );

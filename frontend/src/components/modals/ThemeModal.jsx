@@ -63,7 +63,7 @@ const ThemeModal = ({ open, callbackCloseModal }) => {
 
   const handleSubmit = (data) => {
     if (data === false) {
-      userConfigProperty("theme_id", localization.theme_id);
+      userConfigProperty("theme_id", userConfig.theme_id);
     }
 
     callbackCloseModal(false);

@@ -27,7 +27,7 @@ const en_us = {
     language_id: "en_us",
     pt_br: "Portuguese",
     es_es: "Spanish",
-    en: "English",
+    en_us: "English",
 
     void: "Void",
     night: "Night",

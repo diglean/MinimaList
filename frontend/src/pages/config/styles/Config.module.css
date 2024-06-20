@@ -3,6 +3,16 @@
   color: #FFF;
 }
 
+.container span {
+  color: #FFF;
+  font-size: 1em;
+}
+
+.container p {
+  color: #FFF;
+  font-size: 10px;
+}
+
 .config_list {
   display: flex;
   flex-direction: row;
