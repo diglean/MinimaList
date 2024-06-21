@@ -12,6 +12,7 @@ import { useState, useContext } from "react";
 import LanguageModal from "../../components/modals/LanguageModal";
 import ThemeModal from "../../components/modals/ThemeModal";
 import { UserConfigContext } from "../../context/UserConfigContext";
+import CurrencyModal from "../../components/modals/CurrencyModal";
 
 export default function Config() {
   const translation = useTranslation();
@@ -22,6 +23,7 @@ export default function Config() {
     <div>
       <LanguageModal open={openedModal === 'language-modal'} callbackCloseModal={(data) => setOpenedModal(data)}/>
       <ThemeModal open={openedModal === 'theme-modal'} callbackCloseModal={(data) => setOpenedModal(data)}/>
+      <CurrencyModal open={openedModal === 'currency-modal'} callbackCloseModal={(data) => setOpenedModal(data)}/>
       <AppBar goBack="/"/>
       <div className={styles.container}>
         <List>
