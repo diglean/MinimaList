@@ -1,10 +1,11 @@
 .container {
+  background-color: #000;
   color: #FFF;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 30vh;
+  height: 25vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +13,7 @@
 }
 
 .profile_container {
-  padding-top: 40px;
+  padding-top: 70px;
 }
 
 .grid_container {
@@ -28,4 +29,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.options_container li {
+  border-width: 1px solid;
+  border-color: rgb(104, 104, 104);
+}
+
+.container svg {
+  padding-right: 10px;
+}
+
+.options_container {
+  color: #FFF;
+}
+
+.options_container svg {
+  padding-right: 10px;
 }
