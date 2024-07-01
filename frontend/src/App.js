@@ -16,6 +16,7 @@ import SelectedItems from "./pages/SelectedItems";
 import { TmpItemProvider } from "./context/TmpItemContext";
 import LanguageContextProvider from "./context/LanguageContext";
 import { UserConfigProvider } from "./context/UserConfigContext";
+import Register from "./pages/auth/Register";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
           <TmpItemProvider>
             <Router>
               <Routes>
-                <Route path="/" element={ <Lists/> }/>
+                <Route path="/" element={ <Register/> }/>
                 <Route path="/lists" element={ <Lists/> }/>
                 <Route path="/config" element={ <Config/> }/>
                 <Route path="/profile" element={ <Profile/> }/>
