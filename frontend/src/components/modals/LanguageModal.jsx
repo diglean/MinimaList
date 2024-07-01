@@ -4,7 +4,6 @@ import {
   Fade,
   FormControl,
   Grid,
-  InputLabel,
   MenuItem,
   Modal,
   Select,
@@ -53,7 +52,7 @@ const selectStyle = {
 const LanguageModal = ({ open, callbackCloseModal }) => {
   const localization = useLocalization();
   const { userConfig, setUserConfig } = useContext(UserConfigContext);
-  const { language, changeLanguage } = useLanguageContext();
+  const { changeLanguage } = useLanguageContext();
 
   const userConfigProperty = (property, newValue) => {
     setUserConfig((tmpItemInfo) => ({
@@ -101,9 +100,9 @@ const LanguageModal = ({ open, callbackCloseModal }) => {
                   }}
                   onChange={handleChange}
                 >
-                  <MenuItem value="pt_br">🇧🇷 Português</MenuItem>
-                  <MenuItem value="en_us">🇺🇸 English</MenuItem>
-                  <MenuItem value="es_es">🇪🇸 Español</MenuItem>
+                  <MenuItem value="pt_br">🇧🇷 {localization.pt_br}</MenuItem>
+                  <MenuItem value="en_us">🇺🇸 {localization.en_us}</MenuItem>
+                  <MenuItem value="es_es">🇪🇸 {localization.es_es}</MenuItem>
                 </Select>
                 <div className={styles.buttons}>
                   <Grid container spacing="0.5" justifyContent="flex-end">

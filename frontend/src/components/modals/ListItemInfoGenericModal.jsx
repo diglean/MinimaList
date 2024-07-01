@@ -65,7 +65,7 @@ const ListItemInfoGenericModal = ({ open, cbFormValues, action }) => {
     }
 
     setFormData(true);
-  });
+  }, [action, editItemInfo, formData, setFormData]);
 
   const itemProperty = (property, newValue) => {
     if (property === "price") {

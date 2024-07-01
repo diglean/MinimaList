@@ -39,7 +39,7 @@ export default function Config() {
             />
           </ListItemButton>
           <Divider variant="middle" component="li" />
-          <ListItemButton
+          {/* <ListItemButton
             disableRipple
             key="theme"
             onClick={() => setOpenedModal("theme-modal")}
@@ -50,7 +50,7 @@ export default function Config() {
               secondary={translation[userConfig.theme_id]}
             />
           </ListItemButton>
-          <Divider variant="middle" component="li" />
+          <Divider variant="middle" component="li" /> */}
           <ListItemButton
             disableRipple
             key="currency"

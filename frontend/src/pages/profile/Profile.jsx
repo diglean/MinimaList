@@ -10,7 +10,7 @@ export default function Profile() {
       <div className={styles.container}>
         <div className={styles.profile_container}>
           <Grid container spacing="10">
-            <Grid item sx={4}>
+            <Grid item sx={4} className={styles.grid_profile}>
               <Box
                 component="img"
                 sx={{

@@ -1,7 +1,7 @@
 .container {
   background-color: #000;
   color: #FFF;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 99997;
 }
 
 .profile_container {
@@ -31,17 +32,14 @@
   justify-content: center;
 }
 
+.options_container {
+  padding-top: 200px;
+  color: #FFF;
+}
+
 .options_container li {
   border-width: 1px solid;
   border-color: rgb(104, 104, 104);
-}
-
-.container svg {
-  padding-right: 10px;
-}
-
-.options_container {
-  color: #FFF;
 }
 
 .options_container svg {
