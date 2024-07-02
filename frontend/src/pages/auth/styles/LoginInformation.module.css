@@ -1,0 +1,11 @@
+.main {
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.register_box_input {
+    padding-bottom: 15px;
+}
