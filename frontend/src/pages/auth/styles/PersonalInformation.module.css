@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+.main svg {
+    color: #FFF;
+}
+
 .register_box_input {
     padding-bottom: 15px;
 }
