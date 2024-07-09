@@ -3,6 +3,7 @@
 namespace Domain\ListItem\Actions;
 
 use App\Context\ListItem\DataTransferObject\EditListItemData;
+use App\Context\ListItem\Types\ListItemActiveType;
 use Domain\ListItem\Models\ListItem;
 use Domain\List\Models\Lists;
 use Illuminate\Support\Carbon;
@@ -53,7 +54,10 @@ class EditListItemAction
 		/**
 		 * Collection of list items that will be sent to frontend.
 		 */
-		$listItems = $this->listItemModel->whereListId($data->list_id)->get();
+		$listItems = $this->listItemModel
+			->whereListId($data->list_id)
+			->whereActive(ListItemActiveType::Yes)
+			->get();
 
 		$itemsTotal = $this->listModel->whereId($data->list_id)->get('items_total');
 

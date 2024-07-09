@@ -25,22 +25,27 @@ class RemoveListItemAction
      */
     public function execute(RemoveListItemData $data): Collection
     {
-        $this->listItemModel
-            ->whereId($data->item_id)
-            ->update([
-                'active' => ListItemActiveType::No,
-                'updated_at' => Carbon::now(),
-            ]);
+        $listItem = $this->listItemModel
+            ->whereId($data->list_item_id)
+            ->first();
+
+        $listItem->update([
+            'active' => ListItemActiveType::No,
+            'updated_at' => Carbon::now(),
+        ]);
 
         $list = $this->listModel->whereId($data->list_id)->get();
 
         $list->update([
-            'items_qty' => $list->items_qty - 1,
+            'items_qty' => $list->items_qty - $listItem->qty,
             'updated_at' => Carbon::now(),
         ]);
 
-        $listItem = $this->listItemModel->whereListId($data->list_id)->get();
+        $listItems = $this->listItemModel
+            ->whereListId($data->list_id)
+            ->whereActive(ListItemActiveType::Yes)
+            ->get();
 
-        return $listItem;
+        return $listItems;
     }
 }

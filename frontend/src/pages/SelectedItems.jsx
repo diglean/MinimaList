@@ -42,6 +42,14 @@ const SelectedItems = () => {
     });
   };
 
+  const formatPrice = (selectedItems) => {
+    selectedItems.map(({ price }, index) => {
+      selectedItems[index] = price.replace(/\D/g, "");
+      selectedItems[index] = price.replace(/(\d)(\d{2})$/, "$1,$2");
+      selectedItems[index] = price.replace(/(?=(\d{3})+(\D))\B/g, ".");
+    });
+  };
+
   useEffect(() => {
     const list_id = state?.list_id;
 
@@ -60,6 +68,7 @@ const SelectedItems = () => {
       })
         .then((resp) => resp.json())
         .then((data) => {
+          formatPrice(data.items);
           setSelectedItems(data.items);
           setTotalList(data.items_total);
           setLoading(false);
@@ -100,6 +109,7 @@ const SelectedItems = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        formatPrice(data.items);
         setSelectedItems(data.items);
 
         if (typeof data?.id !== "undefined") {
@@ -119,28 +129,24 @@ const SelectedItems = () => {
       });
   };
 
-  const itemProperty = (property, newValue) => {
-    setTmpItemInfo((tmpItemInfo) => ({
-      ...tmpItemInfo,
-      [property]: newValue,
-    }));
-  };
-
   const deleteItem = (data) => {
-    let newListItem = selectedItems;
-
-    newListItem = selectedItems.splice(data, 1);
+    setLoading(true);
 
     fetch(ROOT + "/api/list-item/remove", {
       method: "POST",
       body: JSON.stringify({
-        list_items: newListItem,
+        list_item_id: data,
         list_id: state.list_id,
       }),
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    })
+      .then((resp) => resp.json)
+      .then(() => {
+        formatPrice(selectedItems);
+        setLoading(false);
+      });
   };
 
   const cbEditItemData = (data) => {
@@ -162,7 +168,7 @@ const SelectedItems = () => {
       .then((data) => {
         cleanEditItemInfo();
         setSelectedItems(data.items);
-        setTotalList(data.items_total[0]);
+        setTotalList(data.items_total[0].items_total);
         setLoading(false);
       });
   };

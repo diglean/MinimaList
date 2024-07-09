@@ -3,6 +3,7 @@
 namespace Domain\ListItem\Actions;
 
 use App\Context\ListItem\DataTransferObject\CreateListItemData;
+use App\Context\ListItem\Types\ListItemActiveType;
 use Domain\ListItem\Models\ListItem;
 use Domain\List\Models\Lists;
 use Illuminate\Support\Carbon;
@@ -57,7 +58,10 @@ class CreateListItemAction
         /**
 		 * Collection of list items that will be sended to frontend.
 		 */
-        $listItems = $this->listItem->whereListId($data->list_id)->get();
+        $listItems = $this->listItem
+            ->whereListId($data->list_id)
+            ->whereActive(ListItemActiveType::Yes)
+            ->get();
 
         $itemsTotal = $this->listModel->whereId($data->list_id)->get('items_total');
 

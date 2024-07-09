@@ -3,6 +3,7 @@
 namespace Domain\ListItem\Actions;
 
 use App\Context\ListItem\DataTransferObject\ListListItemData;
+use App\Context\ListItem\Types\ListItemActiveType;
 use Domain\List\Models\Lists;
 use Domain\ListItem\Models\ListItem;
 
@@ -22,7 +23,10 @@ class ListListItemAction
      */
     public function execute(ListListItemData $data): array
     {
-        $listItems = $this->listItemModel->whereListId($data->list_id)->get();
+        $listItems = $this->listItemModel
+            ->whereListId($data->list_id)
+            ->whereActive(ListItemActiveType::Yes)
+            ->get();
 
         if (is_null($listItems)) {
             return [[]];
